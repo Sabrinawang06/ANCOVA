@@ -26,6 +26,10 @@ ui <- dashboardPage(skin = "black",
                       tags$head(
                         tags$link(rel = "stylesheet", type = "text/css", href = "navcolor.css") #customised style sheet
                       ),
+                      tags$head(
+                        tags$style(HTML('#start{background-color: #D35400}')),
+                        tags$style(HTML('#go{background-color: #D35400}'))
+                      ),
                       
                       
                       
@@ -43,7 +47,7 @@ ui <- dashboardPage(skin = "black",
                                   column(1,img(src = "right.png", width = 30)),
                                   column(11,uiOutput("background3")), 
                                   fluidRow(
-                                    column(3,offset=1,bsButton("start","Go to the overview",icon("ravelry"),style = "danger",size = "large",class="circle grow"))
+                                    column(3,offset=1,actionButton("start","Go to the overview",icon("bolt"),style='padding:20px; font-size:150%',class="circle grow"))
                                   )
                                   
                                 )
@@ -76,7 +80,7 @@ ui <- dashboardPage(skin = "black",
                                 fluidRow(
                                   column(1,img(src = "right.png", width = 30)),
                                   column(8,uiOutput("instruction4")),
-                                  column(5,bsButton("go","Go",icon("ravelry"),style = "danger",size = "large",class="circle grow"))
+                                  column(5,actionButton("go","Go",icon("bolt"),style='padding:20px; font-size:120%',class="circle grow"))
                                 ),br(),
                                 fluidRow(
                                   column(11,offset = 1, uiOutput("ack1"))

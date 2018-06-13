@@ -33,7 +33,7 @@ shinyServer(function(input, output,session) {
     print("About")
   )
   output$about2<-renderUI(
-    h3('This app introduceS the concept of ANcova ')
+    h3('This app introduces the concept of ANCOVA ')
   )
   output$instruction1<-renderUI(
     print('Instruction')
