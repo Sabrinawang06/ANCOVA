@@ -1,26 +1,69 @@
-#
-# This is the server logic of a Shiny web application. You can run the 
-# application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-# 
-#    http://shiny.rstudio.com/
-#
-
 library(shiny)
+library(png)
+library(shinyBS)
+library(shinyjs)
+library(V8)
+library(shinydashboard)
 
-# Define server logic required to draw a histogram
-shinyServer(function(input, output) {
-   
-  output$distPlot <- renderPlot({
-    
-    # generate bins based on input$bins from ui.R
-    x    <- faithful[, 2] 
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
-    
-    # draw the histogram with the specified number of bins
-    hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    
+
+#Use jscode to for reset button to reload the app
+jsResetCode <- "shinyjs.reset = function() {history.go(0)}"
+
+#Define the function to disable all the button
+disableActionButton <- function(id,session) {
+  session$sendCustomMessage(type="jsCode",
+                            list(code= paste("$('#",id,"').prop('disabled',true)"
+                                             ,sep="")))
+}
+
+
+shinyServer(function(input, output,session) {
+  
+  #Text on the instruction page
+  output$background1<-renderUI(
+    print('Background')
+  )
+  output$background2<-renderUI(
+    h4('1')
+  )
+  output$background3<-renderUI(
+    h4('2')
+  )
+  output$about1 <- renderUI(
+    print("About")
+  )
+  output$about2<-renderUI(
+    h3('This app introduceS the concept of ANcova ')
+  )
+  output$instruction1<-renderUI(
+    print('Instruction')
+  )
+  output$instruction2<-renderUI(
+    h2('1')
+  )
+  output$instruction3<-renderUI(
+    h2('2')
+  )
+  output$instruction44<-renderUI(
+    h2('3')
+  )
+  output$ack1<-renderUI(
+    print('Acknowledgement')
+  )
+  output$ack2<-renderUI((
+    print('This app is developed and coded by Luxin Wang')
+  ))
+
+  
+  ####button###
+
+  observeEvent(input$go,{
+    updateTabItems(session,"tabs","exploring")
   })
   
+  observeEvent(input$start,{
+    updateTabItems(session,"tabs","instruction")
+  })
+  
+    
 })
