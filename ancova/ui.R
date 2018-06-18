@@ -104,6 +104,13 @@ ui <- dashboardPage(skin = "black",
                                     conditionalPanel("input.menu1=='Diet'",
                                                      radioButtons('select_conti', 'Select Continous Variable',inline=TRUE, choices =c('Age','Height','Pre-diet Weight'), selected = 'Age'),
                                                      radioButtons('select_covar', 'Select Covariance',inline=TRUE, choices =c('Gender','Diet'), selected = 'Gender')
+                                    ),
+                                    
+                                    conditionalPanel("input.menu1=='Customized'",
+                                                     sliderInput('slider1','Change the slop of Line A',0,1,0,step=0.1),
+                                                     sliderInput('slider2','Change the Distance Between Lines',0,10,0,step=1)
+                                                     
+                                      
                                     )
                                   ),
                                   

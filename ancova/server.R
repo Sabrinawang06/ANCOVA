@@ -24,6 +24,8 @@ seaotters <- read.csv("C:\\Users\\llfsh\\Desktop\\otter.csv",header=T)
 diet <- read.csv("C:\\Users\\llfsh\\Desktop\\Diet.csv",header=T)
 diet$Diet<-as.character(diet$Diet)
 
+aovdata <- read.csv("C:\\Users\\llfsh\\Desktop\\model2.csv",header=T)
+
 
 
 shinyServer(function(input, output,session) {
@@ -114,11 +116,14 @@ shinyServer(function(input, output,session) {
   pred.data7 <- mutate(pred.data7, ab_change = predict(diet.model7, pred.data7))
 
   
+ 
   ###Graph the plot of interaction###
   output$plot1<-renderPlot(if (input$menu1=='Otter') {ggplot(pred.data, aes(x = Year, y = Otters, colour = Location)) + 
                              geom_line() + geom_point(data = seaotters) + 
                              xlab("Year") + ylab("Otters")}
-                           else if (input$select_conti=='Age' & input$select_covar=='Gender'){ggplot(pred.data2, aes(x = Age, y = ab_change, colour = gender)) + 
+                           
+                          else if (input$menu1=='Diet'){
+                           if (input$select_conti=='Age' & input$select_covar=='Gender'){ggplot(pred.data2, aes(x = Age, y = ab_change, colour = gender)) + 
                                geom_line() + geom_point(data = diet) + 
                                xlab("Age") + ylab("Change in Weight")}
                            else if (input$select_conti=='Height' & input$select_covar=='Gender'){ggplot(pred.data3, aes(x = Height, y = ab_change, colour = gender)) + 
@@ -136,17 +141,36 @@ shinyServer(function(input, output,session) {
                            else if (input$select_conti=='Pre-diet Weight' & input$select_covar=='Diet'){ggplot(pred.data7, aes(x = pre.weight, y = ab_change, colour = Diet)) + 
                                geom_line() + geom_point(data = diet) + 
                                xlab("Pre-diet Weight") + ylab("Change in Weight")}
+                          }
+                           else if (input$menu1=='Customized'){
+                             aovdata$Y[aovdata$Z=='A']<-aovdata$Y[aovdata$Z=='A']*input$slider1+input$slider2
+                             
+                             aov.model<-lm(Y~X+Z+Z:X,data=aovdata)
+                             pred.aov <- expand.grid(X = 4.79:17.29, Z = c("A","B"))
+                             pred.aov <- mutate(pred.aov, Y = predict(aov.model, pred.aov))
+                             
+                             
+                             
+                             ggplot(pred.aov, aes(x = X, y = Y, colour = Z)) + 
+                               geom_line() + geom_point(data = aovdata) + 
+                               xlab("X") + ylab("Y")}
                            )
   
   
   ###ANCOVA analysis table###
   output$analysis1<-renderPrint(if (input$menu1=='Otter') {anova(otters.model)}
-                                else if (input$select_conti=='Age' & input$select_covar=='Gender'){anova(diet.model2)}
+                                else if (input$menu1=='Diet'){
+                                if (input$select_conti=='Age' & input$select_covar=='Gender'){anova(diet.model2)}
                                 else if (input$select_conti=='Height' & input$select_covar=='Gender'){anova(diet.model3)}
                                 else if (input$select_conti=='Pre-diet Weight' & input$select_covar=='Gender'){anova(diet.model4)}
                                 else if (input$select_conti=='Age' & input$select_covar=='Diet'){anova(diet.model5)}
                                 else if (input$select_conti=='Height' & input$select_covar=='Diet'){anova(diet.model6)}
                                 else if (input$select_conti=='Pre-diet Weight' & input$select_covar=='Diet'){anova(diet.model7)}
+                                 }
+                                else if (input$menu1=='Customized'){
+                                  aovdata$Y[aovdata$Z=='A']<-aovdata$Y[aovdata$Z=='A']*input$slider1+input$slider2
+                                  aov.model<-lm(Y~X+Z+Z:X,data=aovdata)
+                                  anova(aov.model)}
                                 )
 
   
