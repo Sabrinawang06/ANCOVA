@@ -20,11 +20,11 @@ disableActionButton <- function(id,session) {
 
 
 ####read in dataset###
-seaotters <- read.csv("C:\\Users\\llfsh\\Desktop\\otter.csv",header=T)
-diet <- read.csv("C:\\Users\\llfsh\\Desktop\\Diet.csv",header=T)
+seaotters <- read.csv("otter.csv",header=T)
+diet <- read.csv("Diet.csv",header=T)
 diet$Diet<-as.character(diet$Diet)
 
-aovdata <- read.csv("C:\\Users\\llfsh\\Desktop\\model2.csv",header=T)
+aovdata <- read.csv("model2.csv",header=T)
 
 
 
