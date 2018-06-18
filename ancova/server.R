@@ -4,6 +4,7 @@ library(shinyBS)
 library(shinyjs)
 library(V8)
 library(ggplot2)
+library(dplyr)
 library(shinydashboard)
 
 
@@ -21,9 +22,7 @@ disableActionButton <- function(id,session) {
 ####read in dataset###
 seaotters <- read.csv("C:\\Users\\llfsh\\Desktop\\otter.csv",header=T)
 
-###prep the otter data###
-otters.model <- lm(Otters ~ Location + Year + Location:Year, data = seaotters)
-pred.data <- expand.grid(Year = 1992:2003, Location = c("Lagoon", "Bay"))
+
 
 
 shinyServer(function(input, output,session) {
@@ -77,14 +76,23 @@ shinyServer(function(input, output,session) {
   
   ###############################  Exploring  ##############################
   
-  output$plot1<-renderPlot(ggplot(seaotters, aes(x = Year, y = Otters, colour = Location)) + 
-                             geom_point())
   
-  output$plot2<-renderPlot(ggplot(pred.data, aes(x = Year, y = Otters, colour = Location)) + 
+  ###prep the otter data###
+  otters.model <- lm(Otters ~ Location + Year + Location:Year, data = seaotters)
+  pred.data <- expand.grid(Year = 1992:2003, Location = c("Lagoon", "Bay"))
+  pred.data <- mutate(pred.data, Otters = predict(otters.model, pred.data))
+  
+  
+  
+
+  
+  output$plot1<-renderPlot(if (input$menu1=='Otter') {ggplot(pred.data, aes(x = Year, y = Otters, colour = Location)) + 
                              geom_line() + geom_point(data = seaotters) + 
-                             xlab("Year") + ylab("Sea Otter Abundance"))
+                             xlab("Year") + ylab("Otters")})
   
-  output$analysis1<-renderPrint(anova(otters.model))
+  output$analysis1<-renderPrint(if (input$menu1=='Otter') {anova(otters.model)})
+  
+  
 })
 
 

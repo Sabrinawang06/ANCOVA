@@ -3,6 +3,8 @@ library(png)
 library(shinyBS)
 library(shinyjs)
 library(V8)
+library(ggplot2)
+library(dplyr)
 library(shinydashboard)
 
 #Use jscode to for reset button to reload the app
@@ -47,7 +49,7 @@ ui <- dashboardPage(skin = "black",
                                   column(1,img(src = "right.png", width = 30)),
                                   column(11,uiOutput("background3")), 
                                   fluidRow(
-                                    column(3,offset=1,actionButton("start","Go to the overview",icon("bolt"),style='padding:20px; font-size:150%',class="circle grow"))
+                                    column(3,offset=1,actionButton("start","Go to the overview",icon("bolt"),style='padding:10px; font-size:120%',class="circle grow"))
                                   )
                                   
                                 )
@@ -80,7 +82,7 @@ ui <- dashboardPage(skin = "black",
                                 fluidRow(
                                   column(1,img(src = "right.png", width = 30)),
                                   column(8,uiOutput("instruction4")),
-                                  column(5,actionButton("go","Go",icon("bolt"),style='padding:20px; font-size:120%',class="circle grow"))
+                                  column(5,actionButton("go","Go",icon("bolt"),style='padding:10px; font-size:120%',class="circle grow"))
                                 ),br(),
                                 fluidRow(
                                   column(11,offset = 1, uiOutput("ack1"))
@@ -104,15 +106,8 @@ ui <- dashboardPage(skin = "black",
                                   
                                   mainPanel(
                                     plotOutput('plot1'),
-                                    plotOutput('plot2'),
                                     verbatimTextOutput('analysis1')
-                                    # plotOutput('aovPlot'),
-                                    # bsPopover('aovPlot', "ANOVA Box Plot", "Box Plot for 3 Groups of Means with Standard Deviation.  Black bars denote group means."),
-                                    # h3('Example ANOVA Table for 1 Simulation'),
-                                    # verbatimTextOutput('aovSummary'),
-                                    # bsPopover("aovSummary", "ANOVA Summary Table", "ANOVA Summary Table for last Simulation"),
-                                    # plotOutput('pvalueplot'),
-                                    # bsPopover('pvalueplot', "Histogram of p-values", "Histogram of P-Values through Simulations", placement = "top")
+                                   
                                   )
                                 )
                                 
