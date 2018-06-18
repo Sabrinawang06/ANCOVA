@@ -3,6 +3,7 @@ library(png)
 library(shinyBS)
 library(shinyjs)
 library(V8)
+library(ggplot2)
 library(shinydashboard)
 
 
@@ -17,7 +18,16 @@ disableActionButton <- function(id,session) {
 }
 
 
+####read in dataset###
+seaotters <- read.csv("C:\\Users\\llfsh\\Desktop\\otter.csv",header=T)
+
+###prep the otter data###
+otters.model <- lm(Otters ~ Location + Year + Location:Year, data = seaotters)
+pred.data <- expand.grid(Year = 1992:2003, Location = c("Lagoon", "Bay"))
+
+
 shinyServer(function(input, output,session) {
+  
   
   #Text on the instruction page
   output$background1<-renderUI(
@@ -65,5 +75,19 @@ shinyServer(function(input, output,session) {
     updateTabItems(session,"tabs","instruction")
   })
   
-    
+  ###############################  Exploring  ##############################
+  
+  output$plot1<-renderPlot(ggplot(seaotters, aes(x = Year, y = Otters, colour = Location)) + 
+                             geom_point())
+  
+  output$plot2<-renderPlot(ggplot(pred.data, aes(x = Year, y = Otters, colour = Location)) + 
+                             geom_line() + geom_point(data = seaotters) + 
+                             xlab("Year") + ylab("Sea Otter Abundance"))
+  
+  output$analysis1<-renderPrint(anova(otters.model))
 })
+
+
+
+
+

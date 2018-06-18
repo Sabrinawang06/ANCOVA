@@ -95,7 +95,27 @@ ui <- dashboardPage(skin = "black",
                    
                         
                         tabItem(tabName ="exploring",
-                                fluidRow(h2('blank'))
+                                h2('ANCOVA Interaction Plot'),
+                                sidebarLayout(
+                                  sidebarPanel(
+                                    selectInput('menu1','Select the Data',c('Otter','Car','Customized'))
+                                    
+                                  ),
+                                  
+                                  mainPanel(
+                                    plotOutput('plot1'),
+                                    plotOutput('plot2'),
+                                    verbatimTextOutput('analysis1')
+                                    # plotOutput('aovPlot'),
+                                    # bsPopover('aovPlot', "ANOVA Box Plot", "Box Plot for 3 Groups of Means with Standard Deviation.  Black bars denote group means."),
+                                    # h3('Example ANOVA Table for 1 Simulation'),
+                                    # verbatimTextOutput('aovSummary'),
+                                    # bsPopover("aovSummary", "ANOVA Summary Table", "ANOVA Summary Table for last Simulation"),
+                                    # plotOutput('pvalueplot'),
+                                    # bsPopover('pvalueplot', "Histogram of p-values", "Histogram of P-Values through Simulations", placement = "top")
+                                  )
+                                )
+                                
                                 
                         ),
                         
