@@ -100,7 +100,7 @@ ui <- dashboardPage(skin = "black",
                                 h2('ANCOVA Interaction Plot'),
                                 sidebarLayout(
                                   sidebarPanel(
-                                    selectInput('menu1','Select the Data',c('Otter','Car','Customized'))
+                                    selectInput('menu1','Select the Data',c('Otter','Diet(Age)','Customized'))
                                     
                                   ),
                                   
