@@ -100,8 +100,11 @@ ui <- dashboardPage(skin = "black",
                                 h2('ANCOVA Interaction Plot'),
                                 sidebarLayout(
                                   sidebarPanel(
-                                    selectInput('menu1','Select the Data',c('Otter','Diet(Age)','Customized'))
-                                    
+                                    selectInput('menu1','Select the Data',c('Otter','Diet','Customized')),
+                                    conditionalPanel("input.menu1=='Diet'",
+                                                     radioButtons('select_conti', 'Select Continous Variable',inline=TRUE, choices =c('Age','Height','Pre-diet Weight'), selected = 'Age'),
+                                                     radioButtons('select_covar', 'Select Covariance',inline=TRUE, choices =c('Gender','Diet'), selected = 'Gender')
+                                    )
                                   ),
                                   
                                   mainPanel(
