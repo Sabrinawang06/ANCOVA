@@ -107,7 +107,7 @@ ui <- dashboardPage(skin = "black",
                                     ),
                                     
                                     conditionalPanel("input.menu1=='Customized'",
-                                                     sliderInput('slider1','Change the slop of Line A',0,1,0,step=0.1),
+                                                     sliderInput('slider1','Change the slope of Line A',0,1,0,step=0.1),
                                                      sliderInput('slider2','Change the Distance Between Lines',0,10,0,step=1)
                                                      
                                       

@@ -120,27 +120,34 @@ shinyServer(function(input, output,session) {
   ###Graph the plot of interaction###
   output$plot1<-renderPlot(if (input$menu1=='Otter') {ggplot(pred.data, aes(x = Year, y = Otters, colour = Location)) + 
                              geom_line() + geom_point(data = seaotters) + 
-                             xlab("Year") + ylab("Otters")}
+                             xlab("Year") + ylab("Otters")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                                                                 panel.background = element_blank(), axis.line = element_line(colour = "black"))}
                            
                           else if (input$menu1=='Diet'){
                            if (input$select_conti=='Age' & input$select_covar=='Gender'){ggplot(pred.data2, aes(x = Age, y = ab_change, colour = gender)) + 
                                geom_line() + geom_point(data = diet) + 
-                               xlab("Age") + ylab("Change in Weight")}
+                               xlab("Age") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                                                                              panel.background = element_blank(), axis.line = element_line(colour = "black"))}
                            else if (input$select_conti=='Height' & input$select_covar=='Gender'){ggplot(pred.data3, aes(x = Height, y = ab_change, colour = gender)) + 
                                geom_line() + geom_point(data = diet) + 
-                               xlab("Height") + ylab("Change in Weight")}
+                               xlab("Height") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                                                                                 panel.background = element_blank(), axis.line = element_line(colour = "black"))}
                            else if (input$select_conti=='Pre-diet Weight' & input$select_covar=='Gender'){ggplot(pred.data4, aes(x = pre.weight, y = ab_change, colour = gender)) + 
                                geom_line() + geom_point(data = diet) + 
-                               xlab("Pre-diet Weight") + ylab("Change in Weight")}
+                               xlab("Pre-diet Weight") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                                                                                          panel.background = element_blank(), axis.line = element_line(colour = "black"))}
                            else if (input$select_conti=='Age' & input$select_covar=='Diet'){ggplot(pred.data5, aes(x = Age, y = ab_change, colour =Diet)) + 
                                geom_line() + geom_point(data = diet) + 
-                               xlab("Age") + ylab("Change in Weight")}
+                               xlab("Age") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                                                                              panel.background = element_blank(), axis.line = element_line(colour = "black"))}
                            else if (input$select_conti=='Height' & input$select_covar=='Diet'){ggplot(pred.data6, aes(x = Height, y = ab_change, colour = Diet)) + 
                                geom_line() + geom_point(data = diet) + 
-                               xlab("Height") + ylab("Change in Weight")}
+                               xlab("Height") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                                                                                 panel.background = element_blank(), axis.line = element_line(colour = "black"))}
                            else if (input$select_conti=='Pre-diet Weight' & input$select_covar=='Diet'){ggplot(pred.data7, aes(x = pre.weight, y = ab_change, colour = Diet)) + 
                                geom_line() + geom_point(data = diet) + 
-                               xlab("Pre-diet Weight") + ylab("Change in Weight")}
+                               xlab("Pre-diet Weight") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                                                                                          panel.background = element_blank(), axis.line = element_line(colour = "black"))}
                           }
                            else if (input$menu1=='Customized'){
                              aovdata$Y[aovdata$Z=='A']<-aovdata$Y[aovdata$Z=='A']*input$slider1+input$slider2
@@ -153,7 +160,8 @@ shinyServer(function(input, output,session) {
                              
                              ggplot(pred.aov, aes(x = X, y = Y, colour = Z)) + 
                                geom_line() + geom_point(data = aovdata) + 
-                               xlab("X") + ylab("Y")}
+                               xlab("X") + ylab("Y")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                                                           panel.background = element_blank(), axis.line = element_line(colour = "black"))}
                            )
   
   
