@@ -37,7 +37,10 @@ ui <- dashboardPage(skin = "black",
                               font-size: 16px;
                               background-color: #FDF2E9  
                             }
-                            ")))
+                            "))),
+                        tags$head(tags$style(HTML("
+                            #p {font-size: 18px")))
+                        
                         
                       ),
                       
@@ -123,7 +126,8 @@ ui <- dashboardPage(skin = "black",
                                               
                                                      
                                       
-                                    )
+                                    ),
+                                    fluidRow(tags$b(uiOutput('p')),align = "left")
                                   ),
                                   
                                   mainPanel(

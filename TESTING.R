@@ -27,7 +27,7 @@ ggplot(pred.aov, aes(x = X, y = Y, colour = Z)) +
 
 anova(aov.model)
 
-
+class(aov.model)
 ############################
 a<-7
 b<-5

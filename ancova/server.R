@@ -114,6 +114,10 @@ shinyServer(function(input, output,session) {
   diet.model7<-lm(ab_change~pre.weight+Diet+pre.weight:Diet,data=diet)
   pred.data7 <- expand.grid(pre.weight=58:103, Diet = c('1','2','3'))
   pred.data7 <- mutate(pred.data7, ab_change = predict(diet.model7, pred.data7))
+  
+  
+ ###save random model
+  rand<-reactiveValues(rand_mod=NULL)
 
   
  
@@ -150,6 +154,7 @@ shinyServer(function(input, output,session) {
                                                                                           panel.background = element_blank(), axis.line = element_line(colour = "black"))}
                           }
                            else if (input$menu1=='Random'){
+                             ###create data with label A and B with different slope and intersection
                              A<-'A'
                              B<-'B'
                              
@@ -184,6 +189,9 @@ shinyServer(function(input, output,session) {
                              
                              
                              aov.model<-lm(Y~X+cov+cov:X,data=comb)
+                             
+                            
+                             
                              pred.aov <- expand.grid(X =10:20, cov = c("A","B"))
                              pred.aov <- mutate(pred.aov, Y = predict(aov.model, pred.aov))
                              
@@ -193,6 +201,8 @@ shinyServer(function(input, output,session) {
                                xlab("X") + ylab("Y")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
                                                            panel.background = element_blank(), axis.line = element_line(colour = "black"))}
                            )
+  
+  
   
   
   ###ANCOVA analysis table###
@@ -240,8 +250,51 @@ shinyServer(function(input, output,session) {
                                   
                                   
                                   aov.model<-lm(Y~X+cov+cov:X,data=comb)
-                                  anova(aov.model)}
+                                  
+                                  ##testing passing the model
+                                  rand$rand_mod<-anova(aov.model)[3,"Pr(>F)"]
+                                  
+                                  anova(aov.model)
+                                 
+                                  
+                                  }
                                 )
+  
+  
+  #####get p values for each interaction 
+  
+  var<-reactiveValues(p=NULL)
+  observe({
+
+    # if (is.null(input$menu1)){
+    #   return()
+    # }
+    # 
+    # isolate({
+    #   var$p<-as.numeric(anova(otters.model)[3,"Pr(>F)"])
+    #  
+    # })
+    
+    
+    if (input$menu1=='Otter') {var$p<-as.numeric(anova(otters.model)[3,"Pr(>F)"])}
+    else if (input$menu1=='Diet'){
+      if (input$select_conti=='Age' & input$select_covar=='Gender'){var$p<-as.numeric(anova(diet.model2)[3,"Pr(>F)"])}
+      else if (input$select_conti=='Height' & input$select_covar=='Gender'){var$p<-as.numeric(anova(diet.model3)[3,"Pr(>F)"])}
+      else if (input$select_conti=='Pre-diet Weight' & input$select_covar=='Gender'){var$p<-as.numeric(anova(diet.model4)[3,"Pr(>F)"])}
+      else if (input$select_conti=='Age' & input$select_covar=='Diet'){var$p<-as.numeric(anova(diet.model5)[3,"Pr(>F)"])}
+      else if (input$select_conti=='Height' & input$select_covar=='Diet'){var$p<-as.numeric(anova(diet.model6)[3,"Pr(>F)"])}
+      else if (input$select_conti=='Pre-diet Weight' & input$select_covar=='Diet'){var$p<-as.numeric(anova(diet.model7)[3,"Pr(>F)"])}
+    }
+    else if (input$menu1=='Random'){var$p<-as.numeric(rand$rand_mod)}
+  })
+  
+  output$p<-renderUI(
+    if (var$p<=0.05){
+    paste('P-value for this interaction is',signif(var$p,4) ,'.    Since the p-value is smaller than 0.05
+    (α=0.05), there is a statistically significant interaction bewteen these two variables.')}
+    else {paste('P-value for this interaction is',signif(var$p,4) ,'.    Since the p-value is greater than 0.05
+    (α=0.05), there is NOT a statistically significant interaction bewteen these two variables.')}
+)
 
   
   
