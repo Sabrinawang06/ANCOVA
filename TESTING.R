@@ -31,36 +31,47 @@ anova(aov.model)
 ############################
 a<-7
 b<-5
-
 slope1<-2
 slope2<-4
 
-def <- defData(varname = "inter1", dist = "nonrandom", formula = a, id = "idnum1")
-def <- defData(def,varname = "slope1", dist = "nonrandom", formula = slope1, id = "slope1")
-def <- defData(def, varname = "x1", dist = "uniform", formula = "10;20")
-def <- defData(def, varname = "y", formula = "inter1 + x1 * slope1", variance = 8)
 
-def <- defData(def,varname = "inter2", dist = "nonrandom", formula = b, id = "idnum2")
-def <- defData(def,varname = "slope2", dist = "nonrandom", formula = slope2, id = "slope2")
-def<- defData(def, varname = "x2", dist = "uniform", formula = "10;20")
-def <- defData(def, varname = "y", formula = "inter2 + x2 * slope2", variance = 8)
+A<-'A'
+B<-'B'
+
+def <- defData(varname = "inter", dist = "nonrandom", formula = a, id = "id")
+
+def<- defData(def,varname = "slope", dist = "nonrandom", formula = slope1, id = "slope")
+def <- defData(def, varname = "X", dist = "uniform", formula = "10;20")
+def <- defData(def, varname = "Y", formula = "inter + X * slope", variance = 8)
+
+def2<- defData(varname = "inter", dist = "nonrandom", formula = b, id = "id")
+
+def2 <- defData(def2,varname = "slope", dist = "nonrandom", formula = slope2, id = "slope")
+def2<- defDataAdd(def2, varname = "X", dist = "uniform", formula = "10;20")
+def2 <- defDataAdd(def2, varname = "Y", formula = "inter + X * slope", variance = 8)
 
 
 dt <- genData(1000, def)
+dt2<-genData(1000,def2)
 
-head(dt)
+names(dt2)[1]<-'id'
 
-aov.model<-lm(Y~X+Z+Z:X,data=aovdata)
-pred.aov <- expand.grid(X = 4.79:17.29, Z = c("A","B"))
+dt$cov<-'A'
+dt2$cov<-'B'
+
+comb<-rbind(dt,dt2)
+
+
+aov.model<-lm(Y~X+cov+cov:X,data=comb)
+pred.aov <- expand.grid(X =10:20, cov = c("A","B"))
 pred.aov <- mutate(pred.aov, Y = predict(aov.model, pred.aov))
 
 
-
-ggplot(pred.aov, aes(x = X, y = Y, colour = Z)) + 
-  geom_line() + geom_point(data = aovdata) + 
+ggplot(pred.aov, aes(x = X, y = Y, colour = cov)) + 
+  geom_line() + geom_point(data = comb) + 
   xlab("X") + ylab("Y")
 
-
+anova(aov.model)
 #############################
 library(MBESS)
 library(MASS)
@@ -72,4 +83,4 @@ ancova.random.data <- function(mu.y, mu.x, sigma.y, sigma.x, rho, J, n, randomiz
 
   
 head(random.data)  
-    
+random.data    

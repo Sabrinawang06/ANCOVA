@@ -6,6 +6,7 @@ library(V8)
 library(ggplot2)
 library(dplyr)
 library(shinydashboard)
+library(simstudy)
 
 #Use jscode to for reset button to reload the app
 jsResetCode <- "shinyjs.reset = function() {history.go(0)}"
@@ -107,8 +108,12 @@ ui <- dashboardPage(skin = "black",
                                     ),
                                     
                                     conditionalPanel("input.menu1=='Customized'",
-                                                     sliderInput('slider1','Change the slope of Line A',0,1,0,step=0.1),
-                                                     sliderInput('slider2','Change the Distance Between Lines',0,10,0,step=1)
+                                                     sliderInput('slope1','Change the slope of Line A',-5,5,0,step=1),
+                                                     sliderInput('slope2','Change the slope of Line B',-5,5,0,step=1),
+                                                     sliderInput('inter1','Change the intersection of Line A',-5,5,0,step=1),
+                                                     sliderInput('inter2','Change the intersection of Line B',-5,5,0,step=1),
+                                                     sliderInput('sample1','Change the sample size of A',100,800,100,step=50),
+                                                     sliderInput('sample2','Change the sample size of B',100,800,100,step=50)
                                                      
                                       
                                     )

@@ -6,7 +6,7 @@ library(V8)
 library(ggplot2)
 library(dplyr)
 library(shinydashboard)
-
+library(simstudy)
 
 #Use jscode to for reset button to reload the app
 jsResetCode <- "shinyjs.reset = function() {history.go(0)}"
@@ -150,18 +150,47 @@ shinyServer(function(input, output,session) {
                                                                                           panel.background = element_blank(), axis.line = element_line(colour = "black"))}
                           }
                            else if (input$menu1=='Customized'){
-                             aovdata$Y[aovdata$Z=='A']<-aovdata$Y[aovdata$Z=='A']*input$slider1+input$slider2
+                             A<-'A'
+                             B<-'B'
                              
-                             aov.model<-lm(Y~X+Z+Z:X,data=aovdata)
-                             pred.aov <- expand.grid(X = 4.79:17.29, Z = c("A","B"))
+                             a<-input$inter1
+                             b<-input$inter2
+                             
+                             slope1<-input$slope1
+                             slope2<-input$slope2
+                             
+                             def <- defData(varname = "inter", dist = "nonrandom", formula = a, id = "id")
+                             
+                             def<- defData(def,varname = "slope", dist = "nonrandom", formula = slope1, id = "slope")
+                             def <- defData(def, varname = "X", dist = "uniform", formula = "10;20")
+                             def <- defData(def, varname = "Y", formula = "inter + X * slope", variance = 8)
+                             
+                             def2<- defData(varname = "inter", dist = "nonrandom", formula = b, id = "id")
+                             
+                             def2 <- defData(def2,varname = "slope", dist = "nonrandom", formula = slope2, id = "slope")
+                             def2<- defDataAdd(def2, varname = "X", dist = "uniform", formula = "10;20")
+                             def2 <- defDataAdd(def2, varname = "Y", formula = "inter + X * slope", variance = 8)
+                             
+                             
+                             dt <- genData(input$sample1, def)
+                             dt2<-genData(input$sample2,def2)
+                             
+                             names(dt2)[1]<-'id'
+                             
+                             dt$cov<-'A'
+                             dt2$cov<-'B'
+                             
+                             comb<-rbind(dt,dt2)
+                             
+                             
+                             aov.model<-lm(Y~X+cov+cov:X,data=comb)
+                             pred.aov <- expand.grid(X =10:20, cov = c("A","B"))
                              pred.aov <- mutate(pred.aov, Y = predict(aov.model, pred.aov))
                              
                              
-                             
-                             ggplot(pred.aov, aes(x = X, y = Y, colour = Z)) + 
-                               geom_line() + geom_point(data = aovdata) + 
-                               xlab("X") + ylab("Y")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-                                                           panel.background = element_blank(), axis.line = element_line(colour = "black"))}
+                             ggplot(pred.aov, aes(x = X, y = Y, colour = cov)) + 
+                               geom_line() + geom_point(data = comb) + 
+                               xlab("X") + ylab("Y")}
                            )
   
   
@@ -176,8 +205,40 @@ shinyServer(function(input, output,session) {
                                 else if (input$select_conti=='Pre-diet Weight' & input$select_covar=='Diet'){anova(diet.model7)}
                                  }
                                 else if (input$menu1=='Customized'){
-                                  aovdata$Y[aovdata$Z=='A']<-aovdata$Y[aovdata$Z=='A']*input$slider1+input$slider2
-                                  aov.model<-lm(Y~X+Z+Z:X,data=aovdata)
+                                  A<-'A'
+                                  B<-'B'
+                                  
+                                  a<-input$inter1
+                                  b<-input$inter2
+                                  
+                                  slope1<-input$slope1
+                                  slope2<-input$slope2
+                                  
+                                  def <- defData(varname = "inter", dist = "nonrandom", formula = a, id = "id")
+                                  
+                                  def<- defData(def,varname = "slope", dist = "nonrandom", formula = slope1, id = "slope")
+                                  def <- defData(def, varname = "X", dist = "uniform", formula = "10;20")
+                                  def <- defData(def, varname = "Y", formula = "inter + X * slope", variance = 8)
+                                  
+                                  def2<- defData(varname = "inter", dist = "nonrandom", formula = b, id = "id")
+                                  
+                                  def2 <- defData(def2,varname = "slope", dist = "nonrandom", formula = slope2, id = "slope")
+                                  def2<- defDataAdd(def2, varname = "X", dist = "uniform", formula = "10;20")
+                                  def2 <- defDataAdd(def2, varname = "Y", formula = "inter + X * slope", variance = 8)
+                                  
+                                  
+                                  dt <- genData(input$sample1, def)
+                                  dt2<-genData(input$sample2,def2)
+                                  
+                                  names(dt2)[1]<-'id'
+                                  
+                                  dt$cov<-'A'
+                                  dt2$cov<-'B'
+                                  
+                                  comb<-rbind(dt,dt2)
+                                  
+                                  
+                                  aov.model<-lm(Y~X+cov+cov:X,data=comb)
                                   anova(aov.model)}
                                 )
 
