@@ -31,7 +31,14 @@ ui <- dashboardPage(skin = "black",
                       ),
                       tags$head(
                         tags$style(HTML('#start{background-color: #D35400}')),
-                        tags$style(HTML('#go{background-color: #D35400}'))
+                        tags$style(HTML('#go{background-color: #D35400}')),
+                        tags$head(tags$style(HTML("
+                            #analysis1 {
+                              font-size: 16px;
+                              background-color: #FDF2E9  
+                            }
+                            ")))
+                        
                       ),
                       
                       
@@ -101,19 +108,19 @@ ui <- dashboardPage(skin = "black",
                                 h2('ANCOVA Interaction Plot'),
                                 sidebarLayout(
                                   sidebarPanel(
-                                    selectInput('menu1','Select the Data',c('Otter','Diet','Customized')),
+                                    selectInput('menu1','Select the Data',c('Otter','Diet','Random')),
                                     conditionalPanel("input.menu1=='Diet'",
                                                      radioButtons('select_conti', 'Select Continous Variable',inline=TRUE, choices =c('Age','Height','Pre-diet Weight'), selected = 'Age'),
                                                      radioButtons('select_covar', 'Select Covariance',inline=TRUE, choices =c('Gender','Diet'), selected = 'Gender')
                                     ),
                                     
-                                    conditionalPanel("input.menu1=='Customized'",
+                                    conditionalPanel("input.menu1=='Random'",
                                                      sliderInput('slope1','Change the slope of Line A',-5,5,0,step=1),
                                                      sliderInput('slope2','Change the slope of Line B',-5,5,0,step=1),
                                                      sliderInput('inter1','Change the intersection of Line A',-5,5,0,step=1),
                                                      sliderInput('inter2','Change the intersection of Line B',-5,5,0,step=1),
-                                                     sliderInput('sample1','Change the sample size of A',100,800,100,step=50),
-                                                     sliderInput('sample2','Change the sample size of B',100,800,100,step=50)
+                                                     sliderInput('sample','Change the sample size',100,800,100,step=50)
+                                              
                                                      
                                       
                                     )
@@ -121,7 +128,7 @@ ui <- dashboardPage(skin = "black",
                                   
                                   mainPanel(
                                     plotOutput('plot1'),
-                                    verbatimTextOutput('analysis1')
+                                    tags$b(verbatimTextOutput('analysis1'))
                                    
                                   )
                                 )

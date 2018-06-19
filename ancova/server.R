@@ -4,9 +4,9 @@ library(shinyBS)
 library(shinyjs)
 library(V8)
 library(ggplot2)
-library(dplyr)
+library(dplyr)  ###NEW PACKAGE 
 library(shinydashboard)
-library(simstudy)
+library(simstudy) ### NEW PACKAGE 
 
 #Use jscode to for reset button to reload the app
 jsResetCode <- "shinyjs.reset = function() {history.go(0)}"
@@ -149,7 +149,7 @@ shinyServer(function(input, output,session) {
                                xlab("Pre-diet Weight") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
                                                                                           panel.background = element_blank(), axis.line = element_line(colour = "black"))}
                           }
-                           else if (input$menu1=='Customized'){
+                           else if (input$menu1=='Random'){
                              A<-'A'
                              B<-'B'
                              
@@ -163,17 +163,17 @@ shinyServer(function(input, output,session) {
                              
                              def<- defData(def,varname = "slope", dist = "nonrandom", formula = slope1, id = "slope")
                              def <- defData(def, varname = "X", dist = "uniform", formula = "10;20")
-                             def <- defData(def, varname = "Y", formula = "inter + X * slope", variance = 8)
+                             def <- defData(def, varname = "Y", formula = "inter + X * slope", variance = 11)
                              
                              def2<- defData(varname = "inter", dist = "nonrandom", formula = b, id = "id")
                              
                              def2 <- defData(def2,varname = "slope", dist = "nonrandom", formula = slope2, id = "slope")
                              def2<- defDataAdd(def2, varname = "X", dist = "uniform", formula = "10;20")
-                             def2 <- defDataAdd(def2, varname = "Y", formula = "inter + X * slope", variance = 8)
+                             def2 <- defDataAdd(def2, varname = "Y", formula = "inter + X * slope", variance = 11)
                              
                              
-                             dt <- genData(input$sample1, def)
-                             dt2<-genData(input$sample2,def2)
+                             dt <- genData(input$sample, def)
+                             dt2<-genData(input$sample,def2)
                              
                              names(dt2)[1]<-'id'
                              
@@ -190,7 +190,8 @@ shinyServer(function(input, output,session) {
                              
                              ggplot(pred.aov, aes(x = X, y = Y, colour = cov)) + 
                                geom_line() + geom_point(data = comb) + 
-                               xlab("X") + ylab("Y")}
+                               xlab("X") + ylab("Y")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                                                           panel.background = element_blank(), axis.line = element_line(colour = "black"))}
                            )
   
   
@@ -204,7 +205,7 @@ shinyServer(function(input, output,session) {
                                 else if (input$select_conti=='Height' & input$select_covar=='Diet'){anova(diet.model6)}
                                 else if (input$select_conti=='Pre-diet Weight' & input$select_covar=='Diet'){anova(diet.model7)}
                                  }
-                                else if (input$menu1=='Customized'){
+                                else if (input$menu1=='Random'){
                                   A<-'A'
                                   B<-'B'
                                   
@@ -218,17 +219,17 @@ shinyServer(function(input, output,session) {
                                   
                                   def<- defData(def,varname = "slope", dist = "nonrandom", formula = slope1, id = "slope")
                                   def <- defData(def, varname = "X", dist = "uniform", formula = "10;20")
-                                  def <- defData(def, varname = "Y", formula = "inter + X * slope", variance = 8)
+                                  def <- defData(def, varname = "Y", formula = "inter + X * slope", variance = 11)
                                   
                                   def2<- defData(varname = "inter", dist = "nonrandom", formula = b, id = "id")
                                   
                                   def2 <- defData(def2,varname = "slope", dist = "nonrandom", formula = slope2, id = "slope")
                                   def2<- defDataAdd(def2, varname = "X", dist = "uniform", formula = "10;20")
-                                  def2 <- defDataAdd(def2, varname = "Y", formula = "inter + X * slope", variance = 8)
+                                  def2 <- defDataAdd(def2, varname = "Y", formula = "inter + X * slope", variance = 11)
                                   
                                   
-                                  dt <- genData(input$sample1, def)
-                                  dt2<-genData(input$sample2,def2)
+                                  dt <- genData(input$sample, def)
+                                  dt2<-genData(input$sample,def2)
                                   
                                   names(dt2)[1]<-'id'
                                   
