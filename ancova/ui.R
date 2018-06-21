@@ -39,7 +39,8 @@ ui <- dashboardPage(skin = "black",
                             }
                             "))),
                         tags$head(tags$style(HTML("
-                            #p {font-size: 18px")))
+                            #p {font-size: 18px;
+                                padding-left: 5px")))
                         
                         
                       ),
@@ -50,20 +51,31 @@ ui <- dashboardPage(skin = "black",
                         
                         tabItem(tabName="prereq",
                                 fluidRow(
-                                  column(11,offset = 1, uiOutput("background1"))
+                                  column(8,offset = 1, uiOutput("background1"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "right.png", width = 30)),
-                                  column(11,uiOutput("background2"))
+                                  column(1,img(src = "right.png", width = 20)),
+                                  column(8,uiOutput("background2"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "right.png", width = 30)),
-                                  column(11,uiOutput("background3")), 
+                                  column(1,img(src = "right.png", width = 20)),
+                                  column(8,uiOutput("background3"))
+                                  ), hr(),
+                                
+                                fluidRow(
+                                  column(1,img(src = "right.png", width = 20)),
+                                  column(8,uiOutput("background4"))
+                                ),
+                                fluidRow(column(11,offset=2, img(src='plot.png',width=550))),
+                                fluidRow(
+                                  column(1,img(src = "right.png", width = 20)),
+                                  column(8,uiOutput("background5"))
+                                ),
                                   fluidRow(
                                     column(3,offset=1,actionButton("start","Go to the overview",icon("bolt"),style='padding:10px; font-size:120%',class="circle grow"))
                                   )
                                   
-                                )
+                                
                         ),
                         
                         
@@ -71,36 +83,36 @@ ui <- dashboardPage(skin = "black",
                                 tags$a(href='http://stat.psu.edu/',tags$img(src='logo.png', align = "left", width = 180)),
                                 
                                 fluidRow(
-                                  column(11,offset = 1, uiOutput("about1"))
+                                  column(8,offset = 1, uiOutput("about1"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "right.png", width = 30)),
-                                  column(11,uiOutput("about2"))
+                                  column(1,img(src = "right.png", width = 20)),
+                                  column(8,uiOutput("about2"))
                                 ),br(),
                                 
                                 br(),
                                 fluidRow(
-                                  column(11,offset = 1, uiOutput("instruction1"))
+                                  column(8,offset = 1, uiOutput("instruction1"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "right.png", width = 30)),
-                                  column(11,uiOutput("instruction2"))
+                                  column(1,img(src = "right.png", width = 20)),
+                                  column(8,uiOutput("instruction2"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "right.png", width = 30)),
-                                  column(11,uiOutput("instruction3"))
+                                  column(1,img(src = "right.png", width = 20)),
+                                  column(8,uiOutput("instruction3"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "right.png", width = 30)),
+                                  column(1,img(src = "right.png", width = 20)),
                                   column(8,uiOutput("instruction4")),
                                   column(5,actionButton("go","Go",icon("bolt"),style='padding:10px; font-size:120%',class="circle grow"))
                                 ),br(),
                                 fluidRow(
-                                  column(11,offset = 1, uiOutput("ack1"))
+                                  column(8,offset = 1, uiOutput("ack1"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "right.png", width = 30)),
-                                  column(11, uiOutput("ack2"))
+                                  column(1,img(src = "right.png", width = 20)),
+                                  column(8, uiOutput("ack2"))
                                 )
                                 
                         ),
@@ -111,6 +123,7 @@ ui <- dashboardPage(skin = "black",
                                 h2('ANCOVA Interaction Plot'),
                                 sidebarLayout(
                                   sidebarPanel(
+                                    
                                     selectInput('menu1','Select the Data',c('Otter','Diet','Random')),
                                     conditionalPanel("input.menu1=='Diet'",
                                                      radioButtons('select_conti', 'Select Continous Variable',inline=TRUE, choices =c('Age','Height','Pre-diet Weight'), selected = 'Age'),

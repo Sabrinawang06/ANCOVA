@@ -84,3 +84,28 @@ ancova.random.data <- function(mu.y, mu.x, sigma.y, sigma.x, rho, J, n, randomiz
   
 head(random.data)  
 random.data    
+
+
+#################
+data(women) # Load a built-in data called ‘women’
+fit = lm(weight ~ height, women) # Run a regression analysis
+plot(fit)
+par(mfrow=c(2,2)) # Change the panel layout to 2 x 2
+plot(fit)
+
+
+
+par(mfrow=c(1,1)) # Change back to 1 x 1
+
+data("mtcars")
+summary(mtcars)
+fit = lm(hp ~ cyl, mtcars) # Run a regression analysis
+plot(fit)
+par(mfrow=c(2,2)) # Change the panel layout to 2 x 2
+
+
+plot(aov.model)
+
+
+
+

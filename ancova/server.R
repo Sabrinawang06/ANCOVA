@@ -36,11 +36,26 @@ shinyServer(function(input, output,session) {
     print('Background')
   )
   output$background2<-renderUI(
-    h4('1')
+    h3('What is ANCOVA')
   )
   output$background3<-renderUI(
-    h4('2')
+    h4('A ‘classic’ ANOVA tests for differences in mean responses to categorical factor 
+       (treatment) levels. When we have heterogeneity in experimental units sometimes restrictions on the randomization (blocking) can improve the test for treatment effects. In some cases, we don’t have the opportunity to construct blocks, but can recognize and measure a continuous variable as contributing to the heterogeneity in the experimental units.
+        These sources of extraneous variability historically have been referred to as ‘nuisance’ or ‘concomitant’ variables. More recently, these variables are referred to as ‘covariates’.
+        When a continuous covariate is included in an ANOVA we have the analysis of covariance (ANCOVA). (PSU STAT 502-Lesson 10: Analysis of Covariance (ANCOVA))  ')
   )
+  
+  output$background4<-renderUI(
+    h3('Diagnostic Plot')
+  )
+  output$background5<-renderUI(
+    h4('Model check is critical before analysis: you need to understanding the four diagnostic plot.',br(),
+       '1. Residuals vs Fitted plot checks linear pattern of residuals. You should expect a horizontal line spreading the dots equally.', br(),
+       '2. Normal Q-Q plot checks normality. You should expect the dots follow a straight line.',br(),
+       '3. Scale-Location plot checks equal spreads of residual. You should expect a horizontal line with spreading the dots equally also.',br(),
+       '4. Residual vs Leverage plot checks influential outliers. You should expect all dots place with in the dash line range. ')
+  )
+  
   output$about1 <- renderUI(
     print("About")
   )
@@ -174,7 +189,7 @@ shinyServer(function(input, output,session) {
                              
                              def2 <- defData(def2,varname = "slope", dist = "nonrandom", formula = slope2, id = "slope")
                              def2<- defDataAdd(def2, varname = "X", dist = "uniform", formula = "10;20")
-                             def2 <- defDataAdd(def2, varname = "Y", formula = "inter + X * slope", variance = 11)
+                             def2 <- defDataAdd(def2, varname = "Y", formula = "inter + X * slope", variance =11)
                              
                              
                              dt <- genData(input$sample, def)
@@ -290,10 +305,10 @@ shinyServer(function(input, output,session) {
   
   output$p<-renderUI(
     if (var$p<=0.05){
-    paste('P-value for this interaction is',signif(var$p,4) ,'.    Since the p-value is smaller than 0.05
-    (α=0.05), there is a statistically significant interaction bewteen these two variables.')}
-    else {paste('P-value for this interaction is',signif(var$p,4) ,'.    Since the p-value is greater than 0.05
-    (α=0.05), there is NOT a statistically significant interaction bewteen these two variables.')}
+    h4(strong('P-value for this interaction is',signif(var$p,4),'.' ,br(),'Since the p-value is smaller than 0.05
+    (α=0.05), there is a statistically significant interaction between these two variables.'))}
+    else {h4(strong('P-value for this interaction is',signif(var$p,4),'.' ,br(),'Since the p-value is greater than 0.05
+    (α=0.05), there is NOT a statistically significant interaction between these two variables.'))}
 )
 
   
