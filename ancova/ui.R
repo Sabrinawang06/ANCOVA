@@ -81,7 +81,7 @@ ui <- dashboardPage(skin = "black",
                         
                         tabItem(tabName = "instruction",
                                 tags$a(href='http://stat.psu.edu/',tags$img(src='logo.png', align = "left", width = 180)),
-                                
+                                br(),br(),br(),br(),
                                 fluidRow(
                                   column(8,offset = 1, uiOutput("about1"))
                                 ),
@@ -106,7 +106,7 @@ ui <- dashboardPage(skin = "black",
                                   column(1,img(src = "right.png", width = 20)),
                                   column(8,uiOutput("instruction4")),
                                   column(5,actionButton("go","Go",icon("bolt"),style='padding:10px; font-size:120%',class="circle grow"))
-                                ),br(),
+                                ),br(),br(),
                                 fluidRow(
                                   column(8,offset = 1, uiOutput("ack1"))
                                 ),

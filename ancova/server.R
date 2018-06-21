@@ -33,7 +33,7 @@ shinyServer(function(input, output,session) {
   
   #Text on the instruction page
   output$background1<-renderUI(
-    print('Background')
+    h2(strong('Background'))
   )
   output$background2<-renderUI(
     h3('What is ANCOVA')
@@ -57,28 +57,28 @@ shinyServer(function(input, output,session) {
   )
   
   output$about1 <- renderUI(
-    print("About")
+    h2(strong("About"))
   )
   output$about2<-renderUI(
-    h3('This app introduces the concept of ANCOVA ')
+    h3('This app introduces the concept of ANCOVA focusing on interpret interaction plot.')
   )
   output$instruction1<-renderUI(
-    print('Instruction')
+    h2(strong('Instruction'))
   )
   output$instruction2<-renderUI(
-    h2('1')
+    h3('Click Go button to enter the explore page. Use the dropdown menu to select different dataset.')
   )
   output$instruction3<-renderUI(
-    h2('2')
+    h3('Use the radio button to select different varibles and see the change in interaction plot. Or use slider bars to change the parameters. ')
   )
   output$instruction44<-renderUI(
-    h2('3')
+    h3('After the explore section, you can start the matching game to test your understand on this concept.')
   )
   output$ack1<-renderUI(
-    print('Acknowledgement')
+    h2(strong('Acknowledgement'))
   )
   output$ack2<-renderUI((
-    print('This app is developed and coded by Luxin Wang')
+  h3('This app is developed and coded by Luxin Wang. Thanks for the data set and code provided by The University of Sheffield (https://www.sheffield.ac.uk/mash/data) and Dylan Childs.(https://github.com/dzchilds)')
   ))
 
   
