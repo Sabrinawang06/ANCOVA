@@ -1,6 +1,7 @@
 library(shiny)
 library(png)
 library(shinyBS)
+library(shinyDND)
 library(shinyjs)
 library(V8)
 library(ggplot2)
@@ -318,7 +319,7 @@ shinyServer(function(input, output,session) {
   #####game pictures#####
   
   ######################################  Bank B #############################################################
-  numbers <- reactiveValues(strong = c(), moderate = c(), insig = c(), question = data.frame())
+  numbers <- reactiveValues(strong = c(), moderate = c(), insig = c(), indexB = c(), question = data.frame())
   
   observeEvent(input$go,{
     numbers$strong = sample(1:8,1)
@@ -335,25 +336,91 @@ shinyServer(function(input, output,session) {
   })
   
   output$table1 <- renderUI({
-    paste('A',img(src = numbers$question[numbers$question[4] == "A",3], width = "95%", height = "95%", style = "text-align: center"))
+    img(src = numbers$question[numbers$question[4] == "A",3], width = "95%", height = "95%", style = "text-align: center")
   })
  
-  output$plot1 <- renderUI({
+  output$plot2 <- renderUI({
     img(src = numbers$question[numbers$question[4] == "B",4], width = "95%", height = "95%", style = "text-align: center")
   })
   
-  output$table1 <- renderUI({
-    paste('B',img(src = numbers$question[numbers$question[4] == "B",3], width = "95%", height = "95%", style = "text-align: center"))
+  output$table2 <- renderUI({
+    img(src = numbers$question[numbers$question[4] == "B",3], width = "95%", height = "95%", style = "text-align: center")
   })
   
-  output$plot1 <- renderUI({
-    img(src = numbers$question[numbers$question[4] == "B",4], width = "95%", height = "95%", style = "text-align: center")
+  output$plot3 <- renderUI({
+    img(src = numbers$question[numbers$question[4] == "C",4], width = "95%", height = "95%", style = "text-align: center")
   })
   
-  output$table1 <- renderUI({
-    paste('C',img(src = numbers$question[numbers$question[4] == "B",3], width = "95%", height = "95%", style = "text-align: center"))
+  output$table3 <- renderUI({
+    img(src = numbers$question[numbers$question[4] == "C",3], width = "95%", height = "95%", style = "text-align: center")
   })
  
+  
+  #####buttons####
+  
+  observeEvent(input$submitA,{
+    updateButton(session,"submitA",disabled = TRUE)
+  })
+  observeEvent(input$nextA,{
+    updateButton(session,"submitA",disabled = FALSE)
+  })
+  
+  ###################check answers#####
+  
+  observeEvent(input$submitA,{  
+    observeEvent(input$clearA,{
+      output$answer1 <- renderUI({
+        img(src = NULL,width = 30)
+      })
+    })
+    observe({
+      output$answer1 <- renderUI({
+        if (!is.null(input$drp1)){
+          if (input$drp1 == numbers$question[numbers$question[1]== "right", 6]){
+            img(src = "check.png",width = 30)
+          }else{
+            img(src = "cross.png",width = 30)
+          }
+        }
+      })
+    })
+  })
+  observeEvent(input$submitA,{  
+    observeEvent(input$clearA,{
+      output$answer2 <- renderUI({
+        img(src = NULL,width = 30)
+      })
+    })
+    observe({
+      output$answer2 <- renderUI({
+        if (!is.null(input$drp2)){
+          if (input$drp2 == numbers$question[numbers$question[1]== "left", 6]){
+            img(src = "check.png",width = 30)
+          }else{
+            img(src = "cross.png",width = 30)
+          }
+        }
+      })
+    })
+  })
+  observeEvent(input$submitA,{  
+    observeEvent(input$clearA,{
+      output$answer3 <- renderUI({
+        img(src = NULL,width = 30)
+      })
+    })
+    observe({
+      output$answer3 <- renderUI({
+        if (!is.null(input$drp3)){
+          if (input$drp3 == numbers$question[numbers$question[1]== "normal", 6]){
+            img(src = "check.png",width = 30)
+          }else{
+            img(src = "cross.png",width = 30)
+          }
+        }
+      })
+    })
+  })
   
     
 ##closing for ui DON'T DELET####  
