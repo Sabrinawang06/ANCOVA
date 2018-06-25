@@ -332,27 +332,27 @@ shinyServer(function(input, output,session) {
     
   })
   output$plot1 <- renderUI({
-    img(src = numbers$question[numbers$question[4] == "A",4], width = "95%", height = "95%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "A",4], width = "95%", height = "95%", style = "text-align: center")
   })
   
   output$table1 <- renderUI({
-    img(src = numbers$question[numbers$question[4] == "A",3], width = "95%", height = "95%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "A",3], width = "95%", height = "95%", style = "text-align: center")
   })
  
   output$plot2 <- renderUI({
-    img(src = numbers$question[numbers$question[4] == "B",4], width = "95%", height = "95%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "B",4], width = "95%", height = "95%", style = "text-align: center")
   })
   
   output$table2 <- renderUI({
-    img(src = numbers$question[numbers$question[4] == "B",3], width = "95%", height = "95%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "B",3], width = "95%", height = "95%", style = "text-align: center")
   })
   
   output$plot3 <- renderUI({
-    img(src = numbers$question[numbers$question[4] == "C",4], width = "95%", height = "95%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "C",4], width = "95%", height = "95%", style = "text-align: center")
   })
   
   output$table3 <- renderUI({
-    img(src = numbers$question[numbers$question[4] == "C",3], width = "95%", height = "95%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "C",3], width = "95%", height = "95%", style = "text-align: center")
   })
  
   
