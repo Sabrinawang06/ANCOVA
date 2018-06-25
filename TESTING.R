@@ -11,7 +11,8 @@ library(simstudy)
 aovdata <- read.csv("C:\\Users\\llfsh\\Desktop\\model2.csv",header=T)
 
 
-aovdata$Y[aovdata$Z=='A']<-aovdata$Y[aovdata$Z=='A']*1/3+3
+aovdata$Y[aovdata$Z=='A']<-aovdata$Y[aovdata$Z=='A']*1.01+3
+
 
 
 aov.model<-lm(Y~X+Z+Z:X,data=aovdata)
@@ -29,11 +30,10 @@ anova(aov.model)
 
 class(aov.model)
 ############################
-a<-7
-b<-5
-slope1<-2
-slope2<-4
-
+a<--3
+b<--2
+slope1<-0.9
+slope2<--1.4
 
 A<-'A'
 B<-'B'
@@ -41,18 +41,18 @@ B<-'B'
 def <- defData(varname = "inter", dist = "nonrandom", formula = a, id = "id")
 
 def<- defData(def,varname = "slope", dist = "nonrandom", formula = slope1, id = "slope")
-def <- defData(def, varname = "X", dist = "uniform", formula = "10;20")
-def <- defData(def, varname = "Y", formula = "inter + X * slope", variance = 8)
+def <- defData(def, varname = "X", dist = "uniform", formula = "0;20")
+def <- defData(def, varname = "Y", formula = "inter + X * slope", variance = 1300)
 
 def2<- defData(varname = "inter", dist = "nonrandom", formula = b, id = "id")
 
 def2 <- defData(def2,varname = "slope", dist = "nonrandom", formula = slope2, id = "slope")
-def2<- defDataAdd(def2, varname = "X", dist = "uniform", formula = "10;20")
-def2 <- defDataAdd(def2, varname = "Y", formula = "inter + X * slope", variance = 8)
+def2<- defDataAdd(def2, varname = "X", dist = "uniform", formula = "0;20")
+def2 <- defDataAdd(def2, varname = "Y", formula = "inter + X * slope", variance = 1300)
 
 
-dt <- genData(1000, def)
-dt2<-genData(1000,def2)
+dt <- genData(100, def)
+dt2<-genData(100,def2)
 
 names(dt2)[1]<-'id'
 
@@ -63,7 +63,7 @@ comb<-rbind(dt,dt2)
 
 
 aov.model<-lm(Y~X+cov+cov:X,data=comb)
-pred.aov <- expand.grid(X =10:20, cov = c("A","B"))
+pred.aov <- expand.grid(X =0:20, cov = c("A","B"))
 pred.aov <- mutate(pred.aov, Y = predict(aov.model, pred.aov))
 
 
@@ -93,7 +93,7 @@ plot(fit)
 par(mfrow=c(2,2)) # Change the panel layout to 2 x 2
 plot(fit)
 
-
+summary(women)
 
 par(mfrow=c(1,1)) # Change back to 1 x 1
 
@@ -106,6 +106,13 @@ par(mfrow=c(2,2)) # Change the panel layout to 2 x 2
 
 plot(aov.model)
 
+aov.model<-lm(Y~X+cov+cov:X,data=comb)
+pred.aov <- expand.grid(X =10:20, cov = c("A","B"))
+pred.aov <- mutate(pred.aov, Y = predict(aov.model, pred.aov))
 
+
+ggplot(pred.aov, aes(x = X, y = Y, colour = cov)) + 
+  geom_line() + geom_point(data = comb) + 
+  xlab("X") + ylab("Y")
 
 

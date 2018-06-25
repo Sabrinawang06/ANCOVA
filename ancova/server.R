@@ -24,7 +24,9 @@ seaotters <- read.csv("otter.csv",header=T)
 diet <- read.csv("Diet.csv",header=T)
 diet$Diet<-as.character(diet$Diet)
 
-aovdata <- read.csv("model2.csv",header=T)
+bank = read.csv("questionbank.csv")
+bank = data.frame(lapply(bank, as.character), stringsAsFactors = FALSE)
+
 
 
 
@@ -311,7 +313,47 @@ shinyServer(function(input, output,session) {
     (α=0.05), there is NOT a statistically significant interaction between these two variables.'))}
 )
 
+ 
   
+  #####game pictures#####
+  
+  ######################################  Bank B #############################################################
+  numbers <- reactiveValues(strong = c(), moderate = c(), insig = c(), question = data.frame())
+  
+  observeEvent(input$go,{
+    numbers$strong = sample(1:8,1)
+    numbers$moderate = sample(9:16,1)
+    numbers$insig= sample(17:24,1)
+   
+    
+    numbers$index = sample(c("A","B","C"),3)
+    numbers$question = cbind(bank[c(numbers$strong,numbers$moderate,numbers$insig),],numbers$index)
+    
+  })
+  output$plot1 <- renderUI({
+    img(src = numbers$question[numbers$question[4] == "A",4], width = "95%", height = "95%", style = "text-align: center")
+  })
+  
+  output$table1 <- renderUI({
+    paste('A',img(src = numbers$question[numbers$question[4] == "A",3], width = "95%", height = "95%", style = "text-align: center"))
+  })
+ 
+  output$plot1 <- renderUI({
+    img(src = numbers$question[numbers$question[4] == "B",4], width = "95%", height = "95%", style = "text-align: center")
+  })
+  
+  output$table1 <- renderUI({
+    paste('B',img(src = numbers$question[numbers$question[4] == "B",3], width = "95%", height = "95%", style = "text-align: center"))
+  })
+  
+  output$plot1 <- renderUI({
+    img(src = numbers$question[numbers$question[4] == "B",4], width = "95%", height = "95%", style = "text-align: center")
+  })
+  
+  output$table1 <- renderUI({
+    paste('C',img(src = numbers$question[numbers$question[4] == "B",3], width = "95%", height = "95%", style = "text-align: center"))
+  })
+ 
   
     
 ##closing for ui DON'T DELET####  
