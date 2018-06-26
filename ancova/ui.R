@@ -146,7 +146,7 @@ ui <- dashboardPage(skin = "black",
                                   ),
                                   
                                   mainPanel(
-                                    plotOutput('plot1'),
+                                    plotOutput('plot_gg'),
                                     tags$b(verbatimTextOutput('analysis1'))
                                    
                                   )
@@ -163,70 +163,70 @@ ui <- dashboardPage(skin = "black",
                                   dragUI("plot","A", style = "width: 120px; height: 23px;")
                                   ,class = "col-lg-3 col-md-3 wellBorder",
                                   div(style = "text-align:center",
-                                      
+
                                       uiOutput('plot1')),
-                                  
-                                
+
+
                                   br(),
                                   br()
                                 ),
-                                
+
                                 wellPanel(
                                   br(),
                                   dragUI("plot2","B", style = "width: 120px; height: 50px;")
                                   ,class = "col-lg-3 col-md-3 wellBorder",
-                                  
-                                  
+
+
                                   div(style = "text-align:center", uiOutput('plot2')),
-                                  
+
                                   br()
-                                  
+
                                 ),
                                 wellPanel(
                                   br(),
                                   dragUI("plot3","C", style = "width: 120px; height: 50px;")
                                   ,class = "col-lg-3 col-md-3 wellBorder",
-                                  
+
                                   div(style = "text-align:center", uiOutput('plot3')),
-                              
+
                                   br()
-                                  
+
                                 )
                                ),
                                 fluidRow(
-                                  
+
                                     wellPanel(dropUI("drp1", class = "dropelement"),
                                               div(style = "position:absolute;top: 10%;right:2%;",htmlOutput("answer1")), class = "wellTransparent col-sm-12 col-md-6 col-lg-3",
                                               br(),
                                               uiOutput("table1")
-                                              
+
                                     ),
                                     wellPanel(dropUI("drp2", class = "dropelement"),
                                               div(style = "position:absolute;top: 10%;right:2%;",htmlOutput("answer2")), class = "wellTransparent col-sm-12 col-md-6 col-lg-3",
                                               br(),
-                                              
+
                                               uiOutput("table2")
                                     ),
                                     wellPanel(dropUI("drp3", class = "dropelement"),
                                               div(style = "position:absolute;top: 10%;right:2%;",htmlOutput("answer3")), class = "wellTransparent col-sm-12 col-md-6 col-lg-3",
                                               br(),
-                                              
-                                              uiOutput("table3") 
+
+                                              uiOutput("table3")
                                     )
-                      
-                                              
-                                    
+
+
+
                                   ),
-                               
-                               
-                               
+
+
+
                                fluidRow(
-                                 
+
                                  column(1,offset = 4, conditionalPanel("(input.drp1!='') & (input.drp2!='') & (input.drp3!='') & (input.drp4!='') "
                                                                        ,actionButton("submitA", "Submit Answer", icon("bolt"),style='padding:10px; font-size:120%',class="circle grow"))),
                                  column(1,offset = 5,bsButton("next1","Next>>",icon("bolt"),style='padding:10px; font-size:120%',class="circle grow", disabled = TRUE))
                                )
-                        
+
                                
                                
                                 )#closing for game section

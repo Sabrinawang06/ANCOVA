@@ -22,6 +22,7 @@ disableActionButton <- function(id,session) {
 
 ####read in dataset###
 seaotters <- read.csv("otter.csv",header=T)
+
 diet <- read.csv("Diet.csv",header=T)
 diet$Diet<-as.character(diet$Diet)
 
@@ -140,7 +141,7 @@ shinyServer(function(input, output,session) {
   
  
   ###Graph the plot of interaction###
-  output$plot1<-renderPlot(if (input$menu1=='Otter') {ggplot(pred.data, aes(x = Year, y = Otters, colour = Location)) + 
+  output$plot_gg<-renderPlot(if (input$menu1=='Otter') {ggplot(pred.data, aes(x = Year, y = Otters, colour = Location)) + 
                              geom_line() + geom_point(data = seaotters) + 
                              xlab("Year") + ylab("Otters")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
                                                                  panel.background = element_blank(), axis.line = element_line(colour = "black"))}
@@ -320,54 +321,54 @@ shinyServer(function(input, output,session) {
   
   ######################################  Bank B #############################################################
   numbers <- reactiveValues(strong = c(), moderate = c(), insig = c(), indexB = c(), question = data.frame())
-  
+
   observeEvent(input$go,{
     numbers$strong = sample(1:8,1)
     numbers$moderate = sample(9:16,1)
     numbers$insig= sample(17:24,1)
-   
-    
+
+
     numbers$index = sample(c("A","B","C"),3)
     numbers$question = cbind(bank[c(numbers$strong,numbers$moderate,numbers$insig),],numbers$index)
-    
+
   })
   output$plot1 <- renderUI({
     img(src = numbers$question[numbers$question[5] == "A",4], width = "95%", height = "95%", style = "text-align: center")
   })
-  
+
   output$table1 <- renderUI({
     img(src = numbers$question[numbers$question[5] == "A",3], width = "95%", height = "95%", style = "text-align: center")
   })
- 
+
   output$plot2 <- renderUI({
     img(src = numbers$question[numbers$question[5] == "B",4], width = "95%", height = "95%", style = "text-align: center")
   })
-  
+
   output$table2 <- renderUI({
     img(src = numbers$question[numbers$question[5] == "B",3], width = "95%", height = "95%", style = "text-align: center")
   })
-  
+
   output$plot3 <- renderUI({
     img(src = numbers$question[numbers$question[5] == "C",4], width = "95%", height = "95%", style = "text-align: center")
   })
-  
+
   output$table3 <- renderUI({
     img(src = numbers$question[numbers$question[5] == "C",3], width = "95%", height = "95%", style = "text-align: center")
   })
- 
-  
+
+
   #####buttons####
-  
+
   observeEvent(input$submitA,{
     updateButton(session,"submitA",disabled = TRUE)
   })
   observeEvent(input$nextA,{
     updateButton(session,"submitA",disabled = FALSE)
   })
-  
+
   ###################check answers#####
-  
-  observeEvent(input$submitA,{  
+
+  observeEvent(input$submitA,{
     observeEvent(input$clearA,{
       output$answer1 <- renderUI({
         img(src = NULL,width = 30)
@@ -385,7 +386,7 @@ shinyServer(function(input, output,session) {
       })
     })
   })
-  observeEvent(input$submitA,{  
+  observeEvent(input$submitA,{
     observeEvent(input$clearA,{
       output$answer2 <- renderUI({
         img(src = NULL,width = 30)
@@ -403,7 +404,7 @@ shinyServer(function(input, output,session) {
       })
     })
   })
-  observeEvent(input$submitA,{  
+  observeEvent(input$submitA,{
     observeEvent(input$clearA,{
       output$answer3 <- renderUI({
         img(src = NULL,width = 30)
@@ -421,8 +422,8 @@ shinyServer(function(input, output,session) {
       })
     })
   })
-  
-    
+
+
 ##closing for ui DON'T DELET####  
 })
 
