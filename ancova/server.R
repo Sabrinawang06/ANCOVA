@@ -96,6 +96,8 @@ shinyServer(function(input, output,session) {
     updateTabItems(session,"tabs","instruction")
   })
   
+  
+  
   ###############################  Exploring  ##############################
   
   
@@ -332,28 +334,40 @@ shinyServer(function(input, output,session) {
     numbers$question = cbind(bank[c(numbers$strong,numbers$moderate,numbers$insig),],numbers$index)
 
   })
+  
+  observeEvent(input$new,{
+    numbers$strong = sample(1:8,1)
+    numbers$moderate = sample(9:16,1)
+    numbers$insig= sample(17:24,1)
+    
+    
+    numbers$index = sample(c("A","B","C"),3)
+    numbers$question = cbind(bank[c(numbers$strong,numbers$moderate,numbers$insig),],numbers$index)
+    
+  })
+  
   output$plot1 <- renderUI({
-    img(src = numbers$question[numbers$question[5] == "A",4], width = "95%", height = "95%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "A",4], width = "130%", height = "130%", style = "text-align: center")
   })
 
   output$table1 <- renderUI({
-    img(src = numbers$question[numbers$question[5] == "A",3], width = "95%", height = "95%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "A",3], width = "130%", height = "130%", style = "text-align: center")
   })
 
   output$plot2 <- renderUI({
-    img(src = numbers$question[numbers$question[5] == "B",4], width = "95%", height = "95%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "B",4], width = "130%", height = "130%", style = "text-align: center")
   })
 
   output$table2 <- renderUI({
-    img(src = numbers$question[numbers$question[5] == "B",3], width = "95%", height = "95%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "B",3], width = "130%", height = "130%", style = "text-align: center")
   })
 
   output$plot3 <- renderUI({
-    img(src = numbers$question[numbers$question[5] == "C",4], width = "95%", height = "95%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "C",4], width = "130%", height = "130%", style = "text-align: center")
   })
 
   output$table3 <- renderUI({
-    img(src = numbers$question[numbers$question[5] == "C",3], width = "95%", height = "95%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "C",3], width = "130%", height = "130%", style = "text-align: center")
   })
 
 
@@ -362,14 +376,14 @@ shinyServer(function(input, output,session) {
   observeEvent(input$submitA,{
     updateButton(session,"submitA",disabled = TRUE)
   })
-  observeEvent(input$nextA,{
+  observeEvent(input$new,{
     updateButton(session,"submitA",disabled = FALSE)
   })
 
   ###################check answers#####
 
   observeEvent(input$submitA,{
-    observeEvent(input$clearA,{
+    observeEvent(input$new,{
       output$answer1 <- renderUI({
         img(src = NULL,width = 30)
       })
@@ -387,7 +401,7 @@ shinyServer(function(input, output,session) {
     })
   })
   observeEvent(input$submitA,{
-    observeEvent(input$clearA,{
+    observeEvent(input$new,{
       output$answer2 <- renderUI({
         img(src = NULL,width = 30)
       })
@@ -405,7 +419,7 @@ shinyServer(function(input, output,session) {
     })
   })
   observeEvent(input$submitA,{
-    observeEvent(input$clearA,{
+    observeEvent(input$new,{
       output$answer3 <- renderUI({
         img(src = NULL,width = 30)
       })

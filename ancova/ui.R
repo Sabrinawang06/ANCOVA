@@ -160,8 +160,8 @@ ui <- dashboardPage(skin = "black",
                         tabItem(tabName='game',
                                 fluidRow(wellPanel(
                                   br(),
-                                  dragUI("plot","A", style = "width: 120px; height: 23px;")
-                                  ,class = "col-lg-3 col-md-3 wellBorder",
+                                  dragUI("plot","A", style = "width: 140px; height: 23px;")
+                                  ,class = "col-lg-3 col-md-5 wellBorder",
                                   div(style = "text-align:center",
 
                                       uiOutput('plot1')),
@@ -173,7 +173,7 @@ ui <- dashboardPage(skin = "black",
 
                                 wellPanel(
                                   br(),
-                                  dragUI("plot2","B", style = "width: 120px; height: 50px;")
+                                  dragUI("plot2","B", style = "width: 140px; height: 50px;")
                                   ,class = "col-lg-3 col-md-3 wellBorder",
 
 
@@ -184,7 +184,7 @@ ui <- dashboardPage(skin = "black",
                                 ),
                                 wellPanel(
                                   br(),
-                                  dragUI("plot3","C", style = "width: 120px; height: 50px;")
+                                  dragUI("plot3","C", style = "width: 140px; height: 50px;")
                                   ,class = "col-lg-3 col-md-3 wellBorder",
 
                                   div(style = "text-align:center", uiOutput('plot3')),
@@ -224,7 +224,7 @@ ui <- dashboardPage(skin = "black",
 
                                  column(1,offset = 4, conditionalPanel("(input.drp1!='') & (input.drp2!='') & (input.drp3!='') & (input.drp4!='') "
                                                                        ,actionButton("submitA", "Submit Answer", icon("bolt"),style='padding:10px; font-size:120%',class="circle grow"))),
-                                 column(1,offset = 5,bsButton("next1","Next>>",icon("bolt"),style='padding:10px; font-size:120%',class="circle grow", disabled = TRUE))
+                                 column(1,offset = 5,bsButton("new","New>>",icon("bolt"),style='padding:10px; font-size:120%',class="circle grow", disabled = TRUE))
                                )
 
                                
