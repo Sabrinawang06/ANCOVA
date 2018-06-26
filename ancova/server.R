@@ -8,16 +8,17 @@ library(ggplot2)
 library(dplyr)  ###NEW PACKAGE 
 library(shinydashboard)
 library(simstudy) ### NEW PACKAGE 
+library(lubridate)###NEW PACKGE
 
-#Use jscode to for reset button to reload the app
-jsResetCode <- "shinyjs.reset = function() {history.go(0)}"
-
-#Define the function to disable all the button
-disableActionButton <- function(id,session) {
-  session$sendCustomMessage(type="jsCode",
-                            list(code= paste("$('#",id,"').prop('disabled',true)"
-                                             ,sep="")))
-}
+# #Use jscode to for reset button to reload the app
+# jsResetCode <- "shinyjs.reset = function() {history.go(0)}"
+# 
+# #Define the function to disable all the button
+# disableActionButton <- function(id,session) {
+#   session$sendCustomMessage(type="jsCode",
+#                             list(code= paste("$('#",id,"').prop('disabled',true)"
+#                                              ,sep="")))
+# }
 
 
 ####read in dataset###
@@ -379,7 +380,32 @@ shinyServer(function(input, output,session) {
   observeEvent(input$new,{
     updateButton(session,"submitA",disabled = FALSE)
   })
+  
+  observeEvent(input$new,{
+    reset('drp1')
+    reset('drp2')
+    reset('drp3')
+    reset('plotA')
+    reset('plotB')
+    reset('plotB')
+    reset('answer1')
+    reset('answer2')
+    reset('answer3')
+      removeUI(
+        selector = "div:has(> #drp1)"
+      )
+      
+      insertUI(
+        selector = "#new",
+        where = "afterEnd",
+        ui = textInput(paste0("txt", input$add),
+                       "Insert some text")
+      )
+      
+  })
 
+  
+  
   ###################check answers#####
 
   observeEvent(input$submitA,{
@@ -391,7 +417,7 @@ shinyServer(function(input, output,session) {
     observe({
       output$answer1 <- renderUI({
         if (!is.null(input$drp1)){
-          if (input$drp1 == numbers$question[numbers$question[1]== "right", 6]){
+          if (input$drp1 == numbers$question[numbers$question[5]== "A", 4]){
             img(src = "check.png",width = 30)
           }else{
             img(src = "cross.png",width = 30)
@@ -409,7 +435,7 @@ shinyServer(function(input, output,session) {
     observe({
       output$answer2 <- renderUI({
         if (!is.null(input$drp2)){
-          if (input$drp2 == numbers$question[numbers$question[1]== "left", 6]){
+          if (input$drp2 == numbers$question[numbers$question[5]== "B", 4]){
             img(src = "check.png",width = 30)
           }else{
             img(src = "cross.png",width = 30)
@@ -427,7 +453,7 @@ shinyServer(function(input, output,session) {
     observe({
       output$answer3 <- renderUI({
         if (!is.null(input$drp3)){
-          if (input$drp3 == numbers$question[numbers$question[1]== "normal", 6]){
+          if (input$drp3 == numbers$question[numbers$question[5]== "C", 4]){
             img(src = "check.png",width = 30)
           }else{
             img(src = "cross.png",width = 30)
@@ -436,6 +462,42 @@ shinyServer(function(input, output,session) {
       })
     })
   })
+  
+  
+  ###########timer####################
+  
+  # Initialize the timer, 30 seconds, not active.
+  timer <- reactiveVal(30)
+  active <- reactiveVal(FALSE)
+  
+  # Output the time left.
+  output$timeleft <- renderText({
+    paste("Time left: ", seconds_to_period(timer()))
+  })
+  
+  # observer that invalidates every second. If timer is active, decrease by one.
+  observe({
+    invalidateLater(1000, session)
+    isolate({
+      if(active())
+      {
+        timer(timer()-1)
+        if(timer()<1)
+        {
+          active(FALSE)
+          showModal(modalDialog(
+            title = "Important message",
+            "Countdown completed!"
+          ))
+        }
+      }
+    })
+  })
+  
+  # observers for actionbuttons
+  observeEvent(input$start_timer, {active(TRUE)})
+  #observeEvent(input$stop, {active(FALSE)})
+  observeEvent(input$set, {timer(input$seconds)})
 
 
 ##closing for ui DON'T DELET####  

@@ -8,9 +8,10 @@ library(ggplot2)
 library(dplyr)
 library(shinydashboard)
 library(simstudy)
+library(lubridate)
 
-#Use jscode to for reset button to reload the app
-jsResetCode <- "shinyjs.reset = function() {history.go(0)}"
+# #Use jscode to for reset button to reload the app
+# jsResetCode <- "shinyjs.reset = function() {history.go(0)}"
 
 ui <- dashboardPage(skin = "black",
                     dashboardHeader(title = "ANCOVA",
@@ -34,6 +35,9 @@ ui <- dashboardPage(skin = "black",
                         tags$style(HTML('#start{background-color: #D35400}')),
                         tags$style(HTML('#go{background-color: #D35400}')),
                         tags$style(HTML('#submitA{background-color: #D35400}')),
+                        tags$style(HTML('#new{background-color: #D35400}')),
+                        tags$style(HTML('#start_timer{background-color: #D35400}')),
+                        tags$style(HTML('#set{background-color: #D35400}')),
                         tags$head(tags$style(HTML("
                             #analysis1 {
                               font-size: 16px;
@@ -158,33 +162,39 @@ ui <- dashboardPage(skin = "black",
                         
                         
                         tabItem(tabName='game',
+                                fluidRow(column(11,numericInput('seconds','Select the time you need for this game',value=30,min=30,max=120,step=10)),
+                                         column(6,actionButton('start_timer','Start',icon("bolt"),style='padding:10px; font-size:120%',class="circle grow")),
+                                         column(6,actionButton('set','Set Timer',icon("bolt"),style='padding:10px; font-size:120%',class="circle grow"))
+                                         ),br(),
+                                fluidRow(column(3,offset = 9,textOutput("timeleft"))),br(),
                                 fluidRow(wellPanel(
                                   br(),
-                                  dragUI("plot","A", style = "width: 140px; height: 23px;")
-                                  ,class = "col-lg-3 col-md-5 wellBorder",
+                                  dragUI("plotA","A", style = "width: 160px; height: 23px;")
+                                  ,class = "col-lg-3 col-md-6 wellBorder",
                                   div(style = "text-align:center",
 
                                       uiOutput('plot1')),
 
 
                                   br(),
+                                  br(),
                                   br()
                                 ),
 
                                 wellPanel(
                                   br(),
-                                  dragUI("plot2","B", style = "width: 140px; height: 50px;")
+                                  dragUI("plotB","B", style = "width: 140px; height: 50px;")
                                   ,class = "col-lg-3 col-md-3 wellBorder",
 
 
                                   div(style = "text-align:center", uiOutput('plot2')),
 
-                                  br()
+                                  br(),br(),br()
 
                                 ),
                                 wellPanel(
                                   br(),
-                                  dragUI("plot3","C", style = "width: 140px; height: 50px;")
+                                  dragUI("plotC","C", style = "width: 140px; height: 50px;")
                                   ,class = "col-lg-3 col-md-3 wellBorder",
 
                                   div(style = "text-align:center", uiOutput('plot3')),
@@ -194,6 +204,8 @@ ui <- dashboardPage(skin = "black",
                                 )
                                ),
                                 fluidRow(
+                                  
+                                  
 
                                     wellPanel(dropUI("drp1", class = "dropelement"),
                                               div(style = "position:absolute;top: 10%;right:2%;",htmlOutput("answer1")), class = "wellTransparent col-sm-12 col-md-6 col-lg-3",
@@ -224,7 +236,7 @@ ui <- dashboardPage(skin = "black",
 
                                  column(1,offset = 4, conditionalPanel("(input.drp1!='') & (input.drp2!='') & (input.drp3!='') & (input.drp4!='') "
                                                                        ,actionButton("submitA", "Submit Answer", icon("bolt"),style='padding:10px; font-size:120%',class="circle grow"))),
-                                 column(1,offset = 5,bsButton("new","New>>",icon("bolt"),style='padding:10px; font-size:120%',class="circle grow", disabled = TRUE))
+                                 column(1,offset = 5,bsButton("new","New>>",icon("bolt"),style='padding:10px; font-size:120%',class="circle grow", disabled = FALSE))
                                )
 
                                
