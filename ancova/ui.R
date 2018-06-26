@@ -32,12 +32,12 @@ ui <- dashboardPage(skin = "black",
                         tags$link(rel = "stylesheet", type = "text/css", href = "navcolor.css") #customised style sheet
                       ),
                       tags$head(
-                        tags$style(HTML('#start{background-color: #D35400}')),
-                        tags$style(HTML('#go{background-color: #D35400}')),
-                        tags$style(HTML('#submitA{background-color: #D35400}')),
-                        tags$style(HTML('#new{background-color: #D35400}')),
-                        tags$style(HTML('#start_timer{background-color: #D35400}')),
-                        tags$style(HTML('#set{background-color: #D35400}')),
+                        tags$style(HTML('#start{color:white;background-color: #D35400}')),
+                        tags$style(HTML('#go{color:white;background-color: #D35400}')),
+                        tags$style(HTML('#submitA{color:white;background-color: #D35400}')),
+                        tags$style(HTML('#new{color:white;background-color: #D35400}')),
+                        tags$style(HTML('#start_timer{color:white;background-color: #D35400}')),
+                        tags$style(HTML('#set{color:white;background-color: #D35400}')),
                         tags$head(tags$style(HTML("
                             #analysis1 {
                               font-size: 16px;
@@ -46,7 +46,9 @@ ui <- dashboardPage(skin = "black",
                             "))),
                         tags$head(tags$style(HTML("
                             #p {font-size: 18px;
-                                padding-left: 5px")))
+                                padding-left: 5px"))),
+                        tags$style(type='text/css', '#timeleft {background-color:#D35400; font-size: 30px; 
+                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 100px}')
                         
                         
                       ),
@@ -162,11 +164,13 @@ ui <- dashboardPage(skin = "black",
                         
                         
                         tabItem(tabName='game',
-                                fluidRow(column(11,numericInput('seconds','Select the time you need for this game',value=30,min=30,max=120,step=10)),
-                                         column(6,actionButton('start_timer','Start',icon("bolt"),style='padding:10px; font-size:120%',class="circle grow")),
-                                         column(6,actionButton('set','Set Timer',icon("bolt"),style='padding:10px; font-size:120%',class="circle grow"))
-                                         ),br(),
-                                fluidRow(column(3,offset = 9,textOutput("timeleft"))),br(),
+                                fluidRow(column(5,numericInput('seconds','Select the time you need for this game',value=30,min=30,max=120,step=10),
+                                         
+                                fluidRow(column(2,actionButton('start_timer','Start',style='padding:10px; font-size:90%')),
+                                         column(2,offset=1,actionButton('set','Set Timer',style='padding:10px; font-size:90%')))
+                                         ),
+                                column(3,offset=4,textOutput("timeleft"))),br(),
+                           
                                 fluidRow(wellPanel(
                                   br(),
                                   dragUI("plotA","A", style = "width: 160px; height: 23px;")
@@ -235,8 +239,8 @@ ui <- dashboardPage(skin = "black",
                                fluidRow(
 
                                  column(1,offset = 4, conditionalPanel("(input.drp1!='') & (input.drp2!='') & (input.drp3!='') & (input.drp4!='') "
-                                                                       ,actionButton("submitA", "Submit Answer", icon("bolt"),style='padding:10px; font-size:120%',class="circle grow"))),
-                                 column(1,offset = 5,bsButton("new","New>>",icon("bolt"),style='padding:10px; font-size:120%',class="circle grow", disabled = FALSE))
+                                                                       ,actionButton("submitA", "Submit Answer",style='padding:10px; font-size:120%',class="circle grow"))),
+                                 column(1,offset = 5,bsButton("new","New>>",style='padding:10px; font-size:120%',class="circle grow", disabled = FALSE))
                                )
 
                                
