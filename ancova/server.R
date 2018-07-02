@@ -9,7 +9,7 @@ library(dplyr)  ###NEW PACKAGE
 library(shinydashboard)
 library(simstudy) ### NEW PACKAGE 
 library(lubridate)###NEW PACKGE
-library(shinyWidgets)##NEW PACKAGE
+
 
 # #Use jscode to for reset button to reload the app
 # jsResetCode <- "shinyjs.reset = function() {history.go(0)}"
@@ -352,28 +352,57 @@ shinyServer(function(input, output,session) {
     img(src = numbers$question[numbers$question[5] == "A",4], width = "100%", height = "100%", style = "text-align: center")
   })
 
-  output$table1 <- renderUI({
-    img(src = numbers$question[numbers$question[5] == "A",3], width = "100%", height = "100%", style = "text-align: center")
-  })
+  # output$table1 <- renderUI({
+  #   img(src = numbers$question[numbers$question[5] == "A",3], width = "100%", height = "100%", style = "text-align: center")
+  # })
 
   output$plot2 <- renderUI({
     img(src = numbers$question[numbers$question[5] == "B",4], width = "100%", height = "100%", style = "text-align: center")
   })
 
-  output$table2 <- renderUI({
-    img(src = numbers$question[numbers$question[5] == "B",3], width = "100%", height = "100%", style = "text-align: center")
-  })
+  # output$table2 <- renderUI({
+  #   img(src = numbers$question[numbers$question[5] == "B",3], width = "100%", height = "100%", style = "text-align: center")
+  # })
 
   output$plot3 <- renderUI({
     img(src = numbers$question[numbers$question[5] == "C",4], width = "100%", height = "100%", style = "text-align: center")
   })
 
-  output$table3 <- renderUI({
-    img(src = numbers$question[numbers$question[5] == "C",3], width = "100%", height = "100%", style = "text-align: center")
+  # output$table3 <- renderUI({
+  #   img(src = numbers$question[numbers$question[5] == "C",3], width = "100%", height = "100%", style = "text-align: center")
+  # })
+
+ #######randomize the table######
+  
+  index <- reactiveValues(index = 3)
+  
+  observeEvent(input$new,{index$index <- sample(1:4,1, replace=TRUE, prob=NULL)
   })
-
-
+  
+  output$table1<-renderUI({
+    if (index$index==1){img(src = numbers$question[numbers$question[5] == "A",3], width = "100%", height = "100%", style = "text-align: center")}
+    else if (index$index==2){img(src = numbers$question[numbers$question[5] == "B",3], width = "100%", height = "100%", style = "text-align: center")}
+    else if (index$index==3){img(src = numbers$question[numbers$question[5] == "C",3], width = "100%", height = "100%", style = "text-align: center")}
+    else if (index$index==4){img(src = numbers$question[numbers$question[5] == "A",3], width = "100%", height = "100%", style = "text-align: center")}
+    })
+  
+  output$table2<-renderUI({
+    if (index$index==1){img(src = numbers$question[numbers$question[5] == "B",3], width = "100%", height = "100%", style = "text-align: center")}
+    else if (index$index==2){img(src = numbers$question[numbers$question[5] == "C",3], width = "100%", height = "100%", style = "text-align: center")}
+    else if (index$index==3){img(src = numbers$question[numbers$question[5] == "A",3], width = "100%", height = "100%", style = "text-align: center")}
+    else if (index$index==4){img(src = numbers$question[numbers$question[5] == "C",3], width = "100%", height = "100%", style = "text-align: center")}
+  })
+  
+  output$table3<-renderUI({
+    if (index$index==1){img(src = numbers$question[numbers$question[5] == "C",3], width = "100%", height = "100%", style = "text-align: center")}
+    else if (index$index==2){img(src = numbers$question[numbers$question[5] == "A",3], width = "100%", height = "100%", style = "text-align: center")}
+    else if (index$index==3){img(src = numbers$question[numbers$question[5] == "B",3], width = "100%", height = "100%", style = "text-align: center")}
+    else if (index$index==4){img(src = numbers$question[numbers$question[5] == "B",3], width = "100%", height = "100%", style = "text-align: center")}
+  })
    
+  
+  
+  ####letter for the plot
   output$a<-renderUI(h3('A'))
   output$b<-renderUI(h3('B'))
   output$c<-renderUI(h3('C'))
@@ -393,9 +422,9 @@ shinyServer(function(input, output,session) {
     reset('plotA')
     reset('plotB')
     reset('plotB')
-    reset('answer1')
-    reset('answer2')
-    reset('answer3')
+    reset('radio1')
+    reset('radio2')
+    reset('radio3')
     
     
       
@@ -413,10 +442,14 @@ shinyServer(function(input, output,session) {
     })
     observe({
       output$answer1 <- renderUI({
-        if (!is.null(input$drp1)){
-          if (input$drp1 == numbers$question[numbers$question[5]== "A", 4]){
+        if (!is.null(input$radio1)){
+          if (index$index==1 &input$radio1 == 'A'){
             img(src = "check.png",width = 30)
-          }else{
+          }
+          else if (index$index==2 &input$radio1 == 'B') {img(src = "check.png",width = 30)}
+          else if (index$index==3 &input$radio1 == 'C'){img(src = "check.png",width = 30)}
+          else if (index$index==4 &input$radio1 == 'A'){img(src = "check.png",width = 30)}
+          else{
             img(src = "cross.png",width = 30)
           }
         }
@@ -431,10 +464,14 @@ shinyServer(function(input, output,session) {
     })
     observe({
       output$answer2 <- renderUI({
-        if (!is.null(input$drp2)){
-          if (input$drp2 == numbers$question[numbers$question[5]== "B", 4]){
+        if (!is.null(input$radio2)){
+          if (index$index==1 &input$radio2 == 'B'){
             img(src = "check.png",width = 30)
-          }else{
+          }
+          else if (index$index==2 &input$radio2 == 'C') {img(src = "check.png",width = 30)}
+          else if (index$index==3 &input$radio2 == 'A'){img(src = "check.png",width = 30)}
+          else if (index$index==4 &input$radio2 == 'C'){img(src = "check.png",width = 30)}
+          else{
             img(src = "cross.png",width = 30)
           }
         }
@@ -449,10 +486,14 @@ shinyServer(function(input, output,session) {
     })
     observe({
       output$answer3 <- renderUI({
-        if (!is.null(input$drp3)){
-          if (input$drp3 == numbers$question[numbers$question[5]== "C", 4]){
+        if (!is.null(input$radio3)){
+          if (index$index==1 &input$radio3 == 'C'){
             img(src = "check.png",width = 30)
-          }else{
+          }
+          else if (index$index==2 &input$radio3 == 'A') {img(src = "check.png",width = 30)}
+          else if (index$index==3 &input$radio3 == 'B'){img(src = "check.png",width = 30)}
+          else if (index$index==4 &input$radio3 == 'B'){img(src = "check.png",width = 30)}
+          else{
             img(src = "cross.png",width = 30)
           }
         }

@@ -9,7 +9,7 @@ library(dplyr)
 library(shinydashboard)
 library(simstudy)
 library(lubridate)
-library(shinyWidgets)##NEW PACKAGE
+
 
 # #Use jscode to for reset button to reload the app
 # jsResetCode <- "shinyjs.reset = function() {history.go(0)}"
@@ -55,8 +55,8 @@ ui <- dashboardPage(skin = "black",
                         tags$style(type='text/css', '#b {background-color:#C39BD3; font-size: 20px; 
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
                         tags$style(type='text/css', '#c {background-color:#C39BD3; font-size: 20px; 
-                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
-                        tags$style(HTML('#radio1{color:white;background-color: #BB8FCE}')),
+                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}')
+                      
                         
                         
                       ),
@@ -188,11 +188,16 @@ ui <- dashboardPage(skin = "black",
                                          column(4,uiOutput('plot3'))
                                 ),
                                 
-                                br(), br(),hr(),
-                                fluidRow(column(4,uiOutput('table3'),fluidRow(radioButtons('radio1','',c('A','B','C'),selected=NULL,inline=TRUE),align='center')),
-                                         column(4,uiOutput('table1'),fluidRow(radioButtons('radio2','',c('A','B','C'),selected=NULL,inline=TRUE))),
-                                         column(4,uiOutput('table2'),fluidRow(radioButtons('radio3','',c('A','B','C'),selected=NULL,inline=TRUE)))
+                                br(),hr(),
+                                fluidRow(column(4,uiOutput('table3')),
+                                         column(4,uiOutput('table1')),
+                                         column(4,uiOutput('table2'))
                                 ),
+                                
+                                fluidRow(column(4,style='padding:30px;',fluidRow(radioButtons('radio1','',c('A','B','C'),selected=NULL,inline=TRUE),uiOutput('answer1'))),
+                                         column(4,style='padding:30px;',fluidRow(radioButtons('radio2','',c('A','B','C'),selected=NULL,inline=TRUE),uiOutput('answer2'))),
+                                         column(4,style='padding:30px;',fluidRow(radioButtons('radio3','',c('A','B','C'),selected=NULL,inline=TRUE),uiOutput('answer3')))
+                                         ),
                                   
                                 
 
@@ -202,8 +207,7 @@ ui <- dashboardPage(skin = "black",
 
                                fluidRow(
 
-                                 column(1,offset = 4, conditionalPanel("(input.drp1!='') & (input.drp2!='') & (input.drp3!='') & (input.drp4!='') "
-                                                                       ,actionButton("submitA", "Submit Answer",style='padding:10px; font-size:120%',class="circle grow"))),
+                                 column(1,offset = 4,actionButton("submitA", "Submit Answer",style='padding:10px; font-size:120%',class='circle grow')),
                                  column(1,offset = 5,bsButton("new","New>>",style='padding:10px; font-size:120%',class="circle grow", disabled = FALSE))
                                )
 
