@@ -55,7 +55,9 @@ ui <- dashboardPage(skin = "black",
                         tags$style(type='text/css', '#b {background-color:#C39BD3; font-size: 20px; 
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
                         tags$style(type='text/css', '#c {background-color:#C39BD3; font-size: 20px; 
-                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}')
+                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
+                        tags$style(HTML('#radio1{color:white;background-color: #BB8FCE}')),
+                        
                         
                       ),
                       
@@ -187,9 +189,9 @@ ui <- dashboardPage(skin = "black",
                                 ),
                                 
                                 br(), br(),hr(),
-                                fluidRow(column(4,uiOutput('table3'),fluidRow(prettyRadioButtons('radio1','',c('A','B','C'),selected=NULL,inline=TRUE,bigger=TRUE,width='150%'),align='center')),
-                                         column(4,uiOutput('table1'),fluidRow(prettyRadioButtons('radio2','',c('A','B','C'),selected=NULL,inline=TRUE))),
-                                         column(4,uiOutput('table2'),fluidRow(prettyRadioButtons('radio3','',c('A','B','C'),selected=NULL,inline=TRUE)))
+                                fluidRow(column(4,uiOutput('table3'),fluidRow(radioButtons('radio1','',c('A','B','C'),selected=NULL,inline=TRUE),align='center')),
+                                         column(4,uiOutput('table1'),fluidRow(radioButtons('radio2','',c('A','B','C'),selected=NULL,inline=TRUE))),
+                                         column(4,uiOutput('table2'),fluidRow(radioButtons('radio3','',c('A','B','C'),selected=NULL,inline=TRUE)))
                                 ),
                                   
                                 
