@@ -32,22 +32,22 @@ ui <- dashboardPage(skin = "black",
                         tags$link(rel = "stylesheet", type = "text/css", href = "navcolor.css") #customised style sheet
                       ),
                       tags$head(
-                        tags$style(HTML('#start{color:white;background-color: #D35400}')),
-                        tags$style(HTML('#go{color:white;background-color: #D35400}')),
-                        tags$style(HTML('#submitA{color:white;background-color: #D35400}')),
-                        tags$style(HTML('#new{color:white;background-color: #D35400}')),
-                        tags$style(HTML('#start_timer{color:white;background-color: #D35400}')),
-                        tags$style(HTML('#set{color:white;background-color: #D35400}')),
+                        tags$style(HTML('#start{color:white;background-color: #BB8FCE}')),
+                        tags$style(HTML('#go{color:white;background-color: #BB8FCE}')),
+                        tags$style(HTML('#submitA{color:white;background-color: #BB8FCE}')),
+                        tags$style(HTML('#new{color:white;background-color: #BB8FCE}')),
+                        tags$style(HTML('#start_timer{color:white;background-color: #BB8FCE}')),
+                        tags$style(HTML('#set{color:white;background-color: #BB8FCE}')),
                         tags$head(tags$style(HTML("
                             #analysis1 {
                               font-size: 16px;
-                              background-color: #FDF2E9  
+                              background-color: #F5EEF8   
                             }
                             "))),
                         tags$head(tags$style(HTML("
                             #p {font-size: 18px;
                                 padding-left: 5px"))),
-                        tags$style(type='text/css', '#timeleft {background-color:#D35400; font-size: 30px; 
+                        tags$style(type='text/css', '#timeleft {background-color:#BB8FCE; font-size: 30px; 
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 100px}')
                         
                         
@@ -62,21 +62,21 @@ ui <- dashboardPage(skin = "black",
                                   column(8,offset = 1, uiOutput("background1"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "right.png", width = 20)),
+                                  column(1,img(src = "check.png", width = 20)),
                                   column(8,uiOutput("background2"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "right.png", width = 20)),
+                                  column(1,img(src = "check.png", width = 20)),
                                   column(8,uiOutput("background3"))
                                   ), hr(),
                                 
                                 fluidRow(
-                                  column(1,img(src = "right.png", width = 20)),
+                                  column(1,img(src = "check.png", width = 20)),
                                   column(8,uiOutput("background4"))
                                 ),
                                 fluidRow(column(11,offset=2, img(src='plot.png',width=550))),
                                 fluidRow(
-                                  column(1,img(src = "right.png", width = 20)),
+                                  column(1,img(src = "check.png", width = 20)),
                                   column(8,uiOutput("background5"))
                                 ),
                                   fluidRow(
@@ -94,7 +94,7 @@ ui <- dashboardPage(skin = "black",
                                   column(8,offset = 1, uiOutput("about1"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "right.png", width = 20)),
+                                  column(1,img(src = "check.png", width = 20)),
                                   column(8,uiOutput("about2"))
                                 ),br(),
                                 
@@ -103,15 +103,15 @@ ui <- dashboardPage(skin = "black",
                                   column(8,offset = 1, uiOutput("instruction1"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "right.png", width = 20)),
+                                  column(1,img(src = "check.png", width = 20)),
                                   column(8,uiOutput("instruction2"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "right.png", width = 20)),
+                                  column(1,img(src = "check.png", width = 20)),
                                   column(8,uiOutput("instruction3"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "right.png", width = 20)),
+                                  column(1,img(src = "check.png", width = 20)),
                                   column(8,uiOutput("instruction4")),
                                   column(5,actionButton("go","Go",icon("bolt"),style='padding:10px; font-size:120%',class="circle grow"))
                                 ),br(),br(),
@@ -119,7 +119,7 @@ ui <- dashboardPage(skin = "black",
                                   column(8,offset = 1, uiOutput("ack1"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "right.png", width = 20)),
+                                  column(1,img(src = "check.png", width = 20)),
                                   column(8, uiOutput("ack2"))
                                 )
                                 
@@ -211,24 +211,24 @@ ui <- dashboardPage(skin = "black",
                                   
                                   
 
-                                    wellPanel(dropUI("drp1", class = "dropelement"),
+                                  tags$div(id='drop1',wellPanel(dropUI("drp1", class = "dropelement"),
                                               div(style = "position:absolute;top: 10%;right:2%;",htmlOutput("answer1")), class = "wellTransparent col-sm-12 col-md-6 col-lg-3",
                                               br(),
                                               uiOutput("table1")
 
-                                    ),
-                                    wellPanel(dropUI("drp2", class = "dropelement"),
+                                    )),
+                                  tags$div(id='drop2',wellPanel(dropUI("drp2", class = "dropelement"),
                                               div(style = "position:absolute;top: 10%;right:2%;",htmlOutput("answer2")), class = "wellTransparent col-sm-12 col-md-6 col-lg-3",
                                               br(),
 
                                               uiOutput("table2")
-                                    ),
-                                    wellPanel(dropUI("drp3", class = "dropelement"),
+                                    )),
+                                  tags$div(id='drop3',wellPanel(dropUI("drp3", class = "dropelement"),
                                               div(style = "position:absolute;top: 10%;right:2%;",htmlOutput("answer3")), class = "wellTransparent col-sm-12 col-md-6 col-lg-3",
                                               br(),
 
                                               uiOutput("table3")
-                                    )
+                                    ))
 
 
 

@@ -391,15 +391,20 @@ shinyServer(function(input, output,session) {
     reset('answer1')
     reset('answer2')
     reset('answer3')
+    
       removeUI(
         selector = "div:has(> #drp1)"
       )
       
       insertUI(
-        selector = "#new",
-        where = "afterEnd",
-        ui = textInput(paste0("txt", input$add),
-                       "Insert some text")
+        selector = " #new",
+        where = "beforeBegin",
+        ui =   tags$div(id='drop1',wellPanel(dropUI("drp1", class = "dropelement"),
+                        div(style = "position:absolute;top: 10%;right:2%;",htmlOutput("answer1")), class = "wellTransparent col-sm-12 col-md-6 col-lg-3",
+                        br(),
+                        uiOutput("table1")
+                        
+        ))
       )
       
   })
