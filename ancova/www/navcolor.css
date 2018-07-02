@@ -9,6 +9,11 @@
         border-radius:50%;
 }
 
+
+.checkbox-inline, .radio-inline {
+    margin-right: 150px;
+}
+
 .skin-black .main-header>.navbar {
 	background-color: #BB8FCE  ;
 }

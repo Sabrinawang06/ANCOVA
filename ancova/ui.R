@@ -9,6 +9,7 @@ library(dplyr)
 library(shinydashboard)
 library(simstudy)
 library(lubridate)
+library(shinyWidgets)##NEW PACKAGE
 
 # #Use jscode to for reset button to reload the app
 # jsResetCode <- "shinyjs.reset = function() {history.go(0)}"
@@ -48,8 +49,13 @@ ui <- dashboardPage(skin = "black",
                             #p {font-size: 18px;
                                 padding-left: 5px"))),
                         tags$style(type='text/css', '#timeleft {background-color:#BB8FCE; font-size: 30px; 
-                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 100px}')
-                        
+                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 100px}'),
+                        tags$style(type='text/css', '#a {background-color:#C39BD3; font-size: 20px; 
+                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
+                        tags$style(type='text/css', '#b {background-color:#C39BD3; font-size: 20px; 
+                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
+                        tags$style(type='text/css', '#c {background-color:#C39BD3; font-size: 20px; 
+                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}')
                         
                       ),
                       
@@ -170,69 +176,25 @@ ui <- dashboardPage(skin = "black",
                                          column(2,offset=1,actionButton('set','Set Timer',style='padding:10px; font-size:90%')))
                                          ),
                                 column(3,offset=4,textOutput("timeleft"))),br(),
-                           
-                                fluidRow(wellPanel(
-                                  br(),
-                                  dragUI("plotA","A", style = "width: 160px; height: 23px;")
-                                  ,class = "col-lg-3 col-md-6 wellBorder",
-                                  div(style = "text-align:center",
-
-                                      uiOutput('plot1')),
-
-
-                                  br(),
-                                  br(),
-                                  br()
+                                
+                                fluidRow(column(2, offset=1,uiOutput('a'),align='right'),
+                                         column(2,offset=2,uiOutput('b'),align='right'),
+                                         column(2,offset=2,uiOutput('c'),align='left')),
+                          
+                                fluidRow(column(4,uiOutput('plot1')),
+                                         column(4,uiOutput('plot2')),
+                                         column(4,uiOutput('plot3'))
                                 ),
-
-                                wellPanel(
-                                  br(),
-                                  dragUI("plotB","B", style = "width: 140px; height: 50px;")
-                                  ,class = "col-lg-3 col-md-3 wellBorder",
-
-
-                                  div(style = "text-align:center", uiOutput('plot2')),
-
-                                  br(),br(),br()
-
+                                
+                                br(), br(),hr(),
+                                fluidRow(column(4,uiOutput('table3'),fluidRow(prettyRadioButtons('radio1','',c('A','B','C'),selected=NULL,inline=TRUE,bigger=TRUE,width='150%'),align='center')),
+                                         column(4,uiOutput('table1'),fluidRow(prettyRadioButtons('radio2','',c('A','B','C'),selected=NULL,inline=TRUE))),
+                                         column(4,uiOutput('table2'),fluidRow(prettyRadioButtons('radio3','',c('A','B','C'),selected=NULL,inline=TRUE)))
                                 ),
-                                wellPanel(
-                                  br(),
-                                  dragUI("plotC","C", style = "width: 140px; height: 50px;")
-                                  ,class = "col-lg-3 col-md-3 wellBorder",
-
-                                  div(style = "text-align:center", uiOutput('plot3')),
-
-                                  br()
-
-                                )
-                               ),
-                                fluidRow(
                                   
-                                  
+                                
 
-                                  tags$div(id='drop1',wellPanel(dropUI("drp1", class = "dropelement"),
-                                              div(style = "position:absolute;top: 10%;right:2%;",htmlOutput("answer1")), class = "wellTransparent col-sm-12 col-md-6 col-lg-3",
-                                              br(),
-                                              uiOutput("table1")
-
-                                    )),
-                                  tags$div(id='drop2',wellPanel(dropUI("drp2", class = "dropelement"),
-                                              div(style = "position:absolute;top: 10%;right:2%;",htmlOutput("answer2")), class = "wellTransparent col-sm-12 col-md-6 col-lg-3",
-                                              br(),
-
-                                              uiOutput("table2")
-                                    )),
-                                  tags$div(id='drop3',wellPanel(dropUI("drp3", class = "dropelement"),
-                                              div(style = "position:absolute;top: 10%;right:2%;",htmlOutput("answer3")), class = "wellTransparent col-sm-12 col-md-6 col-lg-3",
-                                              br(),
-
-                                              uiOutput("table3")
-                                    ))
-
-
-
-                                  ),
+                               
 
 
 

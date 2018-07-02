@@ -9,6 +9,7 @@ library(dplyr)  ###NEW PACKAGE
 library(shinydashboard)
 library(simstudy) ### NEW PACKAGE 
 library(lubridate)###NEW PACKGE
+library(shinyWidgets)##NEW PACKAGE
 
 # #Use jscode to for reset button to reload the app
 # jsResetCode <- "shinyjs.reset = function() {history.go(0)}"
@@ -348,30 +349,34 @@ shinyServer(function(input, output,session) {
   })
   
   output$plot1 <- renderUI({
-    img(src = numbers$question[numbers$question[5] == "A",4], width = "130%", height = "130%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "A",4], width = "100%", height = "100%", style = "text-align: center")
   })
 
   output$table1 <- renderUI({
-    img(src = numbers$question[numbers$question[5] == "A",3], width = "130%", height = "130%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "A",3], width = "100%", height = "100%", style = "text-align: center")
   })
 
   output$plot2 <- renderUI({
-    img(src = numbers$question[numbers$question[5] == "B",4], width = "130%", height = "130%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "B",4], width = "100%", height = "100%", style = "text-align: center")
   })
 
   output$table2 <- renderUI({
-    img(src = numbers$question[numbers$question[5] == "B",3], width = "130%", height = "130%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "B",3], width = "100%", height = "100%", style = "text-align: center")
   })
 
   output$plot3 <- renderUI({
-    img(src = numbers$question[numbers$question[5] == "C",4], width = "130%", height = "130%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "C",4], width = "100%", height = "100%", style = "text-align: center")
   })
 
   output$table3 <- renderUI({
-    img(src = numbers$question[numbers$question[5] == "C",3], width = "130%", height = "130%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "C",3], width = "100%", height = "100%", style = "text-align: center")
   })
 
 
+   
+  output$a<-renderUI(h3('A'))
+  output$b<-renderUI(h3('B'))
+  output$c<-renderUI(h3('C'))
   #####buttons####
 
   observeEvent(input$submitA,{
@@ -392,20 +397,7 @@ shinyServer(function(input, output,session) {
     reset('answer2')
     reset('answer3')
     
-      removeUI(
-        selector = "div:has(> #drp1)"
-      )
-      
-      insertUI(
-        selector = " #new",
-        where = "beforeBegin",
-        ui =   tags$div(id='drop1',wellPanel(dropUI("drp1", class = "dropelement"),
-                        div(style = "position:absolute;top: 10%;right:2%;",htmlOutput("answer1")), class = "wellTransparent col-sm-12 col-md-6 col-lg-3",
-                        br(),
-                        uiOutput("table1")
-                        
-        ))
-      )
+    
       
   })
 
