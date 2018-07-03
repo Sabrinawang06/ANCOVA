@@ -1,18 +1,13 @@
 library(shiny)
 library(png)
 library(shinyBS)
-library(shinyjs)
 library(shinyDND)
-library(V8)
+library(shinyjs)
 library(ggplot2)
 library(dplyr)
 library(shinydashboard)
 library(simstudy)
 library(lubridate)
-
-
-# #Use jscode to for reset button to reload the app
-# jsResetCode <- "shinyjs.reset = function() {history.go(0)}"
 
 ui <- dashboardPage(skin = "black",
                     dashboardHeader(title = "ANCOVA",
@@ -70,21 +65,21 @@ ui <- dashboardPage(skin = "black",
                                   column(8,offset = 1, uiOutput("background1"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "check.png", width = 20)),
+                                  column(1,img(src = "right.png", width = 20)),
                                   column(8,uiOutput("background2"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "check.png", width = 20)),
+                                  column(1,img(src = "right.png", width = 20)),
                                   column(8,uiOutput("background3"))
                                   ), hr(),
                                 
                                 fluidRow(
-                                  column(1,img(src = "check.png", width = 20)),
+                                  column(1,img(src = "right.png", width = 20)),
                                   column(8,uiOutput("background4"))
                                 ),
                                 fluidRow(column(11,offset=2, img(src='plot.png',width=550))),
                                 fluidRow(
-                                  column(1,img(src = "check.png", width = 20)),
+                                  column(1,img(src = "right.png", width = 20)),
                                   column(8,uiOutput("background5"))
                                 ),
                                   fluidRow(
@@ -102,7 +97,7 @@ ui <- dashboardPage(skin = "black",
                                   column(8,offset = 1, uiOutput("about1"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "check.png", width = 20)),
+                                  column(1,img(src = "right.png", width = 20)),
                                   column(8,uiOutput("about2"))
                                 ),br(),
                                 
@@ -111,15 +106,15 @@ ui <- dashboardPage(skin = "black",
                                   column(8,offset = 1, uiOutput("instruction1"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "check.png", width = 20)),
+                                  column(1,img(src = "right.png", width = 20)),
                                   column(8,uiOutput("instruction2"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "check.png", width = 20)),
+                                  column(1,img(src = "right.png", width = 20)),
                                   column(8,uiOutput("instruction3"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "check.png", width = 20)),
+                                  column(1,img(src = "right.png", width = 20)),
                                   column(8,uiOutput("instruction4")),
                                   column(5,actionButton("go","Go",icon("bolt"),style='padding:10px; font-size:120%',class="circle grow"))
                                 ),br(),br(),
@@ -127,7 +122,7 @@ ui <- dashboardPage(skin = "black",
                                   column(8,offset = 1, uiOutput("ack1"))
                                 ),
                                 fluidRow(
-                                  column(1,img(src = "check.png", width = 20)),
+                                  column(1,img(src = "right.png", width = 20)),
                                   column(8, uiOutput("ack2"))
                                 )
                                 
@@ -189,26 +184,20 @@ ui <- dashboardPage(skin = "black",
                                 ),
                                 
                                 br(),hr(),
-                                fluidRow(column(4,uiOutput('table3')),
-                                         column(4,uiOutput('table1')),
-                                         column(4,uiOutput('table2'))
+                                fluidRow(column(4,uiOutput('table1')),
+                                         column(4,uiOutput('table2')),
+                                         column(4,uiOutput('table3'))
                                 ),
                                 
-                                fluidRow(column(4,style='padding:30px;',fluidRow(radioButtons('radio1','',c('A','B','C'),selected=NULL,inline=TRUE),uiOutput('answer1'))),
-                                         column(4,style='padding:30px;',fluidRow(radioButtons('radio2','',c('A','B','C'),selected=NULL,inline=TRUE),uiOutput('answer2'))),
-                                         column(4,style='padding:30px;',fluidRow(radioButtons('radio3','',c('A','B','C'),selected=NULL,inline=TRUE),uiOutput('answer3')))
+                                fluidRow(column(4,style='padding:30px;',fluidRow(radioButtons('radio1','',c('A','B','C'),selected='A',inline=TRUE),uiOutput('answer1'))),
+                                         column(4,style='padding:30px;',fluidRow(radioButtons('radio2','',c('A','B','C'),selected='A',inline=TRUE),uiOutput('answer2'))),
+                                         column(4,style='padding:30px;',fluidRow(radioButtons('radio3','',c('A','B','C'),selected='A',inline=TRUE),uiOutput('answer3')))
                                          ),
                                   
-                                
+                                 fluidRow(
 
-                               
-
-
-
-                               fluidRow(
-
-                                 column(1,offset = 4,actionButton("submitA", "Submit Answer",style='padding:10px; font-size:120%',class='circle grow')),
-                                 column(1,offset = 5,bsButton("new","New>>",style='padding:10px; font-size:120%',class="circle grow", disabled = FALSE))
+                                 column(1,offset = 4,actionButton("submitA", "Submit Answer",style='padding:10px; font-size:120%')),
+                                 column(1,offset = 5,bsButton("new","New>>",style='padding:10px; font-size:120%', disabled = FALSE))
                                )
 
                                

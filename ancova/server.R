@@ -1,25 +1,14 @@
 library(shiny)
 library(png)
 library(shinyBS)
-library(shinyDND)
 library(shinyjs)
-library(V8)
+library(shinyDND)
 library(ggplot2)
 library(dplyr)  ###NEW PACKAGE 
 library(shinydashboard)
 library(simstudy) ### NEW PACKAGE 
 library(lubridate)###NEW PACKGE
 
-
-# #Use jscode to for reset button to reload the app
-# jsResetCode <- "shinyjs.reset = function() {history.go(0)}"
-# 
-# #Define the function to disable all the button
-# disableActionButton <- function(id,session) {
-#   session$sendCustomMessage(type="jsCode",
-#                             list(code= paste("$('#",id,"').prop('disabled',true)"
-#                                              ,sep="")))
-# }
 
 
 ####read in dataset###
@@ -324,7 +313,7 @@ shinyServer(function(input, output,session) {
   #####game pictures#####
   
   ######################################  Bank B #############################################################
-  numbers <- reactiveValues(strong = c(), moderate = c(), insig = c(), indexB = c(), question = data.frame())
+  numbers <- reactiveValues(strong = c(), moderate = c(), insig = c(), index = c(), question = data.frame())
 
   observeEvent(input$go,{
     numbers$strong = sample(1:8,1)
@@ -332,7 +321,7 @@ shinyServer(function(input, output,session) {
     numbers$insig= sample(17:24,1)
 
 
-    numbers$index = sample(c("A","B","C"),3)
+    numbers$index =c("A","B","C")
     numbers$question = cbind(bank[c(numbers$strong,numbers$moderate,numbers$insig),],numbers$index)
 
   })
@@ -343,7 +332,7 @@ shinyServer(function(input, output,session) {
     numbers$insig= sample(17:24,1)
     
     
-    numbers$index = sample(c("A","B","C"),3)
+    numbers$index = c("A","B","C")
     numbers$question = cbind(bank[c(numbers$strong,numbers$moderate,numbers$insig),],numbers$index)
     
   })
@@ -374,30 +363,30 @@ shinyServer(function(input, output,session) {
 
  #######randomize the table######
   
-  index <- reactiveValues(index = 3)
+  index2 <- reactiveValues(index2 = 3)
   
-  observeEvent(input$new,{index$index <- sample(1:4,1, replace=TRUE, prob=NULL)
+  observeEvent(input$new,{index2$index2 <- sample(1:4,1, replace=TRUE, prob=NULL)
   })
   
   output$table1<-renderUI({
-    if (index$index==1){img(src = numbers$question[numbers$question[5] == "A",3], width = "100%", height = "100%", style = "text-align: center")}
-    else if (index$index==2){img(src = numbers$question[numbers$question[5] == "B",3], width = "100%", height = "100%", style = "text-align: center")}
-    else if (index$index==3){img(src = numbers$question[numbers$question[5] == "C",3], width = "100%", height = "100%", style = "text-align: center")}
-    else if (index$index==4){img(src = numbers$question[numbers$question[5] == "A",3], width = "100%", height = "100%", style = "text-align: center")}
+    if (index2$index2==1){img(src = numbers$question[numbers$question[5] == "A",3], width = "100%", height = "100%", style = "text-align: center")}
+    else if (index2$index2==2){img(src = numbers$question[numbers$question[5] == "B",3], width = "100%", height = "100%", style = "text-align: center")}
+    else if (index2$index2==3){img(src = numbers$question[numbers$question[5] == "C",3], width = "100%", height = "100%", style = "text-align: center")}
+    else if (index2$index2==4){img(src = numbers$question[numbers$question[5] == "A",3], width = "100%", height = "100%", style = "text-align: center")}
     })
   
   output$table2<-renderUI({
-    if (index$index==1){img(src = numbers$question[numbers$question[5] == "B",3], width = "100%", height = "100%", style = "text-align: center")}
-    else if (index$index==2){img(src = numbers$question[numbers$question[5] == "C",3], width = "100%", height = "100%", style = "text-align: center")}
-    else if (index$index==3){img(src = numbers$question[numbers$question[5] == "A",3], width = "100%", height = "100%", style = "text-align: center")}
-    else if (index$index==4){img(src = numbers$question[numbers$question[5] == "C",3], width = "100%", height = "100%", style = "text-align: center")}
+    if (index2$index2==1){img(src = numbers$question[numbers$question[5] == "B",3], width = "100%", height = "100%", style = "text-align: center")}
+    else if (index2$index2==2){img(src = numbers$question[numbers$question[5] == "C",3], width = "100%", height = "100%", style = "text-align: center")}
+    else if (index2$index2==3){img(src = numbers$question[numbers$question[5] == "A",3], width = "100%", height = "100%", style = "text-align: center")}
+    else if (index2$index2==4){img(src = numbers$question[numbers$question[5] == "C",3], width = "100%", height = "100%", style = "text-align: center")}
   })
   
   output$table3<-renderUI({
-    if (index$index==1){img(src = numbers$question[numbers$question[5] == "C",3], width = "100%", height = "100%", style = "text-align: center")}
-    else if (index$index==2){img(src = numbers$question[numbers$question[5] == "A",3], width = "100%", height = "100%", style = "text-align: center")}
-    else if (index$index==3){img(src = numbers$question[numbers$question[5] == "B",3], width = "100%", height = "100%", style = "text-align: center")}
-    else if (index$index==4){img(src = numbers$question[numbers$question[5] == "B",3], width = "100%", height = "100%", style = "text-align: center")}
+    if (index2$index2==1){img(src = numbers$question[numbers$question[5] == "C",3], width = "100%", height = "100%", style = "text-align: center")}
+    else if (index2$index2==2){img(src = numbers$question[numbers$question[5] == "A",3], width = "100%", height = "100%", style = "text-align: center")}
+    else if (index2$index2==3){img(src = numbers$question[numbers$question[5] == "B",3], width = "100%", height = "100%", style = "text-align: center")}
+    else if (index2$index2==4){img(src = numbers$question[numbers$question[5] == "B",3], width = "100%", height = "100%", style = "text-align: center")}
   })
    
   
@@ -415,21 +404,18 @@ shinyServer(function(input, output,session) {
     updateButton(session,"submitA",disabled = FALSE)
   })
   
-  observeEvent(input$new,{
-    reset('drp1')
-    reset('drp2')
-    reset('drp3')
-    reset('plotA')
-    reset('plotB')
-    reset('plotB')
-    reset('radio1')
-    reset('radio2')
-    reset('radio3')
-    
-    
-      
+  observeEvent(input$submitA,{
+    updateButton(session,"new",disabled = FALSE)
   })
-
+  
+  observeEvent(input$new,{
+    updateButton(session,"new",disabled = TRUE)
+  })
+  
+  
+  observeEvent(input$new, {
+    reset("radio1")
+  })
   
   
   ###################check answers#####
@@ -443,12 +429,12 @@ shinyServer(function(input, output,session) {
     observe({
       output$answer1 <- renderUI({
         if (!is.null(input$radio1)){
-          if (index$index==1 &input$radio1 == 'A'){
+          if (index2$index2==1 &input$radio1 == 'A'){
             img(src = "check.png",width = 30)
           }
-          else if (index$index==2 &input$radio1 == 'B') {img(src = "check.png",width = 30)}
-          else if (index$index==3 &input$radio1 == 'C'){img(src = "check.png",width = 30)}
-          else if (index$index==4 &input$radio1 == 'A'){img(src = "check.png",width = 30)}
+          else if (index2$index2==2 &input$radio1 == 'B') {img(src = "check.png",width = 30)}
+          else if (index2$index2==3 &input$radio1 == 'C'){img(src = "check.png",width = 30)}
+          else if (index2$index2==4 &input$radio1 == 'A'){img(src = "check.png",width = 30)}
           else{
             img(src = "cross.png",width = 30)
           }
@@ -465,12 +451,12 @@ shinyServer(function(input, output,session) {
     observe({
       output$answer2 <- renderUI({
         if (!is.null(input$radio2)){
-          if (index$index==1 &input$radio2 == 'B'){
+          if (index2$index2==1 &input$radio2 == 'B'){
             img(src = "check.png",width = 30)
           }
-          else if (index$index==2 &input$radio2 == 'C') {img(src = "check.png",width = 30)}
-          else if (index$index==3 &input$radio2 == 'A'){img(src = "check.png",width = 30)}
-          else if (index$index==4 &input$radio2 == 'C'){img(src = "check.png",width = 30)}
+          else if (index2$index2==2 &input$radio2 == 'C') {img(src = "check.png",width = 30)}
+          else if (index2$index2==3 &input$radio2 == 'A'){img(src = "check.png",width = 30)}
+          else if (index2$index2==4 &input$radio2 == 'C'){img(src = "check.png",width = 30)}
           else{
             img(src = "cross.png",width = 30)
           }
@@ -487,12 +473,12 @@ shinyServer(function(input, output,session) {
     observe({
       output$answer3 <- renderUI({
         if (!is.null(input$radio3)){
-          if (index$index==1 &input$radio3 == 'C'){
+          if (index2$index2==1 &input$radio3 == 'C'){
             img(src = "check.png",width = 30)
           }
-          else if (index$index==2 &input$radio3 == 'A') {img(src = "check.png",width = 30)}
-          else if (index$index==3 &input$radio3 == 'B'){img(src = "check.png",width = 30)}
-          else if (index$index==4 &input$radio3 == 'B'){img(src = "check.png",width = 30)}
+          else if (index2$index2==2 &input$radio3 == 'A') {img(src = "check.png",width = 30)}
+          else if (index2$index2==3 &input$radio3 == 'B'){img(src = "check.png",width = 30)}
+          else if (index2$index2==4 &input$radio3 == 'B'){img(src = "check.png",width = 30)}
           else{
             img(src = "cross.png",width = 30)
           }
