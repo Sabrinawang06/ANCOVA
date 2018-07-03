@@ -167,11 +167,11 @@ ui <- dashboardPage(skin = "black",
                         
                         
                         tabItem(tabName='game',
-                                fluidRow(column(5,numericInput('seconds','Select the time you need for this game',value=30,min=30,max=120,step=10),
+                                fluidRow(column(5,numericInput('seconds','Select the time limit (second)',value=60,min=60,max=300,step=120),
                                          
                                 fluidRow(column(2,actionButton('start_timer','Start',style='padding:10px; font-size:90%')),
                                          column(2,offset=1,actionButton('set','Set Timer',style='padding:10px; font-size:90%')),
-                                         column(3,bsButton('bq2', '',icon = icon('question',class = "iconq fa-fw"),type = 'toggle', class = 'butt'),
+                                         column(3,offset=1, bsButton('bq2', '',icon = icon('question',class = "iconq fa-fw"),type = 'toggle', class = 'butt',style='padding:20px'),
                                                 div(id = "plot-container2",
                                                     conditionalPanel("input.bq2 != 0",
                                                                      tags$img(src = "STAT.png",
@@ -207,7 +207,7 @@ ui <- dashboardPage(skin = "black",
                                   
                                  fluidRow(
 
-                                 column(1,offset = 4,actionButton("submitA", "Submit Answer",style='padding:10px; font-size:120%')),
+                                 column(1,offset = 4,actionButton("submitA", "Submit Answer",style='padding:5px; font-size:110%')),
                                  column(1,offset = 5,bsButton("new","New>>",style='padding:10px; font-size:120%', disabled = FALSE))
                                )
 
