@@ -170,7 +170,18 @@ ui <- dashboardPage(skin = "black",
                                 fluidRow(column(5,numericInput('seconds','Select the time you need for this game',value=30,min=30,max=120,step=10),
                                          
                                 fluidRow(column(2,actionButton('start_timer','Start',style='padding:10px; font-size:90%')),
-                                         column(2,offset=1,actionButton('set','Set Timer',style='padding:10px; font-size:90%')))
+                                         column(2,offset=1,actionButton('set','Set Timer',style='padding:10px; font-size:90%')),
+                                         column(3,bsButton('bq2', '',icon = icon('question',class = "iconq fa-fw"),type = 'toggle', class = 'butt'),
+                                                div(id = "plot-container2",
+                                                    conditionalPanel("input.bq2 != 0",
+                                                                     tags$img(src = "STAT.png",
+                                                                              id = "hint"))
+                                                )
+                                         )
+                                         
+                                         
+                                         
+                                         )
                                          ),
                                 column(3,offset=4,textOutput("timeleft"))),br(),
                                 
