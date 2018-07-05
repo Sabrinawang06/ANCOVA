@@ -28,23 +28,23 @@ shinyServer(function(input, output,session) {
   
   #Text on the instruction page
   output$background1<-renderUI(
-    h2(strong('Background'))
+    h3(strong('Background'))
   )
   output$background2<-renderUI(
-    h3('What is ANCOVA')
+    h4('What is ANCOVA')
   )
   output$background3<-renderUI(
-    h4('A ‘classic’ ANOVA tests for differences in mean responses to categorical factor 
+    h5('A ‘classic’ ANOVA tests for differences in mean responses to categorical factor 
        (treatment) levels. When we have heterogeneity in experimental units sometimes restrictions on the randomization (blocking) can improve the test for treatment effects. In some cases, we don’t have the opportunity to construct blocks, but can recognize and measure a continuous variable as contributing to the heterogeneity in the experimental units.
         These sources of extraneous variability historically have been referred to as ‘nuisance’ or ‘concomitant’ variables. More recently, these variables are referred to as ‘covariates’.
         When a continuous covariate is included in an ANOVA we have the analysis of covariance (ANCOVA). (PSU STAT 502-Lesson 10: Analysis of Covariance (ANCOVA))  ')
   )
   
   output$background4<-renderUI(
-    h3('Diagnostic Plot')
+    h4('Diagnostic Plot')
   )
   output$background5<-renderUI(
-    h4('Model check is critical before analysis: you need to understanding the four diagnostic plot.',br(),
+    h5('Model check is critical before analysis: you need to understanding the four diagnostic plot.',br(),
        '1. Residuals vs Fitted plot checks linear pattern of residuals. You should expect a horizontal line spreading the dots equally.', br(),
        '2. Normal Q-Q plot checks normality. You should expect the dots follow a straight line.',br(),
        '3. Scale-Location plot checks equal spreads of residual. You should expect a horizontal line with spreading the dots equally also.',br(),
@@ -52,28 +52,28 @@ shinyServer(function(input, output,session) {
   )
   
   output$about1 <- renderUI(
-    h2(strong("About"))
+    h3(strong("About"))
   )
   output$about2<-renderUI(
-    h3('This app introduces the concept of ANCOVA focusing on interpret interaction plot.')
+    h4('This app introduces the concept of ANCOVA focusing on interpret interaction plot.')
   )
   output$instruction1<-renderUI(
-    h2(strong('Instruction'))
+    h3(strong('Instruction'))
   )
   output$instruction2<-renderUI(
-    h3('Click Go button to enter the explore page. Use the dropdown menu to select different dataset.')
+    h4('Click Go button to enter the explore page. Use the dropdown menu to select different dataset.')
   )
   output$instruction3<-renderUI(
-    h3('Use the radio button to select different varibles and see the change in interaction plot. Or use slider bars to change the parameters. ')
+    h4('Use the radio button to select different varibles and see the change in interaction plot. Or use slider bars to change the parameters. ')
   )
   output$instruction44<-renderUI(
-    h3('After the explore section, you can start the matching game to test your understand on this concept.')
+    h4('After the explore section, you can start the matching game to test your understand on this concept.')
   )
   output$ack1<-renderUI(
-    h2(strong('Acknowledgement'))
+    h3(strong('Acknowledgement'))
   )
   output$ack2<-renderUI((
-  h3('This app is developed and coded by Luxin Wang. Thanks for the data set and code provided by The University of Sheffield (https://www.sheffield.ac.uk/mash/data) and Dylan Childs.(https://github.com/dzchilds)')
+  h4('This app is developed and coded by Luxin Wang. Thanks for the data set and code provided by The University of Sheffield (https://www.sheffield.ac.uk/mash/data) and Dylan Childs.(https://github.com/dzchilds)')
   ))
 
   
@@ -316,9 +316,9 @@ shinyServer(function(input, output,session) {
   numbers <- reactiveValues(strong = c(), moderate = c(), insig = c(), index = c(), question = data.frame())
 
   observeEvent(input$go,{
-    numbers$strong = sample(1:8,1)
-    numbers$moderate = sample(9:16,1)
-    numbers$insig= sample(17:24,1)
+    numbers$strong = sample(1:12,1)
+    numbers$moderate = sample(13:24,1)
+    numbers$insig= sample(25:36,1)
 
 
     numbers$index =c("A","B","C")
@@ -327,9 +327,9 @@ shinyServer(function(input, output,session) {
   })
   
   observeEvent(input$new,{
-    numbers$strong = sample(1:8,1)
-    numbers$moderate = sample(9:16,1)
-    numbers$insig= sample(17:24,1)
+    numbers$strong = sample(1:12,1)
+    numbers$moderate = sample(13:24,1)
+    numbers$insig= sample(25:36,1)
     
     
     numbers$index = c("A","B","C")
@@ -338,7 +338,7 @@ shinyServer(function(input, output,session) {
   })
   
   output$plot1 <- renderUI({
-    img(src = numbers$question[numbers$question[5] == "A",4], width = "100%", height = "100%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "A",4], width = "100%", height = "107%", style = "text-align: center")
   })
 
   # output$table1 <- renderUI({
@@ -346,7 +346,7 @@ shinyServer(function(input, output,session) {
   # })
 
   output$plot2 <- renderUI({
-    img(src = numbers$question[numbers$question[5] == "B",4], width = "100%", height = "100%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "B",4], width = "100%", height = "107%", style = "text-align: center")
   })
 
   # output$table2 <- renderUI({
@@ -354,7 +354,7 @@ shinyServer(function(input, output,session) {
   # })
 
   output$plot3 <- renderUI({
-    img(src = numbers$question[numbers$question[5] == "C",4], width = "100%", height = "100%", style = "text-align: center")
+    img(src = numbers$question[numbers$question[5] == "C",4], width = "100%", height = "107%", style = "text-align: center")
   })
 
   # output$table3 <- renderUI({
@@ -369,24 +369,24 @@ shinyServer(function(input, output,session) {
   })
   
   output$table1<-renderUI({
-    if (index2$index2==1){img(src = numbers$question[numbers$question[5] == "A",3], width = "100%", height = "100%", style = "text-align: center")}
-    else if (index2$index2==2){img(src = numbers$question[numbers$question[5] == "B",3], width = "100%", height = "100%", style = "text-align: center")}
-    else if (index2$index2==3){img(src = numbers$question[numbers$question[5] == "C",3], width = "100%", height = "100%", style = "text-align: center")}
-    else if (index2$index2==4){img(src = numbers$question[numbers$question[5] == "A",3], width = "100%", height = "100%", style = "text-align: center")}
+    if (index2$index2==1){img(src = numbers$question[numbers$question[5] == "A",3], width = "105%", height = "105%", style = "text-align: center")}
+    else if (index2$index2==2){img(src = numbers$question[numbers$question[5] == "B",3], width = "105%", height = "105%", style = "text-align: center")}
+    else if (index2$index2==3){img(src = numbers$question[numbers$question[5] == "C",3], width = "105%", height = "105%", style = "text-align: center")}
+    else if (index2$index2==4){img(src = numbers$question[numbers$question[5] == "A",3], width = "105%", height = "105%", style = "text-align: center")}
     })
   
   output$table2<-renderUI({
-    if (index2$index2==1){img(src = numbers$question[numbers$question[5] == "B",3], width = "100%", height = "100%", style = "text-align: center")}
-    else if (index2$index2==2){img(src = numbers$question[numbers$question[5] == "C",3], width = "100%", height = "100%", style = "text-align: center")}
-    else if (index2$index2==3){img(src = numbers$question[numbers$question[5] == "A",3], width = "100%", height = "100%", style = "text-align: center")}
-    else if (index2$index2==4){img(src = numbers$question[numbers$question[5] == "C",3], width = "100%", height = "100%", style = "text-align: center")}
+    if (index2$index2==1){img(src = numbers$question[numbers$question[5] == "B",3], width = "105%", height = "105%", style = "text-align: center")}
+    else if (index2$index2==2){img(src = numbers$question[numbers$question[5] == "C",3], width = "105%", height = "105%", style = "text-align: center")}
+    else if (index2$index2==3){img(src = numbers$question[numbers$question[5] == "A",3], width = "105%", height = "105%", style = "text-align: center")}
+    else if (index2$index2==4){img(src = numbers$question[numbers$question[5] == "C",3], width = "105%", height = "105%", style = "text-align: center")}
   })
   
   output$table3<-renderUI({
-    if (index2$index2==1){img(src = numbers$question[numbers$question[5] == "C",3], width = "100%", height = "100%", style = "text-align: center")}
-    else if (index2$index2==2){img(src = numbers$question[numbers$question[5] == "A",3], width = "100%", height = "100%", style = "text-align: center")}
-    else if (index2$index2==3){img(src = numbers$question[numbers$question[5] == "B",3], width = "100%", height = "100%", style = "text-align: center")}
-    else if (index2$index2==4){img(src = numbers$question[numbers$question[5] == "B",3], width = "100%", height = "100%", style = "text-align: center")}
+    if (index2$index2==1){img(src = numbers$question[numbers$question[5] == "C",3], width = "105%", height = "105%", style = "text-align: center")}
+    else if (index2$index2==2){img(src = numbers$question[numbers$question[5] == "A",3], width = "105%", height = "105%", style = "text-align: center")}
+    else if (index2$index2==3){img(src = numbers$question[numbers$question[5] == "B",3], width = "105%", height = "105%", style = "text-align: center")}
+    else if (index2$index2==4){img(src = numbers$question[numbers$question[5] == "B",3], width = "105%", height = "105%", style = "text-align: center")}
   })
    
   

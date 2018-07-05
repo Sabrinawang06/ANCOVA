@@ -11,10 +11,19 @@ library(lubridate)
 
 ui <- dashboardPage(skin = "black",
                     dashboardHeader(title = "ANCOVA",
-                                    titleWidth = 200),
+                                    titleWidth = 180,
+                                    # Set height of dashboardHeader
+                                    tags$li(class = "dropdown",
+                                            tags$style(".main-header {max-height: 45px}"),
+                                            tags$style(".main-header .logo {height: 45px;}"),
+                                            tags$style(".sidebar-toggle {height: 45px; padding-top: 1px !important;}"),
+                                            tags$style(".navbar {min-height:45px !important}")
+                                    ) 
+                                    
+                                    ),
                     #adding prereq pages
                     dashboardSidebar(
-                      width = 220,
+                      width = 180,
                       
                       sidebarMenu(id='tabs',
                                   menuItem("Pre-requisites", tabName= "prereq", icon=icon("dashboard")),
@@ -43,14 +52,15 @@ ui <- dashboardPage(skin = "black",
                         tags$head(tags$style(HTML("
                             #p {font-size: 18px;
                                 padding-left: 5px"))),
-                        tags$style(type='text/css', '#timeleft {background-color:#BB8FCE; font-size: 30px; 
+                        tags$style(type='text/css', '#timeleft {background-color:#BB8FCE; font-size: 20px; 
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 100px}'),
-                        tags$style(type='text/css', '#a {background-color:#C39BD3; font-size: 20px; 
+                        tags$style(type='text/css', '#a {background-color:#C39BD3; font-size: 15px; 
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
-                        tags$style(type='text/css', '#b {background-color:#C39BD3; font-size: 20px; 
+                        tags$style(type='text/css', '#b {background-color:#C39BD3; font-size: 15px; 
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
-                        tags$style(type='text/css', '#c {background-color:#C39BD3; font-size: 20px; 
-                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}')
+                        tags$style(type='text/css', '#c {background-color:#C39BD3; font-size: 15px; 
+                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
+                        tags$style(type='text/css','#select_conti{margin-right: 20px}')
                       
                         
                         
@@ -169,12 +179,12 @@ ui <- dashboardPage(skin = "black",
                         tabItem(tabName='game',
                                 fluidRow(column(5,numericInput('seconds','Select the time limit (second)',value=60,min=60,max=300,step=120),
                                          
-                                fluidRow(column(2,actionButton('start_timer','Start',style='padding:10px; font-size:90%')),
-                                         column(2,offset=1,actionButton('set','Set Timer',style='padding:10px; font-size:90%')),
+                                fluidRow(column(2,actionButton('start_timer','Start',style='padding:5px; font-size:90%')),
+                                         column(2,offset=1,actionButton('set','Set Timer',style='padding:5px; font-size:90%')),
                                          column(3,offset=1, bsButton('bq2', '',icon = icon('question',class = "iconq fa-fw"),type = 'toggle', class = 'butt',style='padding:20px'),
                                                 div(id = "plot-container2",
                                                     conditionalPanel("input.bq2 != 0",
-                                                                     tags$img(src = "STAT.png",
+                                                                     tags$img(src = "STAT.PNG",
                                                                               id = "hint"))
                                                 )
                                          )
@@ -183,7 +193,7 @@ ui <- dashboardPage(skin = "black",
                                          
                                          )
                                          ),
-                                column(3,offset=4,textOutput("timeleft"))),br(),
+                                column(3,offset=4,textOutput("timeleft"))),
                                 
                                 fluidRow(column(2, offset=1,uiOutput('a'),align='right'),
                                          column(2,offset=2,uiOutput('b'),align='right'),
@@ -194,7 +204,7 @@ ui <- dashboardPage(skin = "black",
                                          column(4,uiOutput('plot3'))
                                 ),
                                 
-                                br(),hr(),
+                                hr(),
                                 fluidRow(column(4,uiOutput('table1')),
                                          column(4,uiOutput('table2')),
                                          column(4,uiOutput('table3'))
