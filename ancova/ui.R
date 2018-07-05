@@ -52,6 +52,7 @@ ui <- dashboardPage(skin = "black",
                         tags$head(tags$style(HTML("
                             #p {font-size: 18px;
                                 padding-left: 5px"))),
+                       
                         tags$style(type='text/css', '#timeleft {background-color:#BB8FCE; font-size: 20px; 
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 100px}'),
                         tags$style(type='text/css', '#a {background-color:#C39BD3; font-size: 15px; 
@@ -59,8 +60,8 @@ ui <- dashboardPage(skin = "black",
                         tags$style(type='text/css', '#b {background-color:#C39BD3; font-size: 15px; 
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
                         tags$style(type='text/css', '#c {background-color:#C39BD3; font-size: 15px; 
-                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
-                        tags$style(type='text/css','#select_conti{margin-right: 20px}')
+                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}')
+                        
                       
                         
                         
@@ -141,6 +142,7 @@ ui <- dashboardPage(skin = "black",
                    
                         
                         tabItem(tabName ="exploring",
+                                tags$style(HTML(".radio-inline {margin-right: 5%;}")),
                                 h2('ANCOVA Interaction Plot'),
                                 sidebarLayout(
                                   sidebarPanel(
@@ -177,6 +179,7 @@ ui <- dashboardPage(skin = "black",
                         
                         
                         tabItem(tabName='game',
+                                tags$style(HTML(".radio-inline {margin-right: 20%;}")),
                                 fluidRow(column(5,numericInput('seconds','Select the time limit (second)',value=60,min=60,max=300,step=120),
                                          
                                 fluidRow(column(2,actionButton('start_timer','Start',style='padding:5px; font-size:90%')),
