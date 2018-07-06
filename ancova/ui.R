@@ -142,13 +142,14 @@ ui <- dashboardPage(skin = "black",
                    
                         
                         tabItem(tabName ="exploring",
-                                tags$style(HTML(".radio-inline {margin-right: 5%;}")),
+                                
                                 h2('ANCOVA Interaction Plot'),
                                 sidebarLayout(
                                   sidebarPanel(
                                     
                                     selectInput('menu1','Select the Data',c('Otter','Diet','Random')),
                                     conditionalPanel("input.menu1=='Diet'",
+                                                     tags$style(HTML(".radio-inline {margin-right: 12%;}")),
                                                      radioButtons('select_conti', 'Select Continous Variable',inline=TRUE, choices =c('Age','Height','Pre-diet Weight'), selected = 'Age'),
                                                      radioButtons('select_covar', 'Select Covariance',inline=TRUE, choices =c('Gender','Diet'), selected = 'Gender')
                                     ),
@@ -179,7 +180,7 @@ ui <- dashboardPage(skin = "black",
                         
                         
                         tabItem(tabName='game',
-                                tags$style(HTML(".radio-inline {margin-right: 20%;}")),
+                                
                                 fluidRow(column(5,numericInput('seconds','Select the time limit (second)',value=60,min=60,max=300,step=120),
                                          
                                 fluidRow(column(2,actionButton('start_timer','Start',style='padding:5px; font-size:90%')),
@@ -213,9 +214,10 @@ ui <- dashboardPage(skin = "black",
                                          column(4,uiOutput('table3'))
                                 ),
                                 
-                                fluidRow(column(4,style='padding:30px;',fluidRow(radioButtons('radio1','',c('A','B','C'),selected='A',inline=TRUE),uiOutput('answer1'))),
-                                         column(4,style='padding:30px;',fluidRow(radioButtons('radio2','',c('A','B','C'),selected='A',inline=TRUE),uiOutput('answer2'))),
-                                         column(4,style='padding:30px;',fluidRow(radioButtons('radio3','',c('A','B','C'),selected='A',inline=TRUE),uiOutput('answer3')))
+                                
+                                fluidRow(column(3,offset=1,style='padding:20px;margin-top:-2em;font-size: 20px',fluidRow(radioButtons('radio1','',c('A','B','C'),selected='A',inline=TRUE),uiOutput('answer1'))),
+                                         column(3,offset=1,style='padding:20px;margin-top:-2em;font-size: 20px',fluidRow(radioButtons('radio2','',c('A','B','C'),selected='A',inline=TRUE),uiOutput('answer2'))),
+                                         column(3,offset=1,style='padding:20px;margin-top:-2em;font-size: 20px',fluidRow(radioButtons('radio3','',c('A','B','C'),selected='A',inline=TRUE),uiOutput('answer3')))
                                          ),
                                   
                                  fluidRow(
