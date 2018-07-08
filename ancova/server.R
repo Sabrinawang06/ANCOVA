@@ -498,10 +498,11 @@ shinyServer(function(input, output,session) {
   
   
   #####count correct answer ########
-  summationC<-reactiveValues(correct1 = c(0), started=FALSE)
+  summationC<-reactiveValues(correct1 = c(0),total=c(), started=FALSE)
   
   observeEvent(input$submitA,{
          for (i in input$radio1){
+           summationC$total = c(summationC$total,1)
           if (index2$index2==1 &input$radio1 == 'A'){
             summationC$correct1 = c(summationC$correct1,1)
           }
@@ -514,6 +515,7 @@ shinyServer(function(input, output,session) {
           }
   
           for (i in input$radio2){
+            summationC$total = c(summationC$total,1)
           if (index2$index2==1 &input$radio2 == 'B'){
       
             summationC$correct1 = c(summationC$correct1,1)
@@ -529,6 +531,7 @@ shinyServer(function(input, output,session) {
        
   
         for (i in input$radio3){
+          summationC$total = c(summationC$total,1)
           if (index2$index2==1 &input$radio3 == 'C'){
             i
             summationC$correct1 = c(summationC$correct1,1)
@@ -583,6 +586,13 @@ shinyServer(function(input, output,session) {
             valueBox(
               paste0(sum(c(summationC$correct1))), "Totel Score", icon = icon("list"),
               color = "purple"
+            )
+          })
+          
+          output$percentBox <- renderValueBox({
+            valueBox(
+              paste0(round(sum(c(summationC$correct1))/sum(c(summationC$total))*100,digit=1),'%'), "Correct Percentage", icon = icon("list"),
+              color = "maroon"
             )
           })
           

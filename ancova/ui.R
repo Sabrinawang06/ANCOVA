@@ -195,10 +195,11 @@ ui <- dashboardPage(skin = "black",
                                                                      tags$img(src = "STAT.PNG",
                                                                               id = "hint"))
                                                 )
-                                         ),
+                                         ),br(),
                               
                                          
-                                           valueBoxOutput("scoreBox")
+                                           valueBoxOutput("scoreBox"),
+                                           valueBoxOutput('percentBox')
                                          
                                          
                                          
