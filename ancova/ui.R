@@ -195,11 +195,12 @@ ui <- dashboardPage(skin = "black",
                                                                      tags$img(src = "STAT.PNG",
                                                                               id = "hint"))
                                                 )
-                                         ),br(),
+                                         )), br(),
                               
-                                         
+                                         fluidRow(
                                            valueBoxOutput("scoreBox"),
-                                           valueBoxOutput('percentBox')
+                                           valueBoxOutput('percentBox'),
+                                           valueBoxOutput('timeBox')
                                          
                                          
                                          

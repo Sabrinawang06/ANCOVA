@@ -591,7 +591,14 @@ shinyServer(function(input, output,session) {
           
           output$percentBox <- renderValueBox({
             valueBox(
-              paste0(round(sum(c(summationC$correct1))/sum(c(summationC$total))*100,digit=1),'%'), "Correct Percentage", icon = icon("list"),
+              paste0(round(sum(c(summationC$correct1))/sum(c(summationC$total))*100,digit=1),'%'), "Correct Percentage", icon = icon("thumbs-up", lib = "glyphicon"),
+              color = "light-blue"
+            )
+          })
+          
+          output$timeBox <- renderValueBox({
+            valueBox(
+              paste0(input$seconds,'s'), "Time Used", icon = icon("time",lib = "glyphicon"),
               color = "maroon"
             )
           })
