@@ -8,6 +8,8 @@ library(dplyr)
 library(shinydashboard)
 library(simstudy)
 library(lubridate)
+library(shinyalert)
+
 
 ui <- dashboardPage(skin = "black",
                     dashboardHeader(title = "ANCOVA",
@@ -180,6 +182,8 @@ ui <- dashboardPage(skin = "black",
                         
                         
                         tabItem(tabName='game',
+                                useShinyalert(),
+                                
                                 
                                 fluidRow(column(5,numericInput('seconds','Select the time limit (second)',value=60,min=60,max=300,step=120),
                                          
@@ -191,7 +195,10 @@ ui <- dashboardPage(skin = "black",
                                                                      tags$img(src = "STAT.PNG",
                                                                               id = "hint"))
                                                 )
-                                         )
+                                         ),
+                              
+                                         
+                                           valueBoxOutput("scoreBox")
                                          
                                          
                                          
@@ -221,7 +228,7 @@ ui <- dashboardPage(skin = "black",
                                          ),
                                   
                                  fluidRow(
-
+                                 column(4, uiOutput('correctC')),
                                  column(1,offset = 4,actionButton("submitA", "Submit Answer",style='padding:5px; font-size:110%')),
                                  column(1,offset = 5,bsButton("new","New>>",style='padding:10px; font-size:120%', disabled = FALSE))
                                )

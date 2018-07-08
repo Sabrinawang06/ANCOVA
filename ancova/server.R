@@ -8,6 +8,8 @@ library(dplyr)  ###NEW PACKAGE
 library(shinydashboard)
 library(simstudy) ### NEW PACKAGE 
 library(lubridate)###NEW PACKGE
+library(shinyalert)##NEW PACKAGE
+
 
 
 
@@ -419,7 +421,9 @@ shinyServer(function(input, output,session) {
   
   
   ###################check answers#####
-
+ 
+  summationC<-reactiveValues(correct1 = c(0), started=FALSE)
+  
   observeEvent(input$submitA,{
     observeEvent(input$new,{
       output$answer1 <- renderUI({
@@ -442,6 +446,8 @@ shinyServer(function(input, output,session) {
       })
     })
   })
+  
+  
   observeEvent(input$submitA,{
     observeEvent(input$new,{
       output$answer2 <- renderUI({
@@ -453,6 +459,7 @@ shinyServer(function(input, output,session) {
         if (!is.null(input$radio2)){
           if (index2$index2==1 &input$radio2 == 'B'){
             img(src = "check.png",width = 30)
+            
           }
           else if (index2$index2==2 &input$radio2 == 'C') {img(src = "check.png",width = 30)}
           else if (index2$index2==3 &input$radio2 == 'A'){img(src = "check.png",width = 30)}
@@ -464,6 +471,7 @@ shinyServer(function(input, output,session) {
       })
     })
   })
+  
   observeEvent(input$submitA,{
     observeEvent(input$new,{
       output$answer3 <- renderUI({
@@ -480,7 +488,8 @@ shinyServer(function(input, output,session) {
           else if (index2$index2==3 &input$radio3 == 'B'){img(src = "check.png",width = 30)}
           else if (index2$index2==4 &input$radio3 == 'B'){img(src = "check.png",width = 30)}
           else{
-            img(src = "cross.png",width = 30)
+            img(src = "cross.png",width = 30);
+            
           }
         }
       })
@@ -488,16 +497,74 @@ shinyServer(function(input, output,session) {
   })
   
   
+  #####count correct answer ########
+  summationC<-reactiveValues(correct1 = c(0), started=FALSE)
+  
+  observeEvent(input$submitA,{
+         for (i in input$radio1){
+          if (index2$index2==1 &input$radio1 == 'A'){
+            summationC$correct1 = c(summationC$correct1,1)
+          }
+          else if (index2$index2==2 &input$radio1 == 'B') { summationC$correct1 = c(summationC$correct1,1)}
+          else if (index2$index2==3 &input$radio1 == 'C'){summationC$correct1 = c(summationC$correct1,1)}
+          else if (index2$index2==4 &input$radio1 == 'A'){summationC$correct1 = c(summationC$correct1,1)}
+          else{
+            summationC$correct1 = c(summationC$correct1,0)}
+         
+          }
+  
+          for (i in input$radio2){
+          if (index2$index2==1 &input$radio2 == 'B'){
+      
+            summationC$correct1 = c(summationC$correct1,1)
+            
+          }
+          else if (index2$index2==2 &input$radio2 == 'C') {summationC$correct1 = c(summationC$correct1,1)}
+          else if (index2$index2==3 &input$radio2 == 'A'){summationC$correct1 = c(summationC$correct1,1)}
+          else if (index2$index2==4 &input$radio2 == 'C'){summationC$correct1 = c(summationC$correct1,1)}
+          else{
+   
+            summationC$correct1 = c(summationC$correct1,0)}
+          }
+       
+  
+        for (i in input$radio3){
+          if (index2$index2==1 &input$radio3 == 'C'){
+            i
+            summationC$correct1 = c(summationC$correct1,1)
+          }
+          else if (index2$index2==2 &input$radio3 == 'A') {summationC$correct1 = c(summationC$correct1,1)}
+          else if (index2$index2==3 &input$radio3 == 'B'){summationC$correct1 = c(summationC$correct1,1)}
+          else if (index2$index2==4 &input$radio3 == 'B'){ summationC$correct1 = c(summationC$correct1,1)}
+          else{
+            
+            summationC$correct1 = c(summationC$correct1,0)}
+          }
+        })
+  
+ 
+  
+  output$correctC <- renderPrint({
+    if (sum(c(summationC$correct1))==0) {cat("You have earned 0 points")}
+    else{
+      cat("You have earned",sum(c(summationC$correct1)),'points')}
+  })
+  
+  
   ###########timer####################
   
-  # Initialize the timer, 30 seconds, not active.
-  timer <- reactiveVal(30)
+  # Initialize the timer, 60 seconds, not active.
+  timer <- reactiveVal(5)
   active <- reactiveVal(FALSE)
   
   # Output the time left.
   output$timeleft <- renderText({
     paste("Time left: ", seconds_to_period(timer()))
   })
+  
+  
+ ########show up the scoreing panel and popup####
+  
   
   # observer that invalidates every second. If timer is active, decrease by one.
   observe({
@@ -509,14 +576,36 @@ shinyServer(function(input, output,session) {
         if(timer()<1)
         {
           active(FALSE)
-          showModal(modalDialog(
-            title = "Important message",
-            "Countdown completed!"
-          ))
+          shinyalert('Count Down Complete','Click to see your score',
+                      type = "success")
+          
+          output$scoreBox <- renderValueBox({
+            valueBox(
+              paste0(sum(c(summationC$correct1))), "Totel Score", icon = icon("list"),
+              color = "purple"
+            )
+          })
+          
+          
         }
       }
     })
   })
+  
+  
+  
+  observe({
+        if(timer()<1)
+        {
+          output$time<-renderText({paste('0')})
+        }
+    
+  })
+  
+  
+
+
+  
   
   # observers for actionbuttons
   observeEvent(input$start_timer, {active(TRUE)})
