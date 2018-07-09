@@ -27,7 +27,7 @@ ui <- dashboardPage(skin = "black",
                     dashboardSidebar(
                       width = 180,
                       
-                      sidebarMenu(id='tabs',
+                      sidebarMenu(id='tabs',style='font-size:12px;',
                                   menuItem("Pre-requisites", tabName= "prereq", icon=icon("dashboard")),
                                   menuItem("Overview",tabName = "instruction", icon = icon("dashboard")),
                                   menuItem("Exploring",tabName = "exploring", icon = icon("th")),
@@ -48,21 +48,21 @@ ui <- dashboardPage(skin = "black",
                         tags$style(HTML('#reset{color:white;background-color: #BB8FCE}')),
                         tags$head(tags$style(HTML("
                             #analysis1 {
-                              font-size: 16px;
+                              font-size: 14px;
                               background-color: #F5EEF8   
                             }
                             "))),
-                        tags$head(tags$style(HTML("
-                            #p {font-size: 18px;
-                                padding-left: 5px"))),
+                        # tags$head(tags$style(HTML("
+                        #     #p {font-size: 8px;
+                        #         padding-left: 5px"))),
                        
-                        tags$style(type='text/css', '#timeleft {background-color:#BB8FCE; font-size: 20px; 
+                        tags$style(type='text/css', '#timeleft {background-color:#BB8FCE; font-size: 18px; 
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 100px}'),
-                        tags$style(type='text/css', '#a {background-color:#C39BD3; font-size: 15px; 
+                        tags$style(type='text/css', '#a {background-color:#C39BD3; font-size: 12px; 
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
-                        tags$style(type='text/css', '#b {background-color:#C39BD3; font-size: 15px; 
+                        tags$style(type='text/css', '#b {background-color:#C39BD3; font-size: 12px; 
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
-                        tags$style(type='text/css', '#c {background-color:#C39BD3; font-size: 15px; 
+                        tags$style(type='text/css', '#c {background-color:#C39BD3; font-size: 12px; 
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}')
                         
                       
@@ -97,7 +97,7 @@ ui <- dashboardPage(skin = "black",
                                   column(8,uiOutput("background5"))
                                 ),
                                   fluidRow(
-                                    column(3,offset=1,actionButton("start","Go to the overview",icon("bolt"),style='padding:10px; font-size:120%',class="circle grow"))
+                                    column(3,offset=1,actionButton("start","Go to the overview",icon("bolt"),style='padding:10px; font-size:100%',class="circle grow"))
                                   )
                                   
                                 
@@ -130,7 +130,7 @@ ui <- dashboardPage(skin = "black",
                                 fluidRow(
                                   column(1,img(src = "right.png", width = 20)),
                                   column(8,uiOutput("instruction4")),
-                                  column(5,actionButton("go","Go",icon("bolt"),style='padding:10px; font-size:120%',class="circle grow"))
+                                  column(5,actionButton("go","Go",icon("bolt"),style='padding:10px; font-size:100%',class="circle grow"))
                                 ),br(),br(),
                                 fluidRow(
                                   column(8,offset = 1, uiOutput("ack1"))
@@ -151,10 +151,10 @@ ui <- dashboardPage(skin = "black",
                                   sidebarPanel(
                                     
                                     selectInput('menu1','Select the Data',c('Otter','Diet','Random')),
-                                    conditionalPanel("input.menu1=='Diet'",
-                                                     tags$style(HTML(".radio-inline {margin-right: 12%;}")),
+                                    conditionalPanel("input.menu1=='Diet'",style='font-size:12px;',
+                                                     tags$style(HTML(".radio-inline {margin-right: 10%;}")),
                                                      radioButtons('select_conti', 'Select Continous Variable',inline=TRUE, choices =c('Age','Height','Pre-diet Weight'), selected = 'Age'),
-                                                     radioButtons('select_covar', 'Select Covariance',inline=TRUE, choices =c('Gender','Diet'), selected = 'Gender')
+                                                     radioButtons('select_covar', 'Select Covariance',inline=TRUE,choices =c('Gender','Diet'), selected = 'Gender')
                                     ),
                                     
                                     conditionalPanel("input.menu1=='Random'",
@@ -167,7 +167,7 @@ ui <- dashboardPage(skin = "black",
                                                      
                                       
                                     ),
-                                    fluidRow(tags$b(uiOutput('p')),align = "left")
+                                    fluidRow(uiOutput('p'),align = "left")
                                   ),
                                   
                                   mainPanel(
@@ -210,9 +210,9 @@ ui <- dashboardPage(skin = "black",
                                          ),
                                 column(3,offset=4,textOutput("timeleft"))),
                                 
-                                fluidRow(column(2, offset=1,uiOutput('a'),align='right'),
-                                         column(2,offset=2,uiOutput('b'),align='right'),
-                                         column(2,offset=2,uiOutput('c'),align='left')),
+                                fluidRow(column(2, offset=1,uiOutput('a'),align='right',style='margin-top:-2em;'),
+                                         column(2,offset=2,uiOutput('b'),align='right',style='margin-top:-2em;'),
+                                         column(2,offset=2,uiOutput('c'),align='left',style='margin-top:-2em;')),
                           
                                 fluidRow(column(4,uiOutput('plot1')),
                                          column(4,uiOutput('plot2')),
@@ -220,21 +220,21 @@ ui <- dashboardPage(skin = "black",
                                 ),
                                 
                                 hr(),
-                                fluidRow(column(4,uiOutput('table1')),
-                                         column(4,uiOutput('table2')),
-                                         column(4,uiOutput('table3'))
+                                fluidRow(column(4,uiOutput('table1'),style='margin-top:-2em;'),
+                                         column(4,uiOutput('table2'),style='margin-top:-2em;'),
+                                         column(4,uiOutput('table3'),style='margin-top:-2em;')
                                 ),
                                 
                                 
-                                fluidRow(column(3,offset=1,style='padding:20px;margin-top:-2em;font-size: 20px',fluidRow(radioButtons('radio1','',c('A','B','C'),selected='A',inline=TRUE),uiOutput('answer1'))),
-                                         column(3,offset=1,style='padding:20px;margin-top:-2em;font-size: 20px',fluidRow(radioButtons('radio2','',c('A','B','C'),selected='A',inline=TRUE),uiOutput('answer2'))),
-                                         column(3,offset=1,style='padding:20px;margin-top:-2em;font-size: 20px',fluidRow(radioButtons('radio3','',c('A','B','C'),selected='A',inline=TRUE),uiOutput('answer3')))
+                                fluidRow(column(3,offset=1,style='padding:20px;margin-top:-2em;font-size: 15px',fluidRow(radioButtons('radio1','',c('A','B','C'),selected='A',inline=TRUE),uiOutput('answer1'))),
+                                         column(3,offset=1,style='padding:20px;margin-top:-2em;font-size: 15px',fluidRow(radioButtons('radio2','',c('A','B','C'),selected='A',inline=TRUE),uiOutput('answer2'))),
+                                         column(3,offset=1,style='padding:20px;margin-top:-2em;font-size: 15px',fluidRow(radioButtons('radio3','',c('A','B','C'),selected='A',inline=TRUE),uiOutput('answer3')))
                                          ),
                                   
                                  fluidRow(
                                  #column(4, uiOutput('correctC')),
-                                 column(1,offset = 4,actionButton("submitA", "Submit Answer",style='padding:5px; font-size:110%')),
-                                 column(1,offset = 5,bsButton("new","New>>",style='padding:10px; font-size:120%', disabled = FALSE))
+                                 column(1,offset = 3,actionButton("submitA", "Submit Answer",style='padding:5px; font-size:110%;margin-top:-2em;')),
+                                 column(1,offset = 3,actionButton("new","New>>",style='padding:5px; font-size:110%;margin-top:-2em;', disabled = FALSE))
                                )
 
                                

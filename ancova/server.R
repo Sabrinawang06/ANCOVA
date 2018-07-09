@@ -304,9 +304,9 @@ shinyServer(function(input, output,session) {
   
   output$p<-renderUI(
     if (var$p<=0.05){
-    h4(strong('P-value for this interaction is',signif(var$p,4),'.' ,br(),'Since the p-value is smaller than 0.05
+    h5(strong('P-value for this interaction is',signif(var$p,4),'.' ,br(),'Since the p-value is smaller than 0.05
     (α=0.05), there is a statistically significant interaction between these two variables.'))}
-    else {h4(strong('P-value for this interaction is',signif(var$p,4),'.' ,br(),'Since the p-value is greater than 0.05
+    else {h5(strong('P-value for this interaction is',signif(var$p,4),'.' ,br(),'Since the p-value is greater than 0.05
     (α=0.05), there is NOT a statistically significant interaction between these two variables.'))}
 )
 
