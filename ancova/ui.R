@@ -146,7 +146,7 @@ ui <- dashboardPage(skin = "black",
                         
                         tabItem(tabName ="exploring",
                                 
-                                h2('ANCOVA Interaction Plot'),
+                                h3('ANCOVA Interaction Plot'),
                                 sidebarLayout(
                                   sidebarPanel(
                                     

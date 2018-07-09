@@ -594,7 +594,7 @@ shinyServer(function(input, output,session) {
           
           output$percentBox <- renderValueBox({
             valueBox(
-              paste0(round(sum(c(summationC$correct1))/sum(c(summationC$total))*100,digit=1),'%'), "Correct Percentage", icon = icon("thumbs-up", lib = "glyphicon"),
+              paste0(round(sum(c(summationC$correct1))/sum(c(summationC$total))*100,digit=1),'%'), "Accuracy", icon = icon("thumbs-up", lib = "glyphicon"),
               color = "light-blue"
             )
           })
