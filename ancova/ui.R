@@ -45,6 +45,7 @@ ui <- dashboardPage(skin = "black",
                         tags$style(HTML('#new{color:white;background-color: #BB8FCE}')),
                         tags$style(HTML('#start_timer{color:white;background-color: #BB8FCE}')),
                         tags$style(HTML('#set{color:white;background-color: #BB8FCE}')),
+                        tags$style(HTML('#reset{color:white;background-color: #BB8FCE}')),
                         tags$head(tags$style(HTML("
                             #analysis1 {
                               font-size: 16px;
@@ -188,8 +189,9 @@ ui <- dashboardPage(skin = "black",
                                 fluidRow(column(5,numericInput('seconds','Select the time limit (second)',value=60,min=60,max=300,step=120),
                                          
                                 fluidRow(column(2,actionButton('start_timer','Start',style='padding:5px; font-size:90%')),
-                                         column(2,offset=1,actionButton('set','Set Timer',style='padding:5px; font-size:90%')),
-                                         column(3,offset=1, bsButton('bq2', '',icon = icon('question',class = "iconq fa-fw"),type = 'toggle', class = 'butt',style='padding:20px'),
+                                         column(2,actionButton('set','Set Timer',style='padding:5px; font-size:90%')),
+                                         column(2,actionButton('reset','Reset',style='padding:5px; font-size:90%')),
+                                         column(1, bsButton('bq2', '',icon = icon('question',class = "iconq fa-fw"),type = 'toggle', class = 'butt',style='padding:20px'),
                                                 div(id = "plot-container2",
                                                     conditionalPanel("input.bq2 != 0",
                                                                      tags$img(src = "STAT.PNG",
@@ -230,7 +232,7 @@ ui <- dashboardPage(skin = "black",
                                          ),
                                   
                                  fluidRow(
-                                 column(4, uiOutput('correctC')),
+                                 #column(4, uiOutput('correctC')),
                                  column(1,offset = 4,actionButton("submitA", "Submit Answer",style='padding:5px; font-size:110%')),
                                  column(1,offset = 5,bsButton("new","New>>",style='padding:10px; font-size:120%', disabled = FALSE))
                                )

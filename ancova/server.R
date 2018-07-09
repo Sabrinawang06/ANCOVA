@@ -370,6 +370,9 @@ shinyServer(function(input, output,session) {
   observeEvent(input$new,{index2$index2 <- sample(1:4,1, replace=TRUE, prob=NULL)
   })
   
+  observeEvent(input$reset,{index2$index2 <- sample(1:4,1, replace=TRUE, prob=NULL)
+  })
+  
   output$table1<-renderUI({
     if (index2$index2==1){img(src = numbers$question[numbers$question[5] == "A",3], width = "105%", height = "105%", style = "text-align: center")}
     else if (index2$index2==2){img(src = numbers$question[numbers$question[5] == "B",3], width = "105%", height = "105%", style = "text-align: center")}
@@ -418,7 +421,7 @@ shinyServer(function(input, output,session) {
   observeEvent(input$new, {
     reset("radio1")
   })
-  
+
   
   ###################check answers#####
  
@@ -605,20 +608,14 @@ shinyServer(function(input, output,session) {
           
           
         }
+
       }
     })
   })
   
   
   
-  observe({
-        if(timer()<1)
-        {
-          output$time<-renderText({paste('0')})
-        }
-    
-  })
-  
+ 
   
 
 
@@ -628,8 +625,14 @@ shinyServer(function(input, output,session) {
   observeEvent(input$start_timer, {active(TRUE)})
   #observeEvent(input$stop, {active(FALSE)})
   observeEvent(input$set, {timer(input$seconds)})
+  observeEvent(input$reset, {timer(input$seconds);
+    output$scoreBox<-NULL; 
+    output$percentBox<-NULL;
+    output$timeBox<-NULL;
+    summationC$correct1 <- c(0); summationC$total=c()
+  })
 
-
+  
 ##closing for ui DON'T DELET####  
 })
 
