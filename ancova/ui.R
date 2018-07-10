@@ -151,7 +151,7 @@ ui <- dashboardPage(skin = "black",
                                   sidebarPanel(
                                     
                                     selectInput('menu1','Select the Data',c('Otter','Diet','Random')),
-                                    conditionalPanel("input.menu1=='Diet'",style='font-size:12px;',
+                                    conditionalPanel("input.menu1=='Diet'",style='font-size:13px;',
                                                      tags$style(HTML(".radio-inline {margin-right: 10%;}")),
                                                      radioButtons('select_conti', 'Select Continous Variable',inline=TRUE, choices =c('Age','Height','Pre-diet Weight'), selected = 'Age'),
                                                      radioButtons('select_covar', 'Select Covariance',inline=TRUE,choices =c('Gender','Diet'), selected = 'Gender')
@@ -191,6 +191,15 @@ ui <- dashboardPage(skin = "black",
                                 fluidRow(column(2,actionButton('start_timer','Start',style='padding:5px; font-size:90%')),
                                          column(2,actionButton('set','Set Timer',style='padding:5px; font-size:90%')),
                                          column(2,actionButton('reset','Reset',style='padding:5px; font-size:90%')),
+                                         
+                                         column(1, bsButton('bq1', '',icon = icon('exclamation',class = "iconq fa-fw"),type = 'toggle', class = 'butt',style='padding:20px'),
+                                                div(id = "plot-container1",
+                                                    conditionalPanel("input.bq1 != 0",
+                                                                     tags$img(src = "INS.PNG",
+                                                                              id = "ins"))
+                                                )
+                                                ),
+                                         
                                          column(1, bsButton('bq2', '',icon = icon('question',class = "iconq fa-fw"),type = 'toggle', class = 'butt',style='padding:20px'),
                                                 div(id = "plot-container2",
                                                     conditionalPanel("input.bq2 != 0",
@@ -210,9 +219,9 @@ ui <- dashboardPage(skin = "black",
                                          ),
                                 column(3,offset=4,textOutput("timeleft"))),
                                 
-                                fluidRow(column(2, offset=1,uiOutput('a'),align='right',style='margin-top:-2em;'),
-                                         column(2,offset=2,uiOutput('b'),align='right',style='margin-top:-2em;'),
-                                         column(2,offset=2,uiOutput('c'),align='left',style='margin-top:-2em;')),
+                                fluidRow(column(2, offset=1,uiOutput('a'),align='right',style='margin-top:-1em;'),
+                                         column(2,offset=2,uiOutput('b'),align='right',style='margin-top:-1em;'),
+                                         column(2,offset=2,uiOutput('c'),align='left',style='margin-top:-1em;')),
                           
                                 fluidRow(column(4,uiOutput('plot1')),
                                          column(4,uiOutput('plot2')),
@@ -226,9 +235,9 @@ ui <- dashboardPage(skin = "black",
                                 ),
                                 
                                 
-                                fluidRow(column(3,offset=1,style='padding:20px;margin-top:-2em;font-size: 15px',fluidRow(radioButtons('radio1','',c('A','B','C'),selected='A',inline=TRUE),uiOutput('answer1'))),
-                                         column(3,offset=1,style='padding:20px;margin-top:-2em;font-size: 15px',fluidRow(radioButtons('radio2','',c('A','B','C'),selected='A',inline=TRUE),uiOutput('answer2'))),
-                                         column(3,offset=1,style='padding:20px;margin-top:-2em;font-size: 15px',fluidRow(radioButtons('radio3','',c('A','B','C'),selected='A',inline=TRUE),uiOutput('answer3')))
+                                fluidRow(column(3,offset=1,style='padding:20px;margin-top:-2em;font-size: 15px',fluidRow(radioButtons('radio1','',c('A','B','C'),selected='A',inline=TRUE),fluidRow(uiOutput('answer1'),style='margin-top:-1em;'))),
+                                         column(3,offset=1,style='padding:20px;margin-top:-2em;font-size: 15px',fluidRow(radioButtons('radio2','',c('A','B','C'),selected='A',inline=TRUE),fluidRow(uiOutput('answer2'),style='margin-top:-1em;'))),
+                                         column(3,offset=1,style='padding:20px;margin-top:-2em;font-size: 15px',fluidRow(radioButtons('radio3','',c('A','B','C'),selected='A',inline=TRUE),fluidRow(uiOutput('answer3'),style='margin-top:-1em;')))
                                          ),
                                   
                                  fluidRow(

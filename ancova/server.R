@@ -397,9 +397,9 @@ shinyServer(function(input, output,session) {
   
   
   ####letter for the plot
-  output$a<-renderUI(h3('A'))
-  output$b<-renderUI(h3('B'))
-  output$c<-renderUI(h3('C'))
+  output$a<-renderUI(h4('A'))
+  output$b<-renderUI(h4('B'))
+  output$c<-renderUI(h4('C'))
   #####buttons####
 
   observeEvent(input$submitA,{
@@ -430,20 +430,20 @@ shinyServer(function(input, output,session) {
   observeEvent(input$submitA,{
     observeEvent(input$new,{
       output$answer1 <- renderUI({
-        img(src = NULL,width = 30)
+        img(src = NULL,width=30)
       })
     })
     observe({
       output$answer1 <- renderUI({
         if (!is.null(input$radio1)){
           if (index2$index2==1 &input$radio1 == 'A'){
-            img(src = "check.png",width = 30)
+            img(src = "check.png",width=30)
           }
-          else if (index2$index2==2 &input$radio1 == 'B') {img(src = "check.png",width = 30)}
-          else if (index2$index2==3 &input$radio1 == 'C'){img(src = "check.png",width = 30)}
-          else if (index2$index2==4 &input$radio1 == 'A'){img(src = "check.png",width = 30)}
+          else if (index2$index2==2 &input$radio1 == 'B') {img(src = "check.png",width=30)}
+          else if (index2$index2==3 &input$radio1 == 'C'){img(src = "check.png",width=30)}
+          else if (index2$index2==4 &input$radio1 == 'A'){img(src = "check.png",width =30)}
           else{
-            img(src = "cross.png",width = 30)
+            img(src = "cross.png",width=30)
           }
         }
       })
@@ -454,21 +454,21 @@ shinyServer(function(input, output,session) {
   observeEvent(input$submitA,{
     observeEvent(input$new,{
       output$answer2 <- renderUI({
-        img(src = NULL,width = 30)
+        img(src = NULL,width=30)
       })
     })
     observe({
       output$answer2 <- renderUI({
         if (!is.null(input$radio2)){
           if (index2$index2==1 &input$radio2 == 'B'){
-            img(src = "check.png",width = 30)
+            img(src = "check.png",width=30)
             
           }
-          else if (index2$index2==2 &input$radio2 == 'C') {img(src = "check.png",width = 30)}
-          else if (index2$index2==3 &input$radio2 == 'A'){img(src = "check.png",width = 30)}
-          else if (index2$index2==4 &input$radio2 == 'C'){img(src = "check.png",width = 30)}
+          else if (index2$index2==2 &input$radio2 == 'C') {img(src = "check.png",width=30)}
+          else if (index2$index2==3 &input$radio2 == 'A'){img(src = "check.png",width=30)}
+          else if (index2$index2==4 &input$radio2 == 'C'){img(src = "check.png",width=30)}
           else{
-            img(src = "cross.png",width = 30)
+            img(src = "cross.png",width=30)
           }
         }
       })
@@ -478,20 +478,20 @@ shinyServer(function(input, output,session) {
   observeEvent(input$submitA,{
     observeEvent(input$new,{
       output$answer3 <- renderUI({
-        img(src = NULL,width = 30)
+        img(src = NULL,width=30)
       })
     })
     observe({
       output$answer3 <- renderUI({
         if (!is.null(input$radio3)){
           if (index2$index2==1 &input$radio3 == 'C'){
-            img(src = "check.png",width = 30)
+            img(src = "check.png",width=30)
           }
-          else if (index2$index2==2 &input$radio3 == 'A') {img(src = "check.png",width = 30)}
-          else if (index2$index2==3 &input$radio3 == 'B'){img(src = "check.png",width = 30)}
-          else if (index2$index2==4 &input$radio3 == 'B'){img(src = "check.png",width = 30)}
+          else if (index2$index2==2 &input$radio3 == 'A') {img(src = "check.png",width=30)}
+          else if (index2$index2==3 &input$radio3 == 'B'){img(src = "check.png",width=30)}
+          else if (index2$index2==4 &input$radio3 == 'B'){img(src = "check.png",width=30)}
           else{
-            img(src = "cross.png",width = 30);
+            img(src = "cross.png",width=30);
             
           }
         }
@@ -593,10 +593,15 @@ shinyServer(function(input, output,session) {
           })
           
           output$percentBox <- renderValueBox({
+            if (summationC$correct1==0){valueBox(
+              paste0('0%'), "Accuracy", icon = icon("thumbs-up", lib = "glyphicon"),
+              color = "light-blue"
+            )}
+            else{
             valueBox(
               paste0(round(sum(c(summationC$correct1))/sum(c(summationC$total))*100,digit=1),'%'), "Accuracy", icon = icon("thumbs-up", lib = "glyphicon"),
               color = "light-blue"
-            )
+            )}
           })
           
           output$timeBox <- renderValueBox({
