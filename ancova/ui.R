@@ -88,13 +88,13 @@ ui <- dashboardPage(skin = "black",
                         tags$style(type='text/css', '#anc {background-color:#FF5733; font-size: 30px;padding:10px;height:180px; width:370px;
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
                         
-                        tags$style(type='text/css', '#box1 {background-color:#F36DA1; font-size: 30px; padding:10px;height:180px; width:520px;
+                        tags$style(type='text/css', '#box1 {background-color:#F36DA1; font-size: 30px; padding:18px;height:180px; width:520px;
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
                         
                         tags$style(type='text/css', '#box2 {background-color:#FFB3C9; font-size: 30px; padding:18px;height:180px; width:520px;
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
                         
-                        tags$style(type='text/css', '#box3 {background-color:#FF9881; font-size: 30px;padding:10px;height:180px; width:520px;
+                        tags$style(type='text/css', '#box3 {background-color:#FF9881; font-size: 30px;padding:18px;height:180px; width:520px;
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}')
 
                       ),
@@ -228,7 +228,7 @@ ui <- dashboardPage(skin = "black",
                                     
                                     selectInput('menu1','Select the Data',c('Otter','Diet','Random')),
                                     conditionalPanel("input.menu1=='Diet'",style='font-size:14px;',
-                                                     tags$style(HTML(".radio-inline {margin-right: 9%;}")),
+                                                     tags$style(HTML(".radio-inline {margin-right: 8%;}")),
                                                      radioButtons('select_conti', 'Select Continous Variable',inline=TRUE, choices =c('Age','Height','Pre-diet Weight'), selected = 'Age'),
                                                      radioButtons('select_covar', 'Select Covariance',inline=TRUE,choices =c('Gender','Diet'), selected = 'Gender')
                                     ),
