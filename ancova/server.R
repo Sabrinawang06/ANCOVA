@@ -30,23 +30,20 @@ shinyServer(function(input, output,session) {
   
   #Text on the instruction page
   output$background1<-renderUI(
-    h3(strong('Background'))
+    h2(strong('Background'))
   )
   output$background2<-renderUI(
-    h4('What is ANCOVA')
+    h3('What is ANCOVA')
   )
   output$background3<-renderUI(
-    h5('A ‘classic’ ANOVA tests for differences in mean responses to categorical factor 
-       (treatment) levels. When we have heterogeneity in experimental units sometimes restrictions on the randomization (blocking) can improve the test for treatment effects. In some cases, we don’t have the opportunity to construct blocks, but can recognize and measure a continuous variable as contributing to the heterogeneity in the experimental units.
-        These sources of extraneous variability historically have been referred to as ‘nuisance’ or ‘concomitant’ variables. More recently, these variables are referred to as ‘covariates’.
-        When a continuous covariate is included in an ANOVA we have the analysis of covariance (ANCOVA). (PSU STAT 502-Lesson 10: Analysis of Covariance (ANCOVA))  ')
+    h4('Analysis of variance with continuous variables added in. To know more about the difference between ANOVA, Regression, and ANCOVA, click')
   )
   
   output$background4<-renderUI(
-    h4('Diagnostic Plot')
+    h3('Diagnostic Plot')
   )
   output$background5<-renderUI(
-    h5('Model check is critical before analysis: you need to understanding the four diagnostic plot.',br(),
+    h4('Model check is critical before analysis: you need to understanding the four diagnostic plot.',br(),
        '1. Residuals vs Fitted plot checks linear pattern of residuals. You should expect a horizontal line spreading the dots equally.', br(),
        '2. Normal Q-Q plot checks normality. You should expect the dots follow a straight line.',br(),
        '3. Scale-Location plot checks equal spreads of residual. You should expect a horizontal line with spreading the dots equally also.',br(),
@@ -79,18 +76,44 @@ shinyServer(function(input, output,session) {
   ))
 
   
+  
+  
+  
+  
+  output$box1<-renderUI(h4('ANOVA is used for comparing three or more group means. 
+                           Different groups are different categorical variables, and group means are calculated from continuous variables.
+                            ',br(),br(),'EX. Are the average score of three STAT 200 sections significantly different from each other?'))
+  
+  output$box2<-renderUI(h4('Regression is used for determining the relationship between two continuous variables.Two variables are often classified as
+                            independent variables (X) and dependent variables (Y)
+                            ',br(),br(),'EX. What is the relationship between population density and crime rate'))
+  
+  output$box3<-renderUI(h4('ANCOVA is adding continuous variables onto ANOVA analysis, which is called covariate. 
+                           Significant different between group means and significant relationship between continuous variables will both be analyzed.
+                           ',br(),br(),'EX. Who makes the most money? Will gender or years after graduate or both matters? '))
+  
   ####button###
 
   observeEvent(input$go,{
     updateTabItems(session,"tabs","exploring")
   })
   
+  observeEvent(input$pre2,{
+    updateTabItems(session,"tabs","box")
+  })
+  
+  observeEvent(input$go2,{
+    updateTabItems(session,"tabs","instruction")
+  })
+  
+  
   observeEvent(input$start,{
     updateTabItems(session,"tabs","instruction")
   })
   
   
-  
+
+
   ###############################  Exploring  ##############################
   
   
@@ -304,9 +327,9 @@ shinyServer(function(input, output,session) {
   
   output$p<-renderUI(
     if (var$p<=0.05){
-    h5(strong('P-value for this interaction is',signif(var$p,4),'.' ,br(),'Since the p-value is smaller than 0.05
+    h4(strong('P-value for this interaction is',signif(var$p,4),'.' ,br(),'Since the p-value is smaller than 0.05
     (α=0.05), there is a statistically significant interaction between these two variables.'))}
-    else {h5(strong('P-value for this interaction is',signif(var$p,4),'.' ,br(),'Since the p-value is greater than 0.05
+    else {h4(strong('P-value for this interaction is',signif(var$p,4),'.' ,br(),'Since the p-value is greater than 0.05
     (α=0.05), there is NOT a statistically significant interaction between these two variables.'))}
 )
 

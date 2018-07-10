@@ -11,24 +11,34 @@ library(lubridate)
 library(shinyalert)
 
 
+convertMenuItem <- function(mi,tabName) {
+  mi$children[[1]]$attribs['data-toggle']="tab"
+  mi$children[[1]]$attribs['data-value'] = tabName
+  if(length(mi$attribs$class)>0 && mi$attribs$class=="treeview"){
+    mi$attribs$class=NULL
+  }
+  mi
+}
+
 ui <- dashboardPage(skin = "black",
                     dashboardHeader(title = "ANCOVA",
-                                    titleWidth = 180,
+                                    titleWidth = 180
                                     # Set height of dashboardHeader
-                                    tags$li(class = "dropdown",
-                                            tags$style(".main-header {max-height: 45px}"),
-                                            tags$style(".main-header .logo {height: 45px;}"),
-                                            tags$style(".sidebar-toggle {height: 45px; padding-top: 1px !important;}"),
-                                            tags$style(".navbar {min-height:45px !important}")
-                                    ) 
+                                    # tags$li(class = "dropdown",
+                                    #         tags$style(".main-header {max-height: 45px}"),
+                                    #         tags$style(".main-header .logo {height: 45px;}"),
+                                    #         tags$style(".sidebar-toggle {height: 45px; padding-top: 1px !important;}"),
+                                    #         tags$style(".navbar {min-height:45px !important}")
+                                    # ) 
                                     
                                     ),
                     #adding prereq pages
                     dashboardSidebar(
                       width = 180,
                       
-                      sidebarMenu(id='tabs',style='font-size:12px;',
-                                  menuItem("Pre-requisites", tabName= "prereq", icon=icon("dashboard")),
+                      sidebarMenu(id='tabs',style='font-size:13px;',
+                                  convertMenuItem(menuItem("Pre-requisites", tabName= "prereq", icon=icon("dashboard"),
+                                           menuSubItem('What is ANCOVA',tabName = 'box',icon=icon('calendar'))),'prereq'),
                                   menuItem("Overview",tabName = "instruction", icon = icon("dashboard")),
                                   menuItem("Exploring",tabName = "exploring", icon = icon("th")),
                                   menuItem("Game",tabName = "game", icon = icon("th"))
@@ -41,6 +51,8 @@ ui <- dashboardPage(skin = "black",
                       tags$head(
                         tags$style(HTML('#start{color:white;background-color: #BB8FCE}')),
                         tags$style(HTML('#go{color:white;background-color: #BB8FCE}')),
+                        tags$style(HTML('#go2{color:white;background-color: #BB8FCE}')),
+                        tags$style(HTML('#pre2{color:white;background-color: #BB8FCE}')),
                         tags$style(HTML('#submitA{color:white;background-color: #BB8FCE}')),
                         tags$style(HTML('#new{color:white;background-color: #BB8FCE}')),
                         tags$style(HTML('#start_timer{color:white;background-color: #BB8FCE}')),
@@ -63,11 +75,28 @@ ui <- dashboardPage(skin = "black",
                         tags$style(type='text/css', '#b {background-color:#C39BD3; font-size: 12px; 
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
                         tags$style(type='text/css', '#c {background-color:#C39BD3; font-size: 12px; 
+                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
+                        
+                        
+                        ###format for the pre-req
+                        tags$style(type='text/css', '#ano {background-color:#900C3F; font-size: 30px; padding:10px;height:180px; width:370px;
+                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
+                        
+                        tags$style(type='text/css', '#regression {background-color:#C70039; font-size: 30px; padding:10px;height:180px; width:370px;
+                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
+                        
+                        tags$style(type='text/css', '#anc {background-color:#FF5733; font-size: 30px;padding:10px;height:180px; width:370px;
+                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
+                        
+                        tags$style(type='text/css', '#box1 {background-color:#F36DA1; font-size: 30px; padding:10px;height:180px; width:520px;
+                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
+                        
+                        tags$style(type='text/css', '#box2 {background-color:#FFB3C9; font-size: 30px; padding:18px;height:180px; width:520px;
+                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
+                        
+                        tags$style(type='text/css', '#box3 {background-color:#FF9881; font-size: 30px;padding:10px;height:180px; width:520px;
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}')
-                        
-                      
-                        
-                        
+
                       ),
                       
                       
@@ -80,27 +109,74 @@ ui <- dashboardPage(skin = "black",
                                 ),
                                 fluidRow(
                                   column(1,img(src = "right.png", width = 20)),
-                                  column(8,uiOutput("background2"))
+                                  column(7,uiOutput("background2"),style='margin-top:-1em')
+
                                 ),
+                               
                                 fluidRow(
                                   column(1,img(src = "right.png", width = 20)),
-                                  column(8,uiOutput("background3"))
+                                  column(8,uiOutput("background3"),style='margin-top:-1em'),
+                                  fluidRow( 
+                                    column(2, offset=3,
+                                           actionButton('pre2','Comparision of different analysis',style='padding:10px; font-size:100%;margin-top:-1.5em;margin-left:14em',class="circle grow")))
                                   ), hr(),
                                 
                                 fluidRow(
                                   column(1,img(src = "right.png", width = 20)),
-                                  column(8,uiOutput("background4"))
+                                  column(8,uiOutput("background4"),style='margin-top:-1em')
                                 ),
-                                fluidRow(column(11,offset=2, img(src='plot.png',width=550))),
+                                fluidRow(column(11,offset=2, img(src='plot.png',width=550),style='margin-top:-1em')),
                                 fluidRow(
                                   column(1,img(src = "right.png", width = 20)),
-                                  column(8,uiOutput("background5"))
+                                  column(8,uiOutput("background5"),style='margin-top:-1em')
                                 ),
                                   fluidRow(
                                     column(3,offset=1,actionButton("start","Go to the overview",icon("bolt"),style='padding:10px; font-size:100%',class="circle grow"))
                                   )
                                   
                                 
+                        ),
+                        
+                        tabItem(tabName='box',
+                                br(),
+                                fluidRow(
+                                  column(3, bsButton('ano',HTML('X:Categorical <br/>  Y: Continuous'),type = 'toggle')),
+                                  column(1, 
+                                         conditionalPanel("input.ano != 0",
+                                                          img(src='line1.png',width=250,style='margin-top:6em;margin-left:6.5em'))
+                                  ),
+                                  column(5, offset = 2,
+                                      conditionalPanel("input.ano != 0",
+                                                       uiOutput('box1'))
+                                  )
+                                  ),br(),br(),
+                                fluidRow(
+                                  column(3, bsButton('regression' ,HTML('X:Continous <br/>  Y: Continuous'),type = 'toggle')),
+                                  column(1, 
+                                         conditionalPanel("input.regression != 0",
+                                                          img(src='line2.png',width=250,style='margin-top:6em;margin-left:6.5em'))
+                                  ),
+                                  column(5,offset=2,
+                                      conditionalPanel("input.regression != 0",
+                                                      uiOutput('box2'))
+                                  )
+                                ),br(),br(),
+                                fluidRow(
+                                  column(3, bsButton('anc',HTML('X:Categorical& Continous <br/>  Y: Continuous'),type = 'toggle')),
+                                  column(1, 
+                                         conditionalPanel("input.anc != 0",
+                                                          img(src='line3.png',width=250,style='margin-top:6em;margin-left:6.5em'))
+                                  ),
+                                  column(5,offset=2,
+                                      conditionalPanel("input.anc != 0",
+                                                      uiOutput('box3'))
+                                  )
+                                ),br(),
+                                fluidRow(
+                                  column(3,offset=4,actionButton("go2","Go to the overview",icon("bolt"),style='padding:10px; font-size:100%',class="circle grow"))
+                                )
+               
+
                         ),
                         
                         
@@ -151,8 +227,8 @@ ui <- dashboardPage(skin = "black",
                                   sidebarPanel(
                                     
                                     selectInput('menu1','Select the Data',c('Otter','Diet','Random')),
-                                    conditionalPanel("input.menu1=='Diet'",style='font-size:13px;',
-                                                     tags$style(HTML(".radio-inline {margin-right: 10%;}")),
+                                    conditionalPanel("input.menu1=='Diet'",style='font-size:14px;',
+                                                     tags$style(HTML(".radio-inline {margin-right: 9%;}")),
                                                      radioButtons('select_conti', 'Select Continous Variable',inline=TRUE, choices =c('Age','Height','Pre-diet Weight'), selected = 'Age'),
                                                      radioButtons('select_covar', 'Select Covariance',inline=TRUE,choices =c('Gender','Diet'), selected = 'Gender')
                                     ),

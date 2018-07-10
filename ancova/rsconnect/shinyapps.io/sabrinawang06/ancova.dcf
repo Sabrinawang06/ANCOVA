@@ -5,8 +5,8 @@ account: sabrinawang06
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 372928
-bundleId: 1462936
+bundleId: 1473391
 url: https://sabrinawang06.shinyapps.io/ancova/
-when: 1530633424.18829
+when: 1531228305.24273
 asMultiple: FALSE
 asStatic: FALSE
