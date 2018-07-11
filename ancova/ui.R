@@ -271,7 +271,7 @@ ui <- dashboardPage(skin = "black",
                                          column(1, bsButton('bq1', '',icon = icon('exclamation',class = "iconq fa-fw"),type = 'toggle', class = 'butt',style='padding:20px'),
                                                 div(id = "plot-container1",
                                                     conditionalPanel("input.bq1 != 0",
-                                                                     tags$img(src = "INS.PNG",
+                                                                     tags$img(src = "INS.png",
                                                                               id = "ins"))
                                                 )
                                                 ),
@@ -279,7 +279,7 @@ ui <- dashboardPage(skin = "black",
                                          column(1, bsButton('bq2', '',icon = icon('question',class = "iconq fa-fw"),type = 'toggle', class = 'butt',style='padding:20px'),
                                                 div(id = "plot-container2",
                                                     conditionalPanel("input.bq2 != 0",
-                                                                     tags$img(src = "STAT.PNG",
+                                                                     tags$img(src = "STAT.png",
                                                                               id = "hint"))
                                                 )
                                          )), br(),
