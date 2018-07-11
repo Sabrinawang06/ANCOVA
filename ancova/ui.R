@@ -95,7 +95,18 @@ ui <- dashboardPage(skin = "black",
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
                         
                         tags$style(type='text/css', '#box3 {background-color:#FF9881; font-size: 30px;padding:18px;height:180px; width:520px;
-                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}')
+                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
+                        tags$style(
+                          HTML(".shiny-notification {
+                               height: 100px;
+                               width: 800px;
+                               position:fixed;
+                               top: calc(50% - 50px);;
+                               left: calc(50% - 400px);;
+                               }
+                               "
+                          )
+                          )
 
                       ),
                       

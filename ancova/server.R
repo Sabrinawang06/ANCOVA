@@ -161,12 +161,17 @@ shinyServer(function(input, output,session) {
   
  
   ###Graph the plot of interaction###
-  output$plot_gg<-renderPlot(if (input$menu1=='Otter') {ggplot(pred.data, aes(x = Year, y = Otters, colour = Location)) + 
+  
+
+  output$plot_gg<-renderPlot(
+    if (input$menu1=='Otter') {ggplot(pred.data, aes(x = Year, y = Otters, colour = Location)) + 
                              geom_line() + geom_point(data = seaotters) + 
                              xlab("Year") + ylab("Otters")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
                                                                  panel.background = element_blank(), axis.line = element_line(colour = "black"))}
                            
                           else if (input$menu1=='Diet'){
+                
+                            
                            if (input$select_conti=='Age' & input$select_covar=='Gender'){ggplot(pred.data2, aes(x = Age, y = ab_change, colour = gender)) + 
                                geom_line() + geom_point(data = diet) + 
                                xlab("Age") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
@@ -191,8 +196,12 @@ shinyServer(function(input, output,session) {
                                geom_line() + geom_point(data = diet) + 
                                xlab("Pre-diet Weight") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
                                                                                           panel.background = element_blank(), axis.line = element_line(colour = "black"))}
-                          }
+                            
+                    }
+    
                            else if (input$menu1=='Random'){
+                            
+                             
                              ###create data with label A and B with different slope and intersection
                              A<-'A'
                              B<-'B'
@@ -239,13 +248,19 @@ shinyServer(function(input, output,session) {
                                geom_line() + geom_point(data = comb) + 
                                xlab("X") + ylab("Y")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
                                                            panel.background = element_blank(), axis.line = element_line(colour = "black"))}
-                           )
+    
+
+                          
+     )
   
   
   
   
   ###ANCOVA analysis table###
-  output$analysis1<-renderPrint(if (input$menu1=='Otter') {anova(otters.model)}
+  output$analysis1<-renderPrint(
+    
+    
+    if (input$menu1=='Otter') {anova(otters.model)}
                                 else if (input$menu1=='Diet'){
                                 if (input$select_conti=='Age' & input$select_covar=='Gender'){anova(diet.model2)}
                                 else if (input$select_conti=='Height' & input$select_covar=='Gender'){anova(diet.model3)}
@@ -296,7 +311,9 @@ shinyServer(function(input, output,session) {
                                   anova(aov.model)
                                  
                                   
-                                  }
+                                }
+
+
                                 )
   
   
