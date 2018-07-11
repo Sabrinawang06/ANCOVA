@@ -206,7 +206,7 @@ ui <- dashboardPage(skin = "black",
                                 fluidRow(
                                   column(1,img(src = "right.png", width = 20)),
                                   column(8,uiOutput("instruction4")),
-                                  column(5,actionButton("go","Go",icon("bolt"),style='padding:10px; font-size:100%',class="circle grow"))
+                                  column(5, offset=1,actionButton("go","Go",icon("bolt"),style='padding:10px; font-size:100%',class="circle grow"))
                                 ),br(),br(),
                                 fluidRow(
                                   column(8,offset = 1, uiOutput("ack1"))

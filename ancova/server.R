@@ -65,9 +65,11 @@ shinyServer(function(input, output,session) {
   output$instruction3<-renderUI(
     h4('Use the radio button to select different varibles and see the change in interaction plot. Or use slider bars to change the parameters. ')
   )
-  output$instruction44<-renderUI(
-    h4('After the explore section, you can start the matching game to test your understand on this concept.')
+  output$instruction4<-renderUI(
+    h4('After the explore section, you can start the matching game to test your understand on this concept. ',br(),'Click "set time" to choose the time limit and click "start" to start the gane. You can use "i" button for instruction and "?" for hints.')
   )
+  
+  
   output$ack1<-renderUI(
     h3(strong('Acknowledgement'))
   )
@@ -335,7 +337,7 @@ shinyServer(function(input, output,session) {
 
  
   
-  #####game pictures#####
+  
   
   ######################################  Bank B #############################################################
   numbers <- reactiveValues(strong = c(), moderate = c(), insig = c(), index = c(), question = data.frame())
@@ -583,7 +585,7 @@ shinyServer(function(input, output,session) {
   ###########timer####################
   
   # Initialize the timer, 60 seconds, not active.
-  timer <- reactiveVal(5)
+  timer <- reactiveVal(60)
   active <- reactiveVal(FALSE)
   
   # Output the time left.
@@ -616,7 +618,7 @@ shinyServer(function(input, output,session) {
           })
           
           output$percentBox <- renderValueBox({
-            if (summationC$correct1==0){valueBox(
+            if (sum(c(summationC$correct1))==0){valueBox(
               paste0('0%'), "Accuracy", icon = icon("thumbs-up", lib = "glyphicon"),
               color = "light-blue"
             )}
