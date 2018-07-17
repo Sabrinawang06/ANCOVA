@@ -79,22 +79,22 @@ ui <- dashboardPage(skin = "black",
                         
                         
                         ###format for the pre-req
-                        tags$style(type='text/css', '#ano {background-color:#900C3F; font-size: 30px; padding:10px;height:180px; width:370px;
+                        tags$style(type='text/css', '#ano {background-color:#900C3F; font-size: 24px; padding:10px;height:180px; width:370px;
+                                   color:white;font family:Sans-serif;text-align: center; border-radius: 80px}'),
+                        
+                        tags$style(type='text/css', '#regression {background-color:#C70039; font-size: 24px; padding:10px;height:180px; width:370px;
+                                   color:white;font family:Sans-serif;text-align: center; border-radius: 80px}'),
+                        
+                        tags$style(type='text/css', '#anc {background-color:#FF5733; font-size: 24px;padding:10px;height:180px; width:370px;
+                                   color:white;font family:Sans-serif;text-align: center; border-radius: 80px}'),
+                        
+                        tags$style(type='text/css', '#box1 {background-color:#F36DA1; font-size: 26px; padding:20px;height:180px; width:520px;
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
                         
-                        tags$style(type='text/css', '#regression {background-color:#C70039; font-size: 30px; padding:10px;height:180px; width:370px;
+                        tags$style(type='text/css', '#box2 {background-color:#FFB3C9; font-size: 26px; padding:20px;height:180px; width:520px;
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
                         
-                        tags$style(type='text/css', '#anc {background-color:#FF5733; font-size: 30px;padding:10px;height:180px; width:370px;
-                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
-                        
-                        tags$style(type='text/css', '#box1 {background-color:#F36DA1; font-size: 30px; padding:18px;height:180px; width:520px;
-                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
-                        
-                        tags$style(type='text/css', '#box2 {background-color:#FFB3C9; font-size: 30px; padding:18px;height:180px; width:520px;
-                                   color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
-                        
-                        tags$style(type='text/css', '#box3 {background-color:#FF9881; font-size: 30px;padding:18px;height:180px; width:520px;
+                        tags$style(type='text/css', '#box3 {background-color:#FF9881; font-size: 26px;padding:20px;height:180px; width:520px;
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 80px}'),
                         tags$style(
                           HTML(".shiny-notification {
@@ -151,29 +151,29 @@ ui <- dashboardPage(skin = "black",
                         tabItem(tabName='box',
                                 br(),
                                 fluidRow(
-                                  column(3, bsButton('ano',HTML('X:Categorical <br/>  Y: Continuous'),type = 'toggle')),
+                                  column(3, bsButton('ano',HTML('<b> X </b> :Categorical <br/>  Y: Continuous'),type = 'toggle')),
                                   column(1, 
                                          conditionalPanel("input.ano != 0",
                                                           img(src='line1.png',width=250,style='margin-top:6em;margin-left:6.5em'))
                                   ),
                                   column(5, offset = 2,
                                       conditionalPanel("input.ano != 0",
-                                                       uiOutput('box1'))
+                                                       tags$a(uiOutput('box1'),href='http://shiny.science.psu.edu/auc39/ANOVA/',target="_blank"))
                                   )
                                   ),br(),br(),
                                 fluidRow(
-                                  column(3, bsButton('regression' ,HTML('X:Continous <br/>  Y: Continuous'),type = 'toggle')),
+                                  column(3, bsButton('regression' ,HTML('<b> X </b>:continuous <br/>  Y: Continuous'),type = 'toggle')),
                                   column(1, 
                                          conditionalPanel("input.regression != 0",
                                                           img(src='line2.png',width=250,style='margin-top:6em;margin-left:6.5em'))
                                   ),
                                   column(5,offset=2,
                                       conditionalPanel("input.regression != 0",
-                                                      uiOutput('box2'))
+                                                      tags$a(uiOutput('box2'),href='tjmcintyre.shinyapps.io/AssumptionsApp/',target="_blank"))
                                   )
                                 ),br(),br(),
                                 fluidRow(
-                                  column(3, bsButton('anc',HTML('X:Categorical& Continous <br/>  Y: Continuous'),type = 'toggle')),
+                                  column(3, bsButton('anc',HTML('<b> X </b>:Categorical & continuous <br/>  Y: Continuous'),type = 'toggle')),
                                   column(1, 
                                          conditionalPanel("input.anc != 0",
                                                           img(src='line3.png',width=250,style='margin-top:6em;margin-left:6.5em'))

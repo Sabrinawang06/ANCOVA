@@ -83,16 +83,15 @@ shinyServer(function(input, output,session) {
   
   
   output$box1<-renderUI(h4('ANOVA is used for comparing three or more group means. 
-                           Different groups are different categorical variables, and group means are calculated from continuous variables.
+                           Different groups are different levels of categorical variables, and group means are calculated from continuous variables.
                             ',br(),br(),'EX. Are the average score of three STAT 200 sections significantly different from each other?'))
   
-  output$box2<-renderUI(h4('Regression is used for determining the relationship between two continuous variables.Two variables are often classified as
-                            independent variables (X) and dependent variables (Y)
-                            ',br(),br(),'EX. What is the relationship between population density and crime rate'))
+  output$box2<-renderUI(h4('Regression is used for determining the relationship between two continuous variables. One dependent variable (Y) can also be affected by multiple independent variables (X).  
+                            ',br(),br(),'EX. How will crime rate be impacted by population, economics, and education.'))
   
   output$box3<-renderUI(h4('ANCOVA is adding continuous variables onto ANOVA analysis, which is called covariate. 
                            Significant different between group means and significant relationship between continuous variables will both be analyzed.
-                           ',br(),br(),'EX. Who makes the most money? Will gender or years after graduate or both matters? '))
+                           ',br(),br(),'EX. Who makes the most money? Will gender or years after graduate influence the income? '))
   
   ####button###
 
