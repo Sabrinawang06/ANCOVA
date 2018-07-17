@@ -380,6 +380,17 @@ shinyServer(function(input, output,session) {
     
   })
   
+  observeEvent(input$tabs,{
+    numbers$strong = sample(1:12,1)
+    numbers$moderate = sample(13:24,1)
+    numbers$insig= sample(25:36,1)
+    
+    
+    numbers$index = c("A","B","C")
+    numbers$question = cbind(bank[c(numbers$strong,numbers$moderate,numbers$insig),],numbers$index)
+    
+  })
+  
   output$plot1 <- renderUI({
     img(src = numbers$question[numbers$question[5] == "A",4], width = "100%", height = "107%", style = "text-align: center")
   })

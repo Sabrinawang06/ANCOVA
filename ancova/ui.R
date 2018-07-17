@@ -169,7 +169,7 @@ ui <- dashboardPage(skin = "black",
                                   ),
                                   column(5,offset=2,
                                       conditionalPanel("input.regression != 0",
-                                                      tags$a(uiOutput('box2'),href='tjmcintyre.shinyapps.io/AssumptionsApp/',target="_blank"))
+                                                      tags$a(uiOutput('box2'),href='http://tjmcintyre.shinyapps.io/AssumptionsApp/',target="_blank"))
                                   )
                                 ),br(),br(),
                                 fluidRow(
