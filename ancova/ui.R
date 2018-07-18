@@ -37,11 +37,11 @@ ui <- dashboardPage(skin = "black",
                       width = 180,
                       
                       sidebarMenu(id='tabs',style='font-size:13px;',
-                                  convertMenuItem(menuItem("Pre-requisites", tabName= "prereq", icon=icon("dashboard"),
+                                  convertMenuItem(menuItem("Pre-requisites", tabName= "prereq", icon=icon("book"),
                                            menuSubItem('What is ANCOVA',tabName = 'box',icon=icon('calendar'))),'prereq'),
                                   menuItem("Overview",tabName = "instruction", icon = icon("dashboard")),
-                                  menuItem("Exploring",tabName = "exploring", icon = icon("th")),
-                                  menuItem("Game",tabName = "game", icon = icon("th"))
+                                  menuItem("Exploring",tabName = "exploring", icon = icon("wpexplorer")),
+                                  menuItem("Game",tabName = "game", icon = icon("gamepad"))
                       )
                     ),
                     dashboardBody(
@@ -259,7 +259,7 @@ ui <- dashboardPage(skin = "black",
                                   
                                   mainPanel(
                                     plotOutput('plot_gg'),
-                                    bsPopover('plot_gg', 'Notice', 'Different lines represent different values of covariate. Remember intersection does not imply significant interaction.', placement = "top", trigger = "hover", options = NULL),
+                                    bsPopover('plot_gg', 'Notice', 'Different lines represent different values of covariate. Remember intersection does not imply significant interaction.', placement = "bottom", trigger = "hover", options = NULL),
                                     tags$b(verbatimTextOutput('analysis1')),
                                     bsPopover('analysis1', 'ANOVA Table', 'Pay attention to the last column. Small p-value indicates siginificant influence or interaction.', placement = "top", trigger = "hover", options = NULL)
                                    
