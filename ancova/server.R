@@ -681,8 +681,8 @@ shinyServer(function(input, output,session) {
   # observers for actionbuttons
   observeEvent(input$start_timer, {active(TRUE)})
   #observeEvent(input$stop, {active(FALSE)})
-  observeEvent(input$set, {timer(input$seconds)})
-  observeEvent(input$reset, {timer(input$seconds);
+  observeEvent(input$start_timer, {timer(input$seconds)})
+  observeEvent(input$reset, {timer(input$seconds);active(FALSE)
     output$scoreBox<-NULL; 
     output$percentBox<-NULL;
     output$timeBox<-NULL;

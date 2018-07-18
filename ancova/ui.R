@@ -259,7 +259,9 @@ ui <- dashboardPage(skin = "black",
                                   
                                   mainPanel(
                                     plotOutput('plot_gg'),
-                                    tags$b(verbatimTextOutput('analysis1'))
+                                    bsPopover('plot_gg', 'Notice', 'Different lines represent different values of covariate. Remember intersection does not imply significant interaction.', placement = "top", trigger = "hover", options = NULL),
+                                    tags$b(verbatimTextOutput('analysis1')),
+                                    bsPopover('analysis1', 'ANOVA Table', 'Pay attention to the last column. Small p-value indicates siginificant influence or interaction.', placement = "top", trigger = "hover", options = NULL)
                                    
                                   )
                                 )
@@ -274,9 +276,9 @@ ui <- dashboardPage(skin = "black",
                                 
                                 
                                 fluidRow(column(5,numericInput('seconds','Select the time limit (second)',value=60,min=60,max=300,step=120),
-                                         
+                                                bsPopover('seconds', 'Timer', 'Type in the time limit you want for this game. Click "Start" to start the timer and play the game', placement = "right", trigger = "hover", options = NULL),
                                 fluidRow(column(2,actionButton('start_timer','Start',style='padding:5px; font-size:90%')),
-                                         column(2,actionButton('set','Set Timer',style='padding:5px; font-size:90%')),
+                                         #column(2,actionButton('set','Set Timer',style='padding:5px; font-size:90%')),
                                          column(2,actionButton('reset','Reset',style='padding:5px; font-size:90%')),
                                          
                                          column(1, bsButton('bq1', '',icon = icon('exclamation',class = "iconq fa-fw"),type = 'toggle', class = 'butt',style='padding:20px'),

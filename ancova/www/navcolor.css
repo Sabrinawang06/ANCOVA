@@ -31,7 +31,7 @@ font-size: 6px;
   position: absolute;
   z-index: 1;
   margin-top: -120px;  
-  margin-left: 90px;
+  margin-left: 110px;
   height: 76px;
   width: 541px;
 }
@@ -41,7 +41,7 @@ font-size: 6px;
   position: absolute;
   z-index: 1;
   margin-top: -50px;  
-  margin-left: 50px;
+  margin-left: 70px;
   height: 76px;
   width: 541px;
 }
@@ -205,10 +205,10 @@ aside.main-sidebar {
 
 .popover-title {
     color: white;
-    font-size: 15px;
-    background-color:black;
+    font-size: 18px;
+    background-color:#A880B9;
 }
 .popover-content {
-    color: red;
-    font-size: 10px;
+    color: black;
+    font-size: 14px;
 }
