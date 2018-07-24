@@ -116,15 +116,26 @@ shinyServer(function(input, output,session) {
   
   
   
-  ##############Download the dataset#############
+  ##########################Download the dataset#################
+  
+  # Reactive value for selected dataset ----
+  datasetInput <- reactive({
+    switch(input$menu1,
+           'Otter'=seaotters,
+           'Diet'=diet)
+  })
+  
+  # Downloadable csv of selected dataset ----
+  
   output$downloadData <- downloadHandler(
     filename = function() {
       paste(input$menu1, ".csv", sep = "")
     },
-    content = function(file) {
-      write.csv(datasetInput(), file, row.names = FALSE)
+    content = function(con) {
+      write.csv(datasetInput(), con)
     }
   )
+  
 
 
   ###############################  Exploring  ##############################
