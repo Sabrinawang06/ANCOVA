@@ -14,7 +14,7 @@ library(shinyalert)##NEW PACKAGE
 
 
 ####read in dataset###
-seaotters <- read.csv("otter.csv",header=T)
+seaotters <- read.csv("Otter.csv",header=T)
 
 diet <- read.csv("Diet.csv",header=T)
 diet$Diet<-as.character(diet$Diet)
@@ -115,6 +115,16 @@ shinyServer(function(input, output,session) {
   })
   
   
+  
+  ##############Download the dataset#############
+  output$downloadData <- downloadHandler(
+    filename = function() {
+      paste(input$menu1, ".csv", sep = "")
+    },
+    content = function(file) {
+      write.csv(datasetInput(), file, row.names = FALSE)
+    }
+  )
 
 
   ###############################  Exploring  ##############################

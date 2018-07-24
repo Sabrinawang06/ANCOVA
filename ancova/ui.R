@@ -254,7 +254,11 @@ ui <- dashboardPage(skin = "black",
                                                      
                                       
                                     ),
-                                    fluidRow(uiOutput('p'),align = "left")
+                                    fluidRow(uiOutput('p'),align = "left"),
+                                    
+                                    conditionalPanel("input.menu1!='Random'",
+                                                     downloadButton("downloadData", "Download the Dataset")
+                                    )
                                   ),
                                   
                                   mainPanel(
@@ -276,7 +280,7 @@ ui <- dashboardPage(skin = "black",
                                 
                                 
                                 fluidRow(column(5,numericInput('seconds','Select the time limit (second)',value=60,min=60,max=300,step=120),
-                                                bsPopover('seconds', 'Timer', 'Type in the time limit you want for this game. Click "Start" to start the timer and play the game', placement = "right", trigger = "hover", options = NULL),
+                                                bsPopover('seconds', 'Timer', 'Type in the time limit (in seconds) you want for this game. Click "Start" to start the timer and play the game', placement = "right", trigger = "hover", options = NULL),
                                 fluidRow(column(2,actionButton('start_timer','Start',style='padding:5px; font-size:90%')),
                                          #column(2,actionButton('set','Set Timer',style='padding:5px; font-size:90%')),
                                          column(2,actionButton('reset','Reset',style='padding:5px; font-size:90%')),
