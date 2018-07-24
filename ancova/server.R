@@ -74,11 +74,11 @@ shinyServer(function(input, output,session) {
     h3(strong('Acknowledgement'))
   )
   output$ack2<-renderUI((
-  h4('This app is developed and coded by Luxin Wang. Thanks for the data set and code provided by The University of Sheffield (',url ,') and Dylan Childs.(',url2,')')
+  h4('This app is developed and coded by Luxin Wang. Thanks for the data set and code provided by The University of Sheffield (',url,') and Dr.Dylan Childs(',url2,').')
   ))
   
-  url <- a("www.sheffield.ac.uk/mash/data", href="https://www.sheffield.ac.uk/mash/data")
-  url2 <- a("github.com/dzchilds", href="https://github.com/dzchilds")
+  url <- a("www.sheffield.ac.uk/mash/data", href="https://www.sheffield.ac.uk/mash/data",target="_blank")
+  url2 <- a("github.com/dzchilds", href="https://github.com/dzchilds",target="_blank")
   
   
   

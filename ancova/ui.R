@@ -199,7 +199,7 @@ ui <- dashboardPage(skin = "black",
                                 ),
                                 fluidRow(
                                   column(1,img(src = "right.png", width = 20)),
-                                  column(8,uiOutput("about2"))
+                                  column(9,uiOutput("about2"))
                                 ),br(),
                                 
                                 br(),
@@ -208,15 +208,15 @@ ui <- dashboardPage(skin = "black",
                                 ),
                                 fluidRow(
                                   column(1,img(src = "right.png", width = 20)),
-                                  column(8,uiOutput("instruction2"))
+                                  column(9,uiOutput("instruction2"))
                                 ),
                                 fluidRow(
                                   column(1,img(src = "right.png", width = 20)),
-                                  column(8,uiOutput("instruction3"))
+                                  column(9,uiOutput("instruction3"))
                                 ),
                                 fluidRow(
                                   column(1,img(src = "right.png", width = 20)),
-                                  column(8,uiOutput("instruction4")),
+                                  column(9,uiOutput("instruction4")),
                                   column(5, offset=1,actionButton("go","Go",icon("bolt"),style='padding:10px; font-size:100%',class="circle grow"))
                                 ),br(),br(),
                                 fluidRow(
@@ -224,7 +224,7 @@ ui <- dashboardPage(skin = "black",
                                 ),
                                 fluidRow(
                                   column(1,img(src = "right.png", width = 20)),
-                                  column(8, uiOutput("ack2"))
+                                  column(9, uiOutput("ack2"))
                                 )
                                 
                         ),
