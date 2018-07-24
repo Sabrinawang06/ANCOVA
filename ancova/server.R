@@ -54,19 +54,19 @@ shinyServer(function(input, output,session) {
     h3(strong("About"))
   )
   output$about2<-renderUI(
-    h4('This app introduces the concept of ANCOVA focusing on interpret interaction plot.')
+    h4('This app introduces the concept of ANCOVA focusing on interpreting interaction plots.')
   )
   output$instruction1<-renderUI(
     h3(strong('Instruction'))
   )
   output$instruction2<-renderUI(
-    h4('Click Go button to enter the explore page. Use the dropdown menu to select different dataset.')
+    h4('Click Go button to enter the explore page. Use the dropdown menu to select different a dataset.')
   )
   output$instruction3<-renderUI(
-    h4('Use the radio button to select different varibles and see the change in interaction plot. Or use slider bars to change the parameters. ')
+    h4('Use the radio buttons to select different variables and see the changes in the interaction plot. Or use slider bars to change the parameters. ')
   )
   output$instruction4<-renderUI(
-    h4('After the explore section, you can start the matching game to test your understand on this concept. ',br(),'Click "set time" to choose the time limit and click "start" to start the gane. You can use "i" button for instruction and "?" for hints.')
+    h4('In the explore section, you can start the matching game to test your understanding of the concepts. Click "start" to set the timer and start the game. You can use "i" button for instruction and "?" for hints.')
   )
   
   
@@ -74,9 +74,11 @@ shinyServer(function(input, output,session) {
     h3(strong('Acknowledgement'))
   )
   output$ack2<-renderUI((
-  h4('This app is developed and coded by Luxin Wang. Thanks for the data set and code provided by The University of Sheffield (https://www.sheffield.ac.uk/mash/data) and Dylan Childs.(https://github.com/dzchilds)')
+  h4('This app is developed and coded by Luxin Wang. Thanks for the data set and code provided by The University of Sheffield (',url ,') and Dylan Childs.(',url2,')')
   ))
-
+  
+  url <- a("www.sheffield.ac.uk/mash/data", href="https://www.sheffield.ac.uk/mash/data")
+  url2 <- a("github.com/dzchilds", href="https://github.com/dzchilds")
   
   
   

@@ -281,7 +281,7 @@ ui <- dashboardPage(skin = "black",
                                          #column(2,actionButton('set','Set Timer',style='padding:5px; font-size:90%')),
                                          column(2,actionButton('reset','Reset',style='padding:5px; font-size:90%')),
                                          
-                                         column(1, bsButton('bq1', '',icon = icon('exclamation',class = "iconq fa-fw"),type = 'toggle', class = 'butt',style='padding:20px'),
+                                         column(1, bsButton('bq1', '',icon = icon('info',class = "iconq fa-fw"),type = 'toggle', class = 'butt',style='padding:20px'),
                                                 div(id = "plot-container1",
                                                     conditionalPanel("input.bq1 != 0",
                                                                      tags$img(src = "INS.png",
