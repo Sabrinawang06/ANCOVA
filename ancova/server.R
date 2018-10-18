@@ -401,6 +401,9 @@ shinyServer(function(input, output,session) {
     numbers$index = c("A","B","C")
     numbers$question = cbind(bank[c(numbers$strong,numbers$moderate,numbers$insig),],numbers$index)
     
+    updateRadioButtons(session, 'radio1','',c('A','B','C'),selected='',inline=TRUE)
+    updateRadioButtons(session,"radio2", '',c('A','B','C'),selected='',inline=TRUE)
+    updateRadioButtons(session, "radio3", '',c('A','B','C'),selected='',inline=TRUE)
   })
   
   observeEvent(input$tabs,{
