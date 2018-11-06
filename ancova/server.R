@@ -40,41 +40,41 @@ shinyServer(function(input, output,session) {
   )
   
   output$background4<-renderUI(
-    h3('Diagnostic Plot')
+    h3('Diagnostic Plots')
   )
   output$background5<-renderUI(
-    h4('Model check is critical before analysis: you need to understanding the four diagnostic plot.',br(),
-       '1. Residuals vs Fitted plot checks linear pattern of residuals. You should expect a horizontal line spreading the dots equally.', br(),
-       '2. Normal Q-Q plot checks normality. You should expect the dots follow a straight line.',br(),
-       '3. Scale-Location plot checks equal spreads of residual. You should expect a horizontal line with spreading the dots equally also.',br(),
-       '4. Residual vs Leverage plot checks influential outliers. You should expect all dots place with in the dash line range. ')
+    h4('Model checking is a critical part of an analysis. You need to understand the diagnostic plot s like these four:',br(),
+       '1. The Residuals vs Fitted plot checks linear pattern of residuals. If the liner model is correct, you should expect a roughly horizontal line.', br(),
+       '2. The Normal Q-Q plot checks normality. If the normality assumption is true, you should expect the dots roughly follow a straight line.',br(),
+       '3. The Scale-Location plot checks for equal spread of residual the residuals. If the equal variance assumption is true, you should expect a roughly horizontal line with the dots showing equal spread.',br(),
+       '4. The Residual vs Leverage plot checks for influential outliers. Outliers with high leverage will appear outside the dashed line range.')
   )
   
   output$about1 <- renderUI(
-    h3(strong("About"))
+    h3(strong("About:"))
   )
   output$about2<-renderUI(
     h4('This app introduces the concept of ANCOVA focusing on interpreting interaction plots.')
   )
   output$instruction1<-renderUI(
-    h3(strong('Instruction'))
+    h3(strong('Instructions:'))
   )
   output$instruction2<-renderUI(
-    h4('Click Go button to enter the explore page. Use the dropdown menu to select different a dataset.')
+    h4('•	Click Go button to enter the explore page. Use the dropdown menu to select a dataset.')
   )
   output$instruction3<-renderUI(
-    h4('Use the radio buttons to select different variables and see the changes in the interaction plot. Or use slider bars to change the parameters. ')
+    h4('•	Use the radio buttons to select different variables and see the changes in the interaction plot. Or use slider bars to change the parameters. ')
   )
   output$instruction4<-renderUI(
-    h4('In the explore section, you can start the matching game to test your understanding of the concepts. Click "start" to set the timer and start the game. You can use "i" button for instruction and "?" for hints.')
+    h4('•	After working with the explore section, you can start the matching game to test your understanding of the concepts. Click "start" to set the timer and start the game. You can use "i" button for instruction and "?" for hints.')
   )
   
   
   output$ack1<-renderUI(
-    h3(strong('Acknowledgement'))
+    h3(strong('Acknowledgements:'))
   )
   output$ack2<-renderUI((
-  h4('This app is developed and coded by Luxin Wang. Thanks for the data set and code provided by The University of Sheffield (',url,') and Dr.Dylan Childs(',url2,').')
+    h4('This app was developed and coded by Luxin Wang. Thanks for the data set and code provided by The University of Sheffield (',url,') and Dr.Dylan Childs(',url2,').')
   ))
   
   url <- a("www.sheffield.ac.uk/mash/data", href="https://www.sheffield.ac.uk/mash/data",target="_blank")
@@ -86,17 +86,17 @@ shinyServer(function(input, output,session) {
   
   output$box1<-renderUI(h4('ANOVA is used for comparing three or more group means. 
                            Different groups are different levels of categorical variables, and group means are calculated from continuous variables.
-                            ',br(),br(),'EX. Are the average score of three STAT 200 sections significantly different from each other?'))
+                           ',br(),br(),'EX. Are the average score of three STAT 200 sections significantly different from each other?'))
   
   output$box2<-renderUI(h4('Regression is used for determining the relationship between two continuous variables. One dependent variable (Y) can also be affected by multiple independent variables (X).  
-                            ',br(),br(),'EX. How will crime rate be impacted by population, economics, and education.'))
+                           ',br(),br(),'EX. How will crime rate be impacted by population density, unemployment rate, and income.'))
   
   output$box3<-renderUI(h4('ANCOVA is adding continuous variables onto ANOVA analysis, which is called covariate. 
                            Significant different between group means and significant relationship between continuous variables will both be analyzed.
-                           ',br(),br(),'EX. Who makes the most money? Will gender or years after graduate influence the income? '))
+                           ',br(),br(),'EX. Who makes the most money? Will gender or years after graduation influence the income? '))
   
   ####button###
-
+  
   observeEvent(input$go,{
     updateTabItems(session,"tabs","exploring")
   })
@@ -136,8 +136,8 @@ shinyServer(function(input, output,session) {
     }
   )
   
-
-
+  
+  
   ###############################  Exploring  ##############################
   
   
@@ -147,7 +147,7 @@ shinyServer(function(input, output,session) {
   pred.data <- mutate(pred.data, Otters = predict(otters.model, pred.data))
   
   diet.model<-lm(ab_change~gender+Diet+Age+Height+pre.weight+gender:Age+gender:Height+gender:pre.weight+
-                 Diet:Age+Diet:Height+Diet:pre.weight,data=diet)
+                   Diet:Age+Diet:Height+Diet:pre.weight,data=diet)
   
   diet.model2<-lm(ab_change~Age+gender+Age:gender,data=diet)
   pred.data2 <- expand.grid(Age = 16:60, gender = c("M", "F"))
@@ -177,103 +177,103 @@ shinyServer(function(input, output,session) {
   pred.data7 <- mutate(pred.data7, ab_change = predict(diet.model7, pred.data7))
   
   
- ###save random model
+  ###save random model
   rand<-reactiveValues(rand_mod=NULL)
-
   
- 
+  
+  
   ###Graph the plot of interaction###
   
-
+  
   output$plot_gg<-renderPlot(
     if (input$menu1=='Otter') {ggplot(pred.data, aes(x = Year, y = Otters, colour = Location)) + 
-                             geom_line() + geom_point(data = seaotters) + 
-                             xlab("Year") + ylab("Otters")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-                                                                 panel.background = element_blank(), axis.line = element_line(colour = "black"))}
-                           
-                          else if (input$menu1=='Diet'){
-                
-                            
-                           if (input$select_conti=='Age' & input$select_covar=='Gender'){ggplot(pred.data2, aes(x = Age, y = ab_change, colour = gender)) + 
-                               geom_line() + geom_point(data = diet) + 
-                               xlab("Age") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-                                                                              panel.background = element_blank(), axis.line = element_line(colour = "black"))}
-                           else if (input$select_conti=='Height' & input$select_covar=='Gender'){ggplot(pred.data3, aes(x = Height, y = ab_change, colour = gender)) + 
-                               geom_line() + geom_point(data = diet) + 
-                               xlab("Height") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-                                                                                 panel.background = element_blank(), axis.line = element_line(colour = "black"))}
-                           else if (input$select_conti=='Pre-diet Weight' & input$select_covar=='Gender'){ggplot(pred.data4, aes(x = pre.weight, y = ab_change, colour = gender)) + 
-                               geom_line() + geom_point(data = diet) + 
-                               xlab("Pre-diet Weight") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-                                                                                          panel.background = element_blank(), axis.line = element_line(colour = "black"))}
-                           else if (input$select_conti=='Age' & input$select_covar=='Diet'){ggplot(pred.data5, aes(x = Age, y = ab_change, colour =Diet)) + 
-                               geom_line() + geom_point(data = diet) + 
-                               xlab("Age") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-                                                                              panel.background = element_blank(), axis.line = element_line(colour = "black"))}
-                           else if (input$select_conti=='Height' & input$select_covar=='Diet'){ggplot(pred.data6, aes(x = Height, y = ab_change, colour = Diet)) + 
-                               geom_line() + geom_point(data = diet) + 
-                               xlab("Height") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-                                                                                 panel.background = element_blank(), axis.line = element_line(colour = "black"))}
-                           else if (input$select_conti=='Pre-diet Weight' & input$select_covar=='Diet'){ggplot(pred.data7, aes(x = pre.weight, y = ab_change, colour = Diet)) + 
-                               geom_line() + geom_point(data = diet) + 
-                               xlab("Pre-diet Weight") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-                                                                                          panel.background = element_blank(), axis.line = element_line(colour = "black"))}
-                            
-                    }
+        geom_line() + geom_point(data = seaotters) + 
+        xlab("Year") + ylab("Otters")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                                            panel.background = element_blank(), axis.line = element_line(colour = "black"))}
     
-                           else if (input$menu1=='Random'){
-                            
-                             
-                             ###create data with label A and B with different slope and intersection
-                             A<-'A'
-                             B<-'B'
-                             
-                             a<-input$inter1
-                             b<-input$inter2
-                             
-                             slope1<-input$slope1
-                             slope2<-input$slope2
-                             
-                             def <- defData(varname = "inter", dist = "nonrandom", formula = a, id = "id")
-                             
-                             def<- defData(def,varname = "slope", dist = "nonrandom", formula = slope1, id = "slope")
-                             def <- defData(def, varname = "X", dist = "uniform", formula = "10;20")
-                             def <- defData(def, varname = "Y", formula = "inter + X * slope", variance = 11)
-                             
-                             def2<- defData(varname = "inter", dist = "nonrandom", formula = b, id = "id")
-                             
-                             def2 <- defData(def2,varname = "slope", dist = "nonrandom", formula = slope2, id = "slope")
-                             def2<- defDataAdd(def2, varname = "X", dist = "uniform", formula = "10;20")
-                             def2 <- defDataAdd(def2, varname = "Y", formula = "inter + X * slope", variance =11)
-                             
-                             
-                             dt <- genData(input$sample, def)
-                             dt2<-genData(input$sample,def2)
-                             
-                             names(dt2)[1]<-'id'
-                             
-                             dt$cov<-'A'
-                             dt2$cov<-'B'
-                             
-                             comb<-rbind(dt,dt2)
-                             
-                             
-                             aov.model<-lm(Y~X+cov+cov:X,data=comb)
-                             
-                            
-                             
-                             pred.aov <- expand.grid(X =10:20, cov = c("A","B"))
-                             pred.aov <- mutate(pred.aov, Y = predict(aov.model, pred.aov))
-                             
-                             
-                             ggplot(pred.aov, aes(x = X, y = Y, colour = cov)) + 
-                               geom_line() + geom_point(data = comb) + 
-                               xlab("X") + ylab("Y")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-                                                           panel.background = element_blank(), axis.line = element_line(colour = "black"))}
+    else if (input$menu1=='Diet'){
+      
+      
+      if (input$select_conti=='Age' & input$select_covar=='Gender'){ggplot(pred.data2, aes(x = Age, y = ab_change, colour = gender)) + 
+          geom_line() + geom_point(data = diet) + 
+          xlab("Age") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                                                         panel.background = element_blank(), axis.line = element_line(colour = "black"))}
+      else if (input$select_conti=='Height' & input$select_covar=='Gender'){ggplot(pred.data3, aes(x = Height, y = ab_change, colour = gender)) + 
+          geom_line() + geom_point(data = diet) + 
+          xlab("Height") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                                                            panel.background = element_blank(), axis.line = element_line(colour = "black"))}
+      else if (input$select_conti=='Pre-diet Weight' & input$select_covar=='Gender'){ggplot(pred.data4, aes(x = pre.weight, y = ab_change, colour = gender)) + 
+          geom_line() + geom_point(data = diet) + 
+          xlab("Pre-diet Weight") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                                                                     panel.background = element_blank(), axis.line = element_line(colour = "black"))}
+      else if (input$select_conti=='Age' & input$select_covar=='Diet'){ggplot(pred.data5, aes(x = Age, y = ab_change, colour =Diet)) + 
+          geom_line() + geom_point(data = diet) + 
+          xlab("Age") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                                                         panel.background = element_blank(), axis.line = element_line(colour = "black"))}
+      else if (input$select_conti=='Height' & input$select_covar=='Diet'){ggplot(pred.data6, aes(x = Height, y = ab_change, colour = Diet)) + 
+          geom_line() + geom_point(data = diet) + 
+          xlab("Height") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                                                            panel.background = element_blank(), axis.line = element_line(colour = "black"))}
+      else if (input$select_conti=='Pre-diet Weight' & input$select_covar=='Diet'){ggplot(pred.data7, aes(x = pre.weight, y = ab_change, colour = Diet)) + 
+          geom_line() + geom_point(data = diet) + 
+          xlab("Pre-diet Weight") + ylab("Decrease in Weight")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                                                                     panel.background = element_blank(), axis.line = element_line(colour = "black"))}
+      
+    }
     
-
-                          
-     )
+    else if (input$menu1=='Random'){
+      
+      
+      ###create data with label A and B with different slope and intersection
+      A<-'A'
+      B<-'B'
+      
+      a<-input$inter1
+      b<-input$inter2
+      
+      slope1<-input$slope1
+      slope2<-input$slope2
+      
+      def <- defData(varname = "inter", dist = "nonrandom", formula = a, id = "id")
+      
+      def<- defData(def,varname = "slope", dist = "nonrandom", formula = slope1, id = "slope")
+      def <- defData(def, varname = "X", dist = "uniform", formula = "10;20")
+      def <- defData(def, varname = "Y", formula = "inter + X * slope", variance = 11)
+      
+      def2<- defData(varname = "inter", dist = "nonrandom", formula = b, id = "id")
+      
+      def2 <- defData(def2,varname = "slope", dist = "nonrandom", formula = slope2, id = "slope")
+      def2<- defDataAdd(def2, varname = "X", dist = "uniform", formula = "10;20")
+      def2 <- defDataAdd(def2, varname = "Y", formula = "inter + X * slope", variance =11)
+      
+      
+      dt <- genData(input$sample, def)
+      dt2<-genData(input$sample,def2)
+      
+      names(dt2)[1]<-'id'
+      
+      dt$cov<-'A'
+      dt2$cov<-'B'
+      
+      comb<-rbind(dt,dt2)
+      
+      
+      aov.model<-lm(Y~X+cov+cov:X,data=comb)
+      
+      
+      
+      pred.aov <- expand.grid(X =10:20, cov = c("A","B"))
+      pred.aov <- mutate(pred.aov, Y = predict(aov.model, pred.aov))
+      
+      
+      ggplot(pred.aov, aes(x = X, y = Y, colour = cov)) + 
+        geom_line() + geom_point(data = comb) + 
+        xlab("X") + ylab("Y")+theme(text = element_text(size=20),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                                    panel.background = element_blank(), axis.line = element_line(colour = "black"))}
+    
+    
+    
+  )
   
   
   
@@ -283,67 +283,67 @@ shinyServer(function(input, output,session) {
     
     
     if (input$menu1=='Otter') {anova(otters.model)}
-                                else if (input$menu1=='Diet'){
-                                if (input$select_conti=='Age' & input$select_covar=='Gender'){anova(diet.model2)}
-                                else if (input$select_conti=='Height' & input$select_covar=='Gender'){anova(diet.model3)}
-                                else if (input$select_conti=='Pre-diet Weight' & input$select_covar=='Gender'){anova(diet.model4)}
-                                else if (input$select_conti=='Age' & input$select_covar=='Diet'){anova(diet.model5)}
-                                else if (input$select_conti=='Height' & input$select_covar=='Diet'){anova(diet.model6)}
-                                else if (input$select_conti=='Pre-diet Weight' & input$select_covar=='Diet'){anova(diet.model7)}
-                                 }
-                                else if (input$menu1=='Random'){
-                                  A<-'A'
-                                  B<-'B'
-                                  
-                                  a<-input$inter1
-                                  b<-input$inter2
-                                  
-                                  slope1<-input$slope1
-                                  slope2<-input$slope2
-                                  
-                                  def <- defData(varname = "inter", dist = "nonrandom", formula = a, id = "id")
-                                  
-                                  def<- defData(def,varname = "slope", dist = "nonrandom", formula = slope1, id = "slope")
-                                  def <- defData(def, varname = "X", dist = "uniform", formula = "10;20")
-                                  def <- defData(def, varname = "Y", formula = "inter + X * slope", variance = 11)
-                                  
-                                  def2<- defData(varname = "inter", dist = "nonrandom", formula = b, id = "id")
-                                  
-                                  def2 <- defData(def2,varname = "slope", dist = "nonrandom", formula = slope2, id = "slope")
-                                  def2<- defDataAdd(def2, varname = "X", dist = "uniform", formula = "10;20")
-                                  def2 <- defDataAdd(def2, varname = "Y", formula = "inter + X * slope", variance = 11)
-                                  
-                                  
-                                  dt <- genData(input$sample, def)
-                                  dt2<-genData(input$sample,def2)
-                                  
-                                  names(dt2)[1]<-'id'
-                                  
-                                  dt$cov<-'A'
-                                  dt2$cov<-'B'
-                                  
-                                  comb<-rbind(dt,dt2)
-                                  
-                                  
-                                  aov.model<-lm(Y~X+cov+cov:X,data=comb)
-                                  
-                                  ##testing passing the model
-                                  rand$rand_mod<-anova(aov.model)[3,"Pr(>F)"]
-                                  
-                                  anova(aov.model)
-                                 
-                                  
-                                }
-
-
-                                )
+    else if (input$menu1=='Diet'){
+      if (input$select_conti=='Age' & input$select_covar=='Gender'){anova(diet.model2)}
+      else if (input$select_conti=='Height' & input$select_covar=='Gender'){anova(diet.model3)}
+      else if (input$select_conti=='Pre-diet Weight' & input$select_covar=='Gender'){anova(diet.model4)}
+      else if (input$select_conti=='Age' & input$select_covar=='Diet'){anova(diet.model5)}
+      else if (input$select_conti=='Height' & input$select_covar=='Diet'){anova(diet.model6)}
+      else if (input$select_conti=='Pre-diet Weight' & input$select_covar=='Diet'){anova(diet.model7)}
+    }
+    else if (input$menu1=='Random'){
+      A<-'A'
+      B<-'B'
+      
+      a<-input$inter1
+      b<-input$inter2
+      
+      slope1<-input$slope1
+      slope2<-input$slope2
+      
+      def <- defData(varname = "inter", dist = "nonrandom", formula = a, id = "id")
+      
+      def<- defData(def,varname = "slope", dist = "nonrandom", formula = slope1, id = "slope")
+      def <- defData(def, varname = "X", dist = "uniform", formula = "10;20")
+      def <- defData(def, varname = "Y", formula = "inter + X * slope", variance = 11)
+      
+      def2<- defData(varname = "inter", dist = "nonrandom", formula = b, id = "id")
+      
+      def2 <- defData(def2,varname = "slope", dist = "nonrandom", formula = slope2, id = "slope")
+      def2<- defDataAdd(def2, varname = "X", dist = "uniform", formula = "10;20")
+      def2 <- defDataAdd(def2, varname = "Y", formula = "inter + X * slope", variance = 11)
+      
+      
+      dt <- genData(input$sample, def)
+      dt2<-genData(input$sample,def2)
+      
+      names(dt2)[1]<-'id'
+      
+      dt$cov<-'A'
+      dt2$cov<-'B'
+      
+      comb<-rbind(dt,dt2)
+      
+      
+      aov.model<-lm(Y~X+cov+cov:X,data=comb)
+      
+      ##testing passing the model
+      rand$rand_mod<-anova(aov.model)[3,"Pr(>F)"]
+      
+      anova(aov.model)
+      
+      
+    }
+    
+    
+  )
   
   
   #####get p values for each interaction 
   
   var<-reactiveValues(p=NULL)
   observe({
-
+    
     # if (is.null(input$menu1)){
     #   return()
     # }
@@ -368,28 +368,28 @@ shinyServer(function(input, output,session) {
   
   output$p<-renderUI(
     if (var$p<=0.05){
-    h4(strong('P-value for this interaction is',signif(var$p,4),'.' ,br(),'Since the p-value is smaller than 0.05
-    (α=0.05), there is a statistically significant interaction between these two variables.'))}
+      h4(strong('P-value for this interaction is',signif(var$p,4),'.' ,br(),'Since the p-value is smaller than 0.05
+                (α=0.05), there is a statistically significant interaction between these two variables.'))}
     else {h4(strong('P-value for this interaction is',signif(var$p,4),'.' ,br(),'Since the p-value is greater than 0.05
-    (α=0.05), there is NOT a statistically significant interaction between these two variables.'))}
-)
-
- 
+                    (α=0.05), there is NOT a statistically significant interaction between these two variables.'))}
+    )
+  
+  
   
   
   
   ######################################  Bank B #############################################################
   numbers <- reactiveValues(strong = c(), moderate = c(), insig = c(), index = c(), question = data.frame())
-
+  
   observeEvent(input$go,{
     numbers$strong = sample(1:12,1)
     numbers$moderate = sample(13:24,1)
     numbers$insig= sample(25:36,1)
-
-
+    
+    
     numbers$index =c("A","B","C")
     numbers$question = cbind(bank[c(numbers$strong,numbers$moderate,numbers$insig),],numbers$index)
-
+    
   })
   
   observeEvent(input$new,{
@@ -420,28 +420,28 @@ shinyServer(function(input, output,session) {
   output$plot1 <- renderUI({
     img(src = numbers$question[numbers$question[5] == "A",4], width = "100%", height = "107%", style = "text-align: center")
   })
-
+  
   # output$table1 <- renderUI({
   #   img(src = numbers$question[numbers$question[5] == "A",3], width = "100%", height = "100%", style = "text-align: center")
   # })
-
+  
   output$plot2 <- renderUI({
     img(src = numbers$question[numbers$question[5] == "B",4], width = "100%", height = "107%", style = "text-align: center")
   })
-
+  
   # output$table2 <- renderUI({
   #   img(src = numbers$question[numbers$question[5] == "B",3], width = "100%", height = "100%", style = "text-align: center")
   # })
-
+  
   output$plot3 <- renderUI({
     img(src = numbers$question[numbers$question[5] == "C",4], width = "100%", height = "107%", style = "text-align: center")
   })
-
+  
   # output$table3 <- renderUI({
   #   img(src = numbers$question[numbers$question[5] == "C",3], width = "100%", height = "100%", style = "text-align: center")
   # })
-
- #######randomize the table######
+  
+  #######randomize the table######
   
   index2 <- reactiveValues(index2 = 3)
   
@@ -456,7 +456,7 @@ shinyServer(function(input, output,session) {
     else if (index2$index2==2){img(src = numbers$question[numbers$question[5] == "B",3], width = "105%", height = "105%", style = "text-align: center")}
     else if (index2$index2==3){img(src = numbers$question[numbers$question[5] == "C",3], width = "105%", height = "105%", style = "text-align: center")}
     else if (index2$index2==4){img(src = numbers$question[numbers$question[5] == "A",3], width = "105%", height = "105%", style = "text-align: center")}
-    })
+  })
   
   output$table2<-renderUI({
     if (index2$index2==1){img(src = numbers$question[numbers$question[5] == "B",3], width = "105%", height = "105%", style = "text-align: center")}
@@ -471,7 +471,7 @@ shinyServer(function(input, output,session) {
     else if (index2$index2==3){img(src = numbers$question[numbers$question[5] == "B",3], width = "105%", height = "105%", style = "text-align: center")}
     else if (index2$index2==4){img(src = numbers$question[numbers$question[5] == "B",3], width = "105%", height = "105%", style = "text-align: center")}
   })
-   
+  
   
   
   ####letter for the plot
@@ -479,7 +479,7 @@ shinyServer(function(input, output,session) {
   output$b<-renderUI(h4('B'))
   output$c<-renderUI(h4('C'))
   #####buttons####
-
+  
   observeEvent(input$submitA,{
     updateButton(session,"submitA",disabled = TRUE)
   })
@@ -499,10 +499,10 @@ shinyServer(function(input, output,session) {
   observeEvent(input$new, {
     reset("radio1")
   })
-
+  
   
   ###################check answers#####
- 
+  
   summationC<-reactiveValues(correct1 = c(0), started=FALSE)
   
   observeEvent(input$submitA,{
@@ -582,51 +582,51 @@ shinyServer(function(input, output,session) {
   summationC<-reactiveValues(correct1 = c(0),total=c(), started=FALSE)
   
   observeEvent(input$submitA,{
-         for (i in input$radio1){
-           summationC$total = c(summationC$total,1)
-          if (index2$index2==1 &input$radio1 == 'A'){
-            summationC$correct1 = c(summationC$correct1,1)
-          }
-          else if (index2$index2==2 &input$radio1 == 'B') { summationC$correct1 = c(summationC$correct1,1)}
-          else if (index2$index2==3 &input$radio1 == 'C'){summationC$correct1 = c(summationC$correct1,1)}
-          else if (index2$index2==4 &input$radio1 == 'A'){summationC$correct1 = c(summationC$correct1,1)}
-          else{
-            summationC$correct1 = c(summationC$correct1,0)}
-         
-          }
-  
-          for (i in input$radio2){
-            summationC$total = c(summationC$total,1)
-          if (index2$index2==1 &input$radio2 == 'B'){
+    for (i in input$radio1){
+      summationC$total = c(summationC$total,1)
+      if (index2$index2==1 &input$radio1 == 'A'){
+        summationC$correct1 = c(summationC$correct1,1)
+      }
+      else if (index2$index2==2 &input$radio1 == 'B') { summationC$correct1 = c(summationC$correct1,1)}
+      else if (index2$index2==3 &input$radio1 == 'C'){summationC$correct1 = c(summationC$correct1,1)}
+      else if (index2$index2==4 &input$radio1 == 'A'){summationC$correct1 = c(summationC$correct1,1)}
+      else{
+        summationC$correct1 = c(summationC$correct1,0)}
       
-            summationC$correct1 = c(summationC$correct1,1)
-            
-          }
-          else if (index2$index2==2 &input$radio2 == 'C') {summationC$correct1 = c(summationC$correct1,1)}
-          else if (index2$index2==3 &input$radio2 == 'A'){summationC$correct1 = c(summationC$correct1,1)}
-          else if (index2$index2==4 &input$radio2 == 'C'){summationC$correct1 = c(summationC$correct1,1)}
-          else{
-   
-            summationC$correct1 = c(summationC$correct1,0)}
-          }
-       
+    }
+    
+    for (i in input$radio2){
+      summationC$total = c(summationC$total,1)
+      if (index2$index2==1 &input$radio2 == 'B'){
+        
+        summationC$correct1 = c(summationC$correct1,1)
+        
+      }
+      else if (index2$index2==2 &input$radio2 == 'C') {summationC$correct1 = c(summationC$correct1,1)}
+      else if (index2$index2==3 &input$radio2 == 'A'){summationC$correct1 = c(summationC$correct1,1)}
+      else if (index2$index2==4 &input$radio2 == 'C'){summationC$correct1 = c(summationC$correct1,1)}
+      else{
+        
+        summationC$correct1 = c(summationC$correct1,0)}
+    }
+    
+    
+    for (i in input$radio3){
+      summationC$total = c(summationC$total,1)
+      if (index2$index2==1 &input$radio3 == 'C'){
+        i
+        summationC$correct1 = c(summationC$correct1,1)
+      }
+      else if (index2$index2==2 &input$radio3 == 'A') {summationC$correct1 = c(summationC$correct1,1)}
+      else if (index2$index2==3 &input$radio3 == 'B'){summationC$correct1 = c(summationC$correct1,1)}
+      else if (index2$index2==4 &input$radio3 == 'B'){ summationC$correct1 = c(summationC$correct1,1)}
+      else{
+        
+        summationC$correct1 = c(summationC$correct1,0)}
+    }
+  })
   
-        for (i in input$radio3){
-          summationC$total = c(summationC$total,1)
-          if (index2$index2==1 &input$radio3 == 'C'){
-            i
-            summationC$correct1 = c(summationC$correct1,1)
-          }
-          else if (index2$index2==2 &input$radio3 == 'A') {summationC$correct1 = c(summationC$correct1,1)}
-          else if (index2$index2==3 &input$radio3 == 'B'){summationC$correct1 = c(summationC$correct1,1)}
-          else if (index2$index2==4 &input$radio3 == 'B'){ summationC$correct1 = c(summationC$correct1,1)}
-          else{
-            
-            summationC$correct1 = c(summationC$correct1,0)}
-          }
-        })
   
- 
   
   output$correctC <- renderPrint({
     if (sum(c(summationC$correct1))==0) {cat("You have earned 0 points")}
@@ -647,7 +647,7 @@ shinyServer(function(input, output,session) {
   })
   
   
- ########show up the scoreing panel and popup####
+  ########show up the scoreing panel and popup####
   
   
   # observer that invalidates every second. If timer is active, decrease by one.
@@ -661,7 +661,7 @@ shinyServer(function(input, output,session) {
         {
           active(FALSE)
           shinyalert('Count Down Complete','Click to see your score',
-                      type = "success")
+                     type = "success")
           
           output$scoreBox <- renderValueBox({
             valueBox(
@@ -676,10 +676,10 @@ shinyServer(function(input, output,session) {
               color = "light-blue"
             )}
             else{
-            valueBox(
-              paste0(round(sum(c(summationC$correct1))/sum(c(summationC$total))*100,digit=1),'%'), "Accuracy", icon = icon("thumbs-up", lib = "glyphicon"),
-              color = "light-blue"
-            )}
+              valueBox(
+                paste0(round(sum(c(summationC$correct1))/sum(c(summationC$total))*100,digit=1),'%'), "Accuracy", icon = icon("thumbs-up", lib = "glyphicon"),
+                color = "light-blue"
+              )}
           })
           
           output$timeBox <- renderValueBox({
@@ -691,17 +691,17 @@ shinyServer(function(input, output,session) {
           
           
         }
-
+        
       }
     })
   })
   
   
   
- 
   
-
-
+  
+  
+  
   
   
   # observers for actionbuttons
@@ -714,12 +714,7 @@ shinyServer(function(input, output,session) {
     output$timeBox<-NULL;
     summationC$correct1 <- c(0); summationC$total=c()
   })
-
   
-##closing for ui DON'T DELET####  
-})
-
-
-
-
-
+  
+  ##closing for ui DON'T DELET####  
+    })

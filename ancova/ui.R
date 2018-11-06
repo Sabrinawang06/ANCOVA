@@ -31,14 +31,14 @@ ui <- dashboardPage(skin = "black",
                                     #         tags$style(".navbar {min-height:45px !important}")
                                     # ) 
                                     
-                                    ),
+                    ),
                     #adding prereq pages
                     dashboardSidebar(
                       width = 180,
                       
                       sidebarMenu(id='tabs',style='font-size:13px;',
                                   convertMenuItem(menuItem("Pre-requisites", tabName= "prereq", icon=icon("book"),
-                                           menuSubItem('What is ANCOVA',tabName = 'box',icon=icon('calendar'))),'prereq'),
+                                                           menuSubItem('What is ANCOVA',tabName = 'box',icon=icon('calendar'))),'prereq'),
                                   menuItem("Overview",tabName = "instruction", icon = icon("dashboard")),
                                   menuItem("Exploring",tabName = "exploring", icon = icon("wpexplorer")),
                                   menuItem("Game",tabName = "game", icon = icon("gamepad"))
@@ -59,15 +59,15 @@ ui <- dashboardPage(skin = "black",
                         tags$style(HTML('#set{color:white;background-color: #BB8FCE}')),
                         tags$style(HTML('#reset{color:white;background-color: #BB8FCE}')),
                         tags$head(tags$style(HTML("
-                            #analysis1 {
-                              font-size: 14px;
-                              background-color: #F5EEF8   
-                            }
-                            "))),
+                                                  #analysis1 {
+                                                  font-size: 14px;
+                                                  background-color: #F5EEF8   
+                                                  }
+                                                  "))),
                         # tags$head(tags$style(HTML("
                         #     #p {font-size: 8px;
                         #         padding-left: 5px"))),
-                       
+                        
                         tags$style(type='text/css', '#timeleft {background-color:#BB8FCE; font-size: 18px; 
                                    color:white;font-weight: bold;font family:Sans-serif;text-align: center; border-radius: 100px}'),
                         tags$style(type='text/css', '#a {background-color:#C39BD3; font-size: 12px; 
@@ -107,8 +107,8 @@ ui <- dashboardPage(skin = "black",
                                "
                           )
                           )
-
-                      ),
+                        
+                          ),
                       
                       
                       
@@ -121,16 +121,16 @@ ui <- dashboardPage(skin = "black",
                                 fluidRow(
                                   column(1,img(src = "right.png", width = 20)),
                                   column(7,uiOutput("background2"),style='margin-top:-1em')
-
+                                  
                                 ),
-                               
+                                
                                 fluidRow(
                                   column(1,img(src = "right.png", width = 20)),
                                   column(8,uiOutput("background3"),style='margin-top:-1em'),
                                   fluidRow( 
                                     column(2, offset=3,
                                            actionButton('pre2','Comparision of different analysis',style='padding:10px; font-size:100%;margin-top:-1.5em;margin-left:14em',class="circle grow")))
-                                  ), hr(),
+                                ), hr(),
                                 
                                 fluidRow(
                                   column(1,img(src = "right.png", width = 20)),
@@ -141,10 +141,10 @@ ui <- dashboardPage(skin = "black",
                                   column(1,img(src = "right.png", width = 20)),
                                   column(8,uiOutput("background5"),style='margin-top:-1em')
                                 ),
-                                  fluidRow(
-                                    column(3,offset=1,actionButton("start","Go to the overview",icon("bolt"),style='padding:10px; font-size:100%',class="circle grow"))
-                                  )
-                                  
+                                fluidRow(
+                                  column(3,offset=1,actionButton("start","Go to the overview",icon("bolt"),style='padding:10px; font-size:100%',class="circle grow"))
+                                )
+                                
                                 
                         ),
                         
@@ -157,37 +157,37 @@ ui <- dashboardPage(skin = "black",
                                                           img(src='line1.png',width=250,style='margin-top:6em;margin-left:6.5em'))
                                   ),
                                   column(5, offset = 2,
-                                      conditionalPanel("input.ano != 0",
-                                                       tags$a(uiOutput('box1'),href='http://shiny.science.psu.edu/auc39/ANOVA/',target="_blank"))
+                                         conditionalPanel("input.ano != 0",
+                                                          tags$a(uiOutput('box1'),href='http://shiny.science.psu.edu/auc39/ANOVA/',target="_blank"))
                                   )
-                                  ),br(),br(),
+                                ),br(),br(),
                                 fluidRow(
-                                  column(3, bsButton('regression' ,HTML('<b> X </b>:continuous <br/>  Y: Continuous'),type = 'toggle')),
+                                  column(3, bsButton('regression' ,HTML('<b> X </b>:Continuous <br/>  Y: Continuous'),type = 'toggle')),
                                   column(1, 
                                          conditionalPanel("input.regression != 0",
                                                           img(src='line2.png',width=250,style='margin-top:6em;margin-left:6.5em'))
                                   ),
                                   column(5,offset=2,
-                                      conditionalPanel("input.regression != 0",
-                                                      tags$a(uiOutput('box2'),href='http://tjmcintyre.shinyapps.io/AssumptionsApp/',target="_blank"))
+                                         conditionalPanel("input.regression != 0",
+                                                          tags$a(uiOutput('box2'),href='http://tjmcintyre.shinyapps.io/AssumptionsApp/',target="_blank"))
                                   )
                                 ),br(),br(),
                                 fluidRow(
-                                  column(3, bsButton('anc',HTML('<b> X </b>:Categorical & continuous <br/>  Y: Continuous'),type = 'toggle')),
+                                  column(3, bsButton('anc',HTML('<b> X </b>:Categorical & Continuous <br/>  Y: Continuous'),type = 'toggle')),
                                   column(1, 
                                          conditionalPanel("input.anc != 0",
                                                           img(src='line3.png',width=250,style='margin-top:6em;margin-left:6.5em'))
                                   ),
                                   column(5,offset=2,
-                                      conditionalPanel("input.anc != 0",
-                                                      uiOutput('box3'))
+                                         conditionalPanel("input.anc != 0",
+                                                          uiOutput('box3'))
                                   )
                                 ),br(),
                                 fluidRow(
                                   column(3,offset=4,actionButton("go2","Go to the overview",icon("bolt"),style='padding:10px; font-size:100%',class="circle grow"))
                                 )
-               
-
+                                
+                                
                         ),
                         
                         
@@ -228,11 +228,13 @@ ui <- dashboardPage(skin = "black",
                                 )
                                 
                         ),
-                       
-                   
+                        
+                        
                         
                         tabItem(tabName ="exploring",
-                                
+                                div(style="display: inline-block;vertical-align:top;",
+                                    tags$a(href='https://shinyapps.science.psu.edu/',tags$img(src='homebut.PNG', width = 15))
+                                ),
                                 h3('ANCOVA Interaction Plot'),
                                 sidebarLayout(
                                   sidebarPanel(
@@ -250,9 +252,9 @@ ui <- dashboardPage(skin = "black",
                                                      sliderInput('inter1','Change the intersection of Line A',-5,5,0,step=1),
                                                      sliderInput('inter2','Change the intersection of Line B',-5,5,0,step=1),
                                                      sliderInput('sample','Change the sample size',100,800,100,step=50)
-                                              
                                                      
-                                      
+                                                     
+                                                     
                                     ),
                                     fluidRow(uiOutput('p'),align = "left"),
                                     
@@ -266,7 +268,7 @@ ui <- dashboardPage(skin = "black",
                                     bsPopover('plot_gg', 'Notice', 'Different lines represent different values of covariate. Remember intersection does not imply significant interaction.', placement = "bottom", trigger = "hover", options = NULL),
                                     tags$b(verbatimTextOutput('analysis1')),
                                     bsPopover('analysis1', 'ANOVA Table', 'Pay attention to the last column. Small p-value indicates siginificant influence or interaction.', placement = "top", trigger = "hover", options = NULL)
-                                   
+                                    
                                   )
                                 )
                                 
@@ -281,41 +283,44 @@ ui <- dashboardPage(skin = "black",
                                 
                                 fluidRow(column(5,numericInput('seconds','Select the time limit (second)',value=60,min=60,max=300,step=120),
                                                 bsPopover('seconds', 'Timer', 'Type in the time limit (in seconds) you want for this game. Click "Start" to start the timer and play the game', placement = "right", trigger = "hover", options = NULL),
-                                fluidRow(column(2,actionButton('start_timer','Start',style='padding:5px; font-size:90%')),
-                                         #column(2,actionButton('set','Set Timer',style='padding:5px; font-size:90%')),
-                                         column(2,actionButton('reset','Reset',style='padding:5px; font-size:90%')),
-                                         
-                                         column(1, bsButton('bq1', '',icon = icon('info',class = "iconq fa-fw"),type = 'toggle', class = 'butt',style='padding:20px'),
-                                                div(id = "plot-container1",
-                                                    conditionalPanel("input.bq1 != 0",
-                                                                     tags$img(src = "INS.png",
-                                                                              id = "ins"))
+                                                fluidRow(column(2,actionButton('start_timer','Start',style='padding:5px; font-size:90%')),
+                                                         #column(2,actionButton('set','Set Timer',style='padding:5px; font-size:90%')),
+                                                         column(2,actionButton('reset','Reset',style='padding:5px; font-size:90%')),
+                                                         
+                                                         column(1, bsButton('bq1', '',icon = icon('info',class = "iconq fa-fw"),type = 'toggle', class = 'butt',style='padding:20px'),
+                                                                div(id = "plot-container1",
+                                                                    conditionalPanel("input.bq1 != 0",
+                                                                                     tags$img(src = "INS.png",
+                                                                                              id = "ins"))
+                                                                )
+                                                         ),
+                                                         
+                                                         column(1, bsButton('bq2', '',icon = icon('question',class = "iconq fa-fw"),type = 'toggle', class = 'butt',style='padding:20px'),
+                                                                div(id = "plot-container2",
+                                                                    conditionalPanel("input.bq2 != 0",
+                                                                                     tags$img(src = "STAT.png",
+                                                                                              id = "hint"))
+                                                                )
+                                                         ),
+                                                         column(1, tags$a(href='https://shinyapps.science.psu.edu/',tags$img(src='homebut.PNG', width = 30)))
+                                                        
+                                                         ), br(),
+                                                
+                                                fluidRow(
+                                                  valueBoxOutput("scoreBox"),
+                                                  valueBoxOutput('percentBox'),
+                                                  valueBoxOutput('timeBox')
+                                                  
+                                                  
+                                                  
                                                 )
-                                                ),
-                                         
-                                         column(1, bsButton('bq2', '',icon = icon('question',class = "iconq fa-fw"),type = 'toggle', class = 'butt',style='padding:20px'),
-                                                div(id = "plot-container2",
-                                                    conditionalPanel("input.bq2 != 0",
-                                                                     tags$img(src = "STAT.png",
-                                                                              id = "hint"))
-                                                )
-                                         )), br(),
-                              
-                                         fluidRow(
-                                           valueBoxOutput("scoreBox"),
-                                           valueBoxOutput('percentBox'),
-                                           valueBoxOutput('timeBox')
-                                         
-                                         
-                                         
-                                         )
-                                         ),
+                                ),
                                 column(3,offset=4,textOutput("timeleft"))),
                                 
                                 fluidRow(column(2, offset=1,uiOutput('a'),align='right',style='margin-top:-1em;'),
                                          column(2,offset=2,uiOutput('b'),align='right',style='margin-top:-1em;'),
                                          column(2,offset=2,uiOutput('c'),align='left',style='margin-top:-1em;')),
-                          
+                                
                                 fluidRow(column(4,uiOutput('plot1')),
                                          column(4,uiOutput('plot2')),
                                          column(4,uiOutput('plot3'))
@@ -331,23 +336,22 @@ ui <- dashboardPage(skin = "black",
                                 fluidRow(column(3,offset=1,style='padding:20px;margin-top:-2em;font-size: 15px',fluidRow(radioButtons('radio1','',c('A','B','C'),selected='',inline=TRUE),fluidRow(uiOutput('answer1'),style='margin-top:-1em;'))),
                                          column(3,offset=1,style='padding:20px;margin-top:-2em;font-size: 15px',fluidRow(radioButtons('radio2','',c('A','B','C'),selected='',inline=TRUE),fluidRow(uiOutput('answer2'),style='margin-top:-1em;'))),
                                          column(3,offset=1,style='padding:20px;margin-top:-2em;font-size: 15px',fluidRow(radioButtons('radio3','',c('A','B','C'),selected='',inline=TRUE),fluidRow(uiOutput('answer3'),style='margin-top:-1em;')))
-                                         ),
-                                  
-                                 fluidRow(
-                                 #column(4, uiOutput('correctC')),
-                                 column(1,offset = 3,actionButton("submitA", "Submit Answer",style='padding:5px; font-size:110%;margin-top:-2em;')),
-                                 column(1,offset = 3,actionButton("new","New>>",style='padding:5px; font-size:110%;margin-top:-2em;', disabled = FALSE))
-                               )
-
-                               
-                               
-                                )#closing for game section
+                                ),
+                                
+                                fluidRow(
+                                  #column(4, uiOutput('correctC')),
+                                  column(1,offset = 3,actionButton("submitA", "Submit Answer",style='padding:5px; font-size:110%;margin-top:-2em;')),
+                                  column(1,offset = 3,actionButton("new","New>>",style='padding:5px; font-size:110%;margin-top:-2em;', disabled = FALSE))
+                                )
                                 
                                 
                                 
-                        )
+                        )#closing for game section
+                        
+                        
+                        
+                      )
                       
-                    
-                    )                  
-)
-
+                      
+                      )                  
+                        )
